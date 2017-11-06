@@ -1,10 +1,11 @@
-package org.academiadecodigo.pacman;
+package org.academiadecodigo.pacman.grid;
 
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.ScreenCharacterStyle;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
+import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.fruit.Edible;
 
 /**
  * Created by codecadet on 05/11/17.
@@ -38,21 +39,20 @@ public class Grid {
 
         screen.startScreen();
     }
-/*
-    public void draw(GameObjects[] objects) {
+
+    public void draw(GameObject[] objects) {
 
         for (GameObject object : objects) {
 
-            if (GameObject instanceof Edibles) {
+            if (object instanceof Edible) {
 
-                screenWriter.drawString(object.getPos().getCol(), object.getPos().getRow(), object.toString());
+                // screenWriter.drawString(object.getCol(), object.getPos().getRow(), object.toString());
 
             } else {
 
-                screenWriter.drawString(object.getPos().getCol(), object.getPos().getRow(), object.toString());
+                // screenWriter.drawString(object.getPos().getCol(), object.getPos().getRow(), object.toString());
             }
 
         }
     }
-    */
 }
