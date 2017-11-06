@@ -9,11 +9,12 @@ import org.academiadecodigo.pacman.objects.GameObject;
 public class Game {
 
     private GameObject[] objects;
+    private Grid grid;
 
     public void start() {
 
-        Grid g = new Grid();
-        g.init();
-        g.draw(objects);
+        grid = new Grid();
+        grid.init();
+        //grid.draw(objects);
     }
 }
