@@ -45,7 +45,7 @@ public class Grid {
 
     public String readFromFile() {
 
-        String path = "Map";
+        String path = "Map2";
         String result = "";
 
         try {
@@ -102,7 +102,7 @@ public class Grid {
                     screenWriter.drawString(j, i, " ");
                     screenWriter.setBackgroundColor(Terminal.Color.GREEN);
 */
-                if (!(row[j] == '1')) {
+                if (row[j] == '0') {
 
                     screenWriter.drawString(j, i, " ");
                     screenWriter.setBackgroundColor(Terminal.Color.WHITE);
