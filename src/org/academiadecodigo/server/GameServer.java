@@ -1,4 +1,4 @@
-package org.academiadecodigo.pacman.network;
+package org.academiadecodigo.server;
 
 import org.academiadecodigo.pacman.Game;
 

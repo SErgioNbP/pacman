@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
+import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.fruit.Edible;
 
@@ -14,11 +15,11 @@ import java.io.*;
  */
 public class Grid {
 
+    private Screen screen;
+    private ScreenWriter screenWriter;
     private int cols;
     private int rows;
     private Position[] walkablePositions;
-    private Screen screen;
-    private ScreenWriter screenWriter;
 
     public Grid() {
 
@@ -37,59 +38,15 @@ public class Grid {
         screen.setCursorPosition(null);
 
         screenWriter = new ScreenWriter(screen);
-        // screenWriter.setBackgroundColor(Terminal.Color.WHITE);
-        //screenWriter.setForegroundColor(Terminal.Color.BLUE);
 
         screen.startScreen();
     }
 
-    public String readFromFile() {
-
-        String path = "Map2";
-        String result = "";
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-            String line = reader.readLine();
-
-            while (line != null) {
-                result += line + "\n";
-                line = reader.readLine();
-            }
-
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return result;
-
-    }
-/*
-    public void draw(GameObject[] objects) {
-
-        for (GameObject object : objects) {
-
-            if (object instanceof Edible) {
-
-                // screenWriter.drawString(object.getCol(), object.getPos().getRow(), object.toString());
-
-            } else {
-
-                // screenWriter.drawString(object.getPos().getCol(), object.getPos().getRow(), object.toString());
-            }
-
-        }
-    }
-*/
-
-    public void draw() {
+    public void drawGrid() {
 
         screen.clear();
 
-        String[] rows = readFromFile().split("\\n");
+        String[] rows = FileHelper.readFromFile().split("\\n");
 
         for (int i = 0; i < rows.length; i++) {
 
@@ -107,4 +64,35 @@ public class Grid {
 
         screen.refresh();
     }
+
+    public void draw(Position position, Terminal.Color color) {
+
+
+        screenWriter.setBackgroundColor(color);
+
+        screenWriter.drawString(position.getCol(), position.getRow(), " ");
+        screen.refresh();
+    }
+
+    void clear() {
+    }
+
+
+/*
+    public void drawObjects(GameObject[] objects) {
+
+        for (GameObject object : objects) {
+
+            if (object instanceof Edible) {
+
+                // screenWriter.drawString(object.getCol(), object.getPos().getRow(), object.toString());
+
+            } else {
+
+                // screenWriter.drawString(object.getPos().getCol(), object.getPos().getRow(), object.toString());
+            }
+
+        }
+    }
+*/
 }
