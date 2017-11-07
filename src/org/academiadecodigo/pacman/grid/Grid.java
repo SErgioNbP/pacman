@@ -85,7 +85,7 @@ public class Grid {
     }
 */
 
-    public void drawGrid() {
+    public void draw() {
 
         screen.clear();
 
@@ -96,12 +96,7 @@ public class Grid {
             char[] row = rows[i].toCharArray();
 
             for (int j = 0; j < row.length; j++) {
-/*
-                if (row[j] == '|' || row[j] == '_') {
 
-                    screenWriter.drawString(j, i, " ");
-                    screenWriter.setBackgroundColor(Terminal.Color.GREEN);
-*/
                 if (row[j] == '0') {
 
                     screenWriter.drawString(j, i, " ");

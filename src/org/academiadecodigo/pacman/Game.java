@@ -15,6 +15,6 @@ public class Game {
 
         grid = new Grid();
         grid.init();
-        //grid.draw(objects);
+        grid.draw();
     }
 }
