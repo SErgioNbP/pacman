@@ -10,11 +10,29 @@ public class Position {
         this.row = row;
     }
 
+    public boolean comparePos(Position pos) {
+
+        if (pos.getCol() == this.col && pos.getRow() == this.row) {
+
+            return true;
+        }
+
+        return false;
+    }
+
     public int getCol() {
         return col;
     }
 
     public int getRow() {
         return row;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
     }
 }

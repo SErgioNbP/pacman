@@ -21,4 +21,12 @@ public enum Direction {
 
         return direction;
     }
+
+    public int getMoveCol() {
+        return moveCol;
+    }
+
+    public int getMoveRow() {
+        return moveRow;
+    }
 }

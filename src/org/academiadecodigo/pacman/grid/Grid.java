@@ -5,6 +5,8 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.FileHelper;
+import org.academiadecodigo.pacman.objects.GameObject;
+
 import java.util.LinkedList;
 
 /**
@@ -16,7 +18,7 @@ public class Grid {
     private ScreenWriter screenWriter;
     private int cols;
     private int rows;
-    private LinkedList<Position> walkablePositions = new LinkedList<>();
+    public static LinkedList<Position> walkablePositions = new LinkedList<>();
 
     public Grid() {
 
@@ -37,9 +39,10 @@ public class Grid {
         screenWriter = new ScreenWriter(screen);
 
         screen.startScreen();
+
     }
 
-    public void drawGrid() {
+    public void drawGrid(GameObject[] objects) {
 
         screen.clear();
 
@@ -51,7 +54,7 @@ public class Grid {
 
             for (int j = 0; j < row.length; j++) {
 
-                if (row[j] == '0') {
+                if (!(row[j] == '1')) {
 
                     walkablePositions.add(new Position(j, i));
                     screenWriter.drawString(j, i, " ");
@@ -59,46 +62,40 @@ public class Grid {
                 }
             }
         }
-
+/*
+        for (GameObject gameObject : objects){
+            screenWriter.drawString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow()," ");
+            screenWriter.setForegroundColor(Terminal.Color.GREEN);
+        }
+*/
         screen.refresh();
     }
 
-    public void draw(Position position, Terminal.Color color) {
-
-        screenWriter.setBackgroundColor(color);
-
-        screenWriter.drawString(position.getCol(), position.getRow(), " ");
-        screen.refresh();
+    public static LinkedList<Position> getWalkablePositions() {
+        return walkablePositions;
     }
 
-    public LinkedList<Position> getWalkablePositions() {
+    public Position getWalkablePos(int col, int row) {
 
-        for (Position pos : walkablePositions) {
-            System.out.println(pos.getCol() + " , " + pos.getRow());
+        Position pos = new Position(col, row);
+        if (walkablePositions.contains(pos)) {
+            return pos;
         }
 
-        return walkablePositions;
+        return null;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public ScreenWriter getScreenWriter() {
+        return screenWriter;
     }
 
     /*
     void clear() {
     }
-
-
-    public void drawObjects(GameObject[] objects) {
-
-        for (GameObject object : objects) {
-
-            if (object instanceof Edible) {
-
-                // screenWriter.drawString(object.getCol(), object.getPos().getRow(), object.toString());
-
-            } else {
-
-                // screenWriter.drawString(object.getPos().getCol(), object.getPos().getRow(), object.toString());
-            }
-
-        }
-    }
 */
+
 }

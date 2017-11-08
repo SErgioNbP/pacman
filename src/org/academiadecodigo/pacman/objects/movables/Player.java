@@ -16,23 +16,16 @@ import org.academiadecodigo.pacman.objects.fruit.powers.Power;
  */
 public class Player extends GameObject implements Movable, Interactable {
 
-    private Direction direction;
-    private Grid grid;
+    private Direction direction = Direction.UP;
     private Position position;
     private Power power = null;
     private int points;
 
-    public Player(Grid grid){
+    public Player() {
         points = 0;
-        this.grid = grid;
-        position = new Position(10, 10);
+        position = new Position(42, 7);
         //direction = direction.randomDirection();
     }
-
-    public void draw(){
-        grid.draw(position, Terminal.Color.GREEN);
-    }
-
 
     @Override
     public Result keyboardInteraction(Key key) {
@@ -55,11 +48,18 @@ public class Player extends GameObject implements Movable, Interactable {
     }
 
 
-
-
     @Override
     public void move() {
 
+        int col = position.getCol() + direction.getMoveCol();
+        int row = position.getRow() + direction.getMoveRow();
+
+        for (Position pos : Grid.getWalkablePositions()) {
+
+            if (pos.comparePos(new Position(col, row))) {
+                position = pos;
+            }
+        }
     }
 
     @Override
@@ -69,5 +69,9 @@ public class Player extends GameObject implements Movable, Interactable {
 
     public void eat(Edible e) {
         points += e.getPoints();
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 }
