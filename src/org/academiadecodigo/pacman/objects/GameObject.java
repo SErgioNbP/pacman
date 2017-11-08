@@ -1,18 +1,27 @@
 package org.academiadecodigo.pacman.objects;
 
 import com.googlecode.lanterna.terminal.Terminal;
-import org.academiadecodigo.pacman.grid.Grid;
 import org.academiadecodigo.pacman.grid.Position;
 
 public abstract class GameObject {
 
-    private Position position;
+    protected Position position;
+    private Terminal.Color color;
 
-    public void draw(Grid grid, Position pos){
-        grid.drawPosition(pos, Terminal.Color.GREEN);
+    public GameObject(Position position, Terminal.Color color) {
+        this.position = position;
+        this.color = color;
     }
 
     public Position getPosition() {
         return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public Terminal.Color getColor() {
+        return color;
     }
 }

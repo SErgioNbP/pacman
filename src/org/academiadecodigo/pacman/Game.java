@@ -1,8 +1,10 @@
 package org.academiadecodigo.pacman;
 
 import com.googlecode.lanterna.input.Key;
+import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Grid;
+import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
@@ -21,12 +23,12 @@ public class Game {
 
         grid = new Grid();
         grid.init();
-        player = new Player();
+        player = new Player(new Position(42, 7), Terminal.Color.GREEN);
 
         objects = new GameObject[]{player
         };
 
-        grid.drawGrid(objects);
+        grid.drawGrid(player);
 
         start();
     }

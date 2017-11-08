@@ -21,9 +21,9 @@ public class Player extends GameObject implements Movable, Interactable {
     private Power power = null;
     private int points;
 
-    public Player() {
+    public Player(Position position, Terminal.Color color) {
+        super(position, color);
         points = 0;
-        position = new Position(42, 7);
         //direction = direction.randomDirection();
     }
 
@@ -51,13 +51,13 @@ public class Player extends GameObject implements Movable, Interactable {
     @Override
     public void move() {
 
-        int col = position.getCol() + direction.getMoveCol();
-        int row = position.getRow() + direction.getMoveRow();
+        int col = getPosition().getCol() + direction.getMoveCol();
+        int row = getPosition().getRow() + direction.getMoveRow();
 
         for (Position pos : Grid.getWalkablePositions()) {
 
             if (pos.comparePos(new Position(col, row))) {
-                position = pos;
+                setPosition(pos);
             }
         }
     }

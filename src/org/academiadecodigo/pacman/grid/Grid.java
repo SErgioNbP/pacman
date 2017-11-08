@@ -6,6 +6,7 @@ import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.util.LinkedList;
 
@@ -42,7 +43,7 @@ public class Grid {
 
     }
 
-    public void drawGrid(GameObject[] objects) {
+    public void drawGrid(Player player) {
 
         screen.clear();
 
@@ -62,6 +63,9 @@ public class Grid {
                 }
             }
         }
+        screenWriter = new ScreenWriter(screen);
+        screenWriter.drawString(player.getPosition().getCol(), player.getPosition().getRow(), " ");
+        screenWriter.setBackgroundColor(Terminal.Color.GREEN);
 /*
         for (GameObject gameObject : objects){
             screenWriter.drawString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow()," ");

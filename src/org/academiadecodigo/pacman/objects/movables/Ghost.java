@@ -1,5 +1,6 @@
 package org.academiadecodigo.pacman.objects.movables;
 
+import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
 
@@ -10,8 +11,8 @@ public class Ghost extends GameObject implements Movable {
 
     private Position position;
 
-    public Ghost(Position position) {
-        this.position = position;
+    public Ghost(Position position, Terminal.Color color) {
+        super(position, color);
     }
 
     @Override
