@@ -13,7 +13,7 @@ import java.util.LinkedList;
 /**
  * Created by codecadet on 05/11/17.
  */
-public class Grid {
+public class Representation {
 
     private Screen screen;
     private ScreenWriter screenWriter;
@@ -21,7 +21,7 @@ public class Grid {
     private int rows;
     public static LinkedList<Position> walkablePositions = new LinkedList<>();
 
-    public Grid() {
+    public Representation() {
 
         cols = 55;
         rows = 30;
@@ -63,15 +63,11 @@ public class Grid {
                 }
             }
         }
+
         screenWriter = new ScreenWriter(screen);
         screenWriter.drawString(player.getPosition().getCol(), player.getPosition().getRow(), " ");
-        screenWriter.setBackgroundColor(Terminal.Color.GREEN);
-/*
-        for (GameObject gameObject : objects){
-            screenWriter.drawString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow()," ");
-            screenWriter.setForegroundColor(Terminal.Color.GREEN);
-        }
-*/
+        screenWriter.setBackgroundColor(player.getColor());
+
         screen.refresh();
     }
 

@@ -5,7 +5,7 @@ import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.TerminalPosition;
 import org.academiadecodigo.pacman.grid.Direction;
-import org.academiadecodigo.pacman.grid.Grid;
+import org.academiadecodigo.pacman.grid.Representation;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.fruit.Edible;
@@ -24,7 +24,6 @@ public class Player extends GameObject implements Movable, Interactable {
     public Player(Position position, Terminal.Color color) {
         super(position, color);
         points = 0;
-        //direction = direction.randomDirection();
     }
 
     @Override
@@ -54,7 +53,7 @@ public class Player extends GameObject implements Movable, Interactable {
         int col = getPosition().getCol() + direction.getMoveCol();
         int row = getPosition().getRow() + direction.getMoveRow();
 
-        for (Position pos : Grid.getWalkablePositions()) {
+        for (Position pos : Representation.getWalkablePositions()) {
 
             if (pos.comparePos(new Position(col, row))) {
                 setPosition(pos);
