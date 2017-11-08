@@ -10,7 +10,6 @@ import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.fruit.Edible;
 import org.academiadecodigo.pacman.objects.fruit.powers.Power;
-import org.academiadecodigo.pacman.representation.Representation;
 
 /**
  * Created by codecadet on 05/11/17.

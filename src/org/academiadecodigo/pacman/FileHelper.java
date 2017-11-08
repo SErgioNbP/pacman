@@ -6,7 +6,7 @@ public class FileHelper {
 
     public static String readFromFile() {
 
-        // ATTENTION: method need to take a path as argument, to be able to read from different files
+        // ATTENTION: method needs to take a path as argument, to be able to read from different files
         String path = "Map";
         String result = "";
         BufferedReader reader = null;
