@@ -45,9 +45,21 @@ public class Game {
 
                     player.setDirection(Direction.RIGHT);
                 }
+                if (key.getKind() == Key.Kind.ArrowLeft) {
+
+                    player.setDirection(Direction.LEFT);
+                }
+                if (key.getKind() == Key.Kind.ArrowDown) {
+
+                    player.setDirection(Direction.DOWN);
+                }
+                if (key.getKind() == Key.Kind.ArrowUp) {
+
+                    player.setDirection(Direction.UP);
+                }
             }
             try {
-                Thread.sleep(2000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
