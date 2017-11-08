@@ -1,13 +1,10 @@
 package org.academiadecodigo.pacman.grid;
 
+import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.FileHelper;
-import org.academiadecodigo.pacman.objects.GameObject;
-import org.academiadecodigo.pacman.objects.fruit.Edible;
-
-import java.io.*;
 import java.util.LinkedList;
 
 /**
@@ -35,7 +32,7 @@ public class Grid {
         screen.getTerminal().getTerminalSize().setRows(rows);
 
         //screen.getTerminal().setCursorVisible(false);
-        screen.setCursorPosition(null);
+        //screen.setCursorPosition(null);
 
         screenWriter = new ScreenWriter(screen);
 
@@ -54,7 +51,6 @@ public class Grid {
 
             for (int j = 0; j < row.length; j++) {
 
-                System.out.println(i + " " + j);
                 if (row[j] == '0') {
 
                     walkablePositions.add(new Position(j, i));
@@ -63,11 +59,11 @@ public class Grid {
                 }
             }
         }
+
         screen.refresh();
     }
 
     public void draw(Position position, Terminal.Color color) {
-
 
         screenWriter.setBackgroundColor(color);
 
