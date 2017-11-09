@@ -65,9 +65,8 @@ public class Representation {
             }
         }
 
-        screenWriter = new ScreenWriter(screen);
+        //TODO DRAW ALL OBJECTS
         screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), "C", Terminal.Color.GREEN, Terminal.Color.BLACK);
-        //screenWriter.setBackgroundColor(player.getColor());
 
         screen.refresh();
     }
@@ -83,10 +82,5 @@ public class Representation {
     public ScreenWriter getScreenWriter() {
         return screenWriter;
     }
-
-    /*
-    void clear() {
-    }
-*/
 
 }

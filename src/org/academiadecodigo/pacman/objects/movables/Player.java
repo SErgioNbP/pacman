@@ -74,6 +74,7 @@ public class Player extends GameObject implements Movable, Interactable {
         nextDirection = Direction.changeDirection(direction);
     }
 
+    /*
     public void moveUp() {
         Position newPosition = new Position(getPosition().getCol(), getPosition().getRow() - 1);
         if (isWalkable(newPosition)) {
@@ -102,7 +103,7 @@ public class Player extends GameObject implements Movable, Interactable {
             setPosition(newPosition);
         }
     }
-
+    */
 
     @Override
     public void kill(GameObject gameObject) {
@@ -111,6 +112,7 @@ public class Player extends GameObject implements Movable, Interactable {
         }
     }
 
+    // TODO EAT METHOD
     public void eat(Edible e) {
         points += e.getPoints();
     }
