@@ -6,6 +6,8 @@ import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.Constants;
 import org.academiadecodigo.pacman.FileHelper;
+import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.movables.Ghost;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.util.LinkedList;
@@ -19,6 +21,7 @@ public class Representation {
     private ScreenWriter screenWriter;
     private int cols = Constants.GRID_COLS;
     private int rows = Constants.GRID_ROWS;
+    private String[] mapLine;
     public static LinkedList<Position> walkablePositions = new LinkedList<>();
 
     public void init() {
@@ -35,17 +38,16 @@ public class Representation {
 
         screen.startScreen();
 
+        mapLine = FileHelper.readFromFile().split("\\n");
     }
 
-    public void drawGrid(Player player) {
+    public void drawGrid(GameObject[] gameObjects) {
 
         screen.clear();
 
-        String[] rows = FileHelper.readFromFile().split("\\n");
+        for (int i = 0; i < mapLine.length; i++) {
 
-        for (int i = 0; i < rows.length; i++) {
-
-            char[] row = rows[i].toCharArray();
+            char[] row = mapLine[i].toCharArray();
 
             for (int j = 0; j < row.length; j++) {
 
@@ -66,19 +68,22 @@ public class Representation {
                     case '2':
                         screen.putString(j, i, "", Terminal.Color.RED, Terminal.Color.BLACK);
                         break;
-                    case '4':
-                        screen.putString(j, i, " ", Terminal.Color.WHITE, Terminal.Color.BLUE);
-                        break;
-
                 }
-
-
-                //screen.putString(2, 2, "", Terminal.Color.WHITE, Terminal.Color.WHITE);
             }
         }
 
-        //TODO DRAW ALL OBJECTS
-        screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), " ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
+        for (GameObject gameObject : gameObjects) {
+
+            if (gameObject instanceof Player) {
+
+                screen.putString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow(), " ", Terminal.Color.WHITE, Terminal.Color.YELLOW);
+            }
+
+            if (gameObject instanceof Ghost) {
+
+                screen.putString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow(), " ", Terminal.Color.WHITE, Terminal.Color.BLUE);
+            }
+        }
 
         screen.refresh();
     }
