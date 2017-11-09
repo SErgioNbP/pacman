@@ -56,7 +56,7 @@ public class Representation {
                     walkablePositions.add(new Position(j, i));
                 }
 
-                switch (row[j]){
+                switch (row[j]) {
 
                     case '0':
                         screen.putString(j, i, ".", Terminal.Color.YELLOW, Terminal.Color.BLACK);
@@ -74,15 +74,7 @@ public class Representation {
 
         for (GameObject gameObject : gameObjects) {
 
-            if (gameObject instanceof Player) {
-
-                screen.putString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow(), " ", Terminal.Color.WHITE, Terminal.Color.YELLOW);
-            }
-
-            if (gameObject instanceof Ghost) {
-
-                screen.putString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow(), " ", Terminal.Color.WHITE, Terminal.Color.BLUE);
-            }
+            screen.putString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow(), " ", Terminal.Color.WHITE, gameObject.getColor());
         }
 
         screen.refresh();

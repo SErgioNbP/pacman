@@ -41,6 +41,10 @@ public class FileHelper {
         return result;
     }
 
+    public void getInitialPositions(String[] lines) {
+
+    }
+
     //TODO METHOD TO SAVE GAME STATE
     public static File writeOnFile(File file) {
         return null;
