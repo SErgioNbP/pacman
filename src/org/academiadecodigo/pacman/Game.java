@@ -6,6 +6,7 @@ import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Representation;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.ObjectFactory;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
 /**
@@ -15,12 +16,12 @@ public class Game {
 
     private ObjectFactory factory;
     private GameObject[] objects;
-    //private GameObject[] objects = factory.createObjects();
     private Representation representation;
     Player player;
 
     public void init() {
 
+         //objects = factory.createObjects();
         representation = new Representation();
         representation.init();
         player = new Player(new Position(42, 7), Terminal.Color.GREEN);

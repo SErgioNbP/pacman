@@ -10,6 +10,7 @@ import org.academiadecodigo.pacman.objects.GameObject;
  */
 public class Ghost extends GameObject implements Movable {
 
+    //TODO EDIT THIS CLASS
     private Direction direction;
 
     public Ghost(Position position, Terminal.Color color) {
