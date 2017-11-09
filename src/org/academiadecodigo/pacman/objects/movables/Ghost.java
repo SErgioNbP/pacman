@@ -14,6 +14,7 @@ import org.academiadecodigo.pacman.objects.ObjectType;
 public class Ghost extends GameObject implements Movable {
 
     private Direction direction = Direction.UP;
+    private Direction nextDirection = Direction.UP;
 
 
     public Ghost(Position position, ObjectType type) {
@@ -23,23 +24,39 @@ public class Ghost extends GameObject implements Movable {
 
     @Override
     public void move() {
+        int randomNumber = (int) (Math.random() * 50);
 
+        if (randomNumber < 20){
+            nextDirection = Direction.changeGhostDirection();
+        }
 
-        int col = getPosition().getCol() + direction.getMoveCol();
-        int row = getPosition().getRow() + direction.getMoveRow();
+        int col = getPosition().getCol() + nextDirection.getMoveCol();
+        int row = getPosition().getRow() + nextDirection.getMoveRow();
 
         Position newPosition = new Position(col, row);
+
+
+        if (isWalkable(newPosition)) {
+            setPosition(newPosition);
+            direction = nextDirection;
+            return;
+        }
+
+        col = getPosition().getCol() + direction.getMoveCol();
+        row = getPosition().getRow() + direction.getMoveRow();
+
+        newPosition = new Position(col, row);
 
         if (isWalkable(newPosition)) {
             setPosition(newPosition);
             return;
         }
-        direction = Direction.changeDirection(direction);
+
+        direction = Direction.changeGhostDirection();
     }
 
-    //TODO EDIT THIS METHOD
     @Override
-    public void kill(GameObject gameObject) {
+    public void kill(GameObject[] gameObjects) {
 
     }
 

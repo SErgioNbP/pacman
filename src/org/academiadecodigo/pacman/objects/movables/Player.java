@@ -53,7 +53,7 @@ public class Player extends GameObject implements Movable, Interactable {
     @Override
     public void move() {
 
-        if(!alive){
+        if (!alive) {
             return;
         }
 
@@ -67,6 +67,7 @@ public class Player extends GameObject implements Movable, Interactable {
             direction = nextDirection;
             return;
         }
+
         col = getPosition().getCol() + direction.getMoveCol();
         row = getPosition().getRow() + direction.getMoveRow();
 
@@ -76,7 +77,7 @@ public class Player extends GameObject implements Movable, Interactable {
             setPosition(newPosition);
             return;
         }
-        nextDirection = Direction.changeDirection(direction);
+        //nextDirection = Direction.changeDirection(direction);
     }
 
     /*
@@ -111,10 +112,13 @@ public class Player extends GameObject implements Movable, Interactable {
     */
 
     @Override
-    public void kill(GameObject gameObject) {
-        if (getPosition().comparePos(gameObject.getPosition())) {
-            alive = false;
-            System.out.println("player dead");
+    public void kill(GameObject[] gameObjects) {
+        for (GameObject gameObject : gameObjects) {
+
+            if (getPosition().comparePos(gameObject.getPosition()) && gameObject instanceof Ghost) {
+                alive = false;
+                System.out.println("player dead");
+            }
         }
     }
 
@@ -136,5 +140,9 @@ public class Player extends GameObject implements Movable, Interactable {
                 return true;
         }
         return false;
+    }
+
+    public boolean isKilled() {
+        return !alive;
     }
 }

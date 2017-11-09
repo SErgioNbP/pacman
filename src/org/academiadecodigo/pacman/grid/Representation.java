@@ -7,6 +7,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.Constants;
 import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.util.LinkedList;
 
@@ -67,6 +68,11 @@ public class Representation {
         }
 
         for (GameObject gameObject : gameObjects) {
+
+            if(gameObject instanceof Player && ((Player)gameObject).isKilled()){
+                continue;
+            }
+
 
             int col = gameObject.getPosition().getCol();
             int row = gameObject.getPosition().getRow();

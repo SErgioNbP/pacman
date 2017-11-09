@@ -14,7 +14,7 @@ public enum Direction {
         moveRow = row;
     }
 
-    public Direction randomDirection() {
+    public static Direction randomDirection() {
 
         int random = (int) (Math.random() * values().length);
         Direction direction = values()[random];
@@ -29,9 +29,60 @@ public enum Direction {
     public int getMoveRow() {
         return moveRow;
     }
+    /*
+    public static Direction turnInDirection(Direction direction) {
 
-    // TODO MAKE THIS BETTER - ALL IN ONE METHOD?
+        int randomNumber = (int) (Math.random() * 2);
 
+        switch (direction) {
+
+            case UP:
+
+                if (randomNumber == 0) {
+                    return RIGHT;
+                } else {
+                    return DOWN;
+                }
+
+            case DOWN:
+
+                if (randomNumber == 0) {
+                    return LEFT;
+                } else {
+                    return UP;
+                }
+
+            case LEFT:
+
+                if (randomNumber == 0) {
+                    return RIGHT;
+                } else {
+                    return UP;
+                }
+
+            case RIGHT:
+
+                if (randomNumber == 0) {
+                    return LEFT;
+                } else {
+                    return DOWN;
+                }
+
+            default:
+                return UP;
+        }
+    }*/
+
+    public static Direction changeGhostDirection(){
+
+        return randomDirection();
+    }
+
+    /*
+    public static Direction changeDirection(Direction direction) {
+
+        return Direction.turnInDirection(direction);
+    }
 
     public static Direction turnRight(Direction direction) {
 
@@ -80,15 +131,5 @@ public enum Direction {
                 return RIGHT;
         }
     }
-      public static Direction changeDirection(Direction direction) {
-
-        int randomNumber = (int) (Math.random() * 2);
-
-        if (randomNumber == 0) {
-
-            return Direction.turnRight(direction);
-        } else {
-            return Direction.turnLeft(direction);
-        }
-    }
+    */
 }

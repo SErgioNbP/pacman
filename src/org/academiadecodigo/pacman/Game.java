@@ -84,13 +84,10 @@ public class Game {
             }
 
             for (GameObject gameObject : objects) {
-                for (GameObject gameObject1 : objects) {
-                    if (gameObject instanceof Player && !(gameObject1 instanceof Player)) {
-                        ((Player)gameObject).kill(gameObject1);
-                    }
+                if (gameObject instanceof Player) {
+                    ((Player) gameObject).kill(objects);
                 }
             }
-
             representation.drawGrid(objects);
         }
     }

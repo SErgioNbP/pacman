@@ -9,14 +9,14 @@ public class ObjectFactory {
 
     private LinkedList<Position> edibles = Representation.walkablePositions;
     private GameObject[] objects = new GameObject[getTotalObjects()];
-
+/*
     public GameObject[] createObjects() {
 
         for (ObjectType type : ObjectType.values()) {
 
         }
     }
-
+*/
     public int getTotalObjects() {
 
         return objects.length;
