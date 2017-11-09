@@ -21,6 +21,7 @@ public class Player extends GameObject implements Movable, Interactable {
     private Position position;
     private Power power = null;
     private int points;
+    private boolean alive = true;
 
     public Player(Position position, Terminal.Color color) {
         super(position, color);
@@ -105,19 +106,22 @@ public class Player extends GameObject implements Movable, Interactable {
     */
 
     @Override
-    public void kill(Movable movable) {
-
+    public void kill(GameObject gameObject) {
+        if (getPosition().comparePos(gameObject.getPosition())) {
+            alive = false;
+        }
     }
 
     // TODO EAT METHOD
     public void eat(Edible e) {
-        points += e.getPoints();
+        if (getPosition().comparePos(e.getPosition())) {
+            points += e.getPoints();
+        }
     }
 
     public void setNextDirection(Direction direction) {
         nextDirection = direction;
     }
-
 
 
     public boolean isWalkable(Position position) {
