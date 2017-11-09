@@ -107,20 +107,21 @@ public class Player extends GameObject implements Movable, Interactable {
 
     @Override
     public void kill(GameObject gameObject) {
-        if (getPosition().comparePos(gameObject.getPosition())){
+        if (getPosition().comparePos(gameObject.getPosition())) {
             alive = false;
         }
     }
 
     // TODO EAT METHOD
     public void eat(Edible e) {
-        points += e.getPoints();
+        if (getPosition().comparePos(e.getPosition())) {
+            points += e.getPoints();
+        }
     }
 
     public void setNextDirection(Direction direction) {
         nextDirection = direction;
     }
-
 
 
     public boolean isWalkable(Position position) {
