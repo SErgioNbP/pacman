@@ -18,9 +18,9 @@ public class Game {
     private ObjectFactory factory;
     private GameObject[] objects;
     private Representation representation;
-    Player player;
-    Ghost ghost;
-    Ghost ghost2;
+    private Player player;
+    private Ghost ghost;
+    private Ghost ghost2;
 
     public void init() {
 
@@ -28,7 +28,7 @@ public class Game {
         representation = new Representation();
         representation.init();
         player = new Player(new Position(42, 7), Terminal.Color.GREEN);
-        ghost = new Ghost(new Position(1, 1), Terminal.Color.RED);
+        ghost = new Ghost(new Position(25, 14), Terminal.Color.RED);
         ghost2 = new Ghost(new Position(22, 13), Terminal.Color.RED);
 
         objects = new GameObject[]{
@@ -38,8 +38,6 @@ public class Game {
         };
 
         representation.drawGrid(objects);
-        //representation.drawGrid(ghost);
-        //representation.drawGrid(ghost2);
 
         start();
     }
@@ -80,8 +78,6 @@ public class Game {
             ghost2.move();
 
             representation.drawGrid(objects);
-            //representation.drawGrid(ghost);
-            //representation.drawGrid(ghost2);
         }
     }
 }

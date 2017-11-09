@@ -62,6 +62,7 @@ public class Player extends GameObject implements Movable, Interactable {
             direction = nextDirection;
             return;
         }
+
         col = getPosition().getCol() + direction.getMoveCol();
         row = getPosition().getRow() + direction.getMoveRow();
 
@@ -71,7 +72,7 @@ public class Player extends GameObject implements Movable, Interactable {
             setPosition(newPosition);
             return;
         }
-        nextDirection = Direction.changeDirection(direction);
+        //nextDirection = Direction.changeDirection(direction);
     }
 
     /*
