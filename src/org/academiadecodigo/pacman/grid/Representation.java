@@ -10,6 +10,9 @@ import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.util.LinkedList;
+import java.util.List;
+
+import static org.academiadecodigo.pacman.objects.ObjectType.POWERUP;
 
 public class Representation {
 
@@ -34,11 +37,63 @@ public class Representation {
         screen.startScreen();
 
         mapRow = FileHelper.readFromFile().split("\\n");
+
+        createWalkablePositions();
+
     }
 
-    public void drawGrid(GameObject[] gameObjects) {
+    public void drawGrid(List<GameObject> gameObjects, Player player) {
 
         screen.clear();
+
+        drawWalls();
+
+
+        for (GameObject gameObject : gameObjects) {
+
+            int col = gameObject.getPosition().getCol();
+            int row = gameObject.getPosition().getRow();
+            String label = gameObject.getType().getLabel();
+            Terminal.Color color = gameObject.getType().getColor();
+            Terminal.Color stringColor;
+
+            if (gameObject.getType().equals(POWERUP)) {
+                stringColor = Terminal.Color.RED;
+
+            } else {
+                System.out.println(gameObject.getType() + "here");
+                stringColor = Terminal.Color.YELLOW;
+            }
+
+            screen.putString(col, row, label, stringColor, color);
+        }
+        if (!player.isKilled()) {
+            screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), " ", Terminal.Color.WHITE, Terminal.Color.YELLOW);
+        }
+
+        screen.refresh();
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public void createWalkablePositions() {
+        for (int i = 0; i < mapRow.length; i++) {
+
+            char[] mapColumn = mapRow[i].toCharArray();
+
+            for (int j = 0; j < mapColumn.length; j++) {
+
+                if (mapColumn[j] == '0') {
+                    walkablePositions.add(new Position(j, i));
+                }
+            }
+        }
+    }
+
+
+    public void drawWalls() {
 
         for (int i = 0; i < mapRow.length; i++) {
 
@@ -46,57 +101,11 @@ public class Representation {
 
             for (int j = 0; j < mapColumn.length; j++) {
 
-                if (!(mapColumn[j] == '1')) {
-
-                    walkablePositions.add(new Position(j, i));
-                }
-
-                switch (mapColumn[j]){
-
-                    case '0':
-                        screen.putString(j, i, ".", Terminal.Color.YELLOW, Terminal.Color.BLACK);
-                        break;
-                    case '1':
-                        screenWriter.drawString(j, i, " ");
-                        screenWriter.setBackgroundColor(Terminal.Color.WHITE);
-                        break;
-                    case '2':
-                        screen.putString(j, i, "", Terminal.Color.RED, Terminal.Color.BLACK);
-                        break;
+                if (mapColumn[j] == '1') {
+                    screenWriter.drawString(j, i, " ");
+                    screenWriter.setBackgroundColor(Terminal.Color.WHITE);
                 }
             }
         }
-
-        for (GameObject gameObject : gameObjects) {
-
-            if(gameObject instanceof Player && ((Player)gameObject).isKilled()){
-                continue;
-            }
-
-            int col = gameObject.getPosition().getCol();
-            int row = gameObject.getPosition().getRow();
-            String label = gameObject.getType().getLabel();
-            Terminal.Color color = gameObject.getType().getColor();
-            Terminal.Color background;
-
-            if (gameObject.getType().equals("POWERUP")) {
-                background = Terminal.Color.RED;
-
-            } else {
-                background = Terminal.Color.YELLOW;
-            }
-
-            screen.putString(col, row, label, background, color);
-        }
-
-        screen.refresh();
-    }
-
-    public static LinkedList<Position> getWalkablePositions() {
-        return walkablePositions;
-    }
-
-    public Screen getScreen() {
-        return screen;
     }
 }

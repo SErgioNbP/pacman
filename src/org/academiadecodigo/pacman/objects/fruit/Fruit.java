@@ -8,15 +8,15 @@ import org.academiadecodigo.pacman.objects.ObjectType;
 /**
  * Created by codecadet on 05/11/17.
  */
-public class Edible extends GameObject {
+public class Fruit extends GameObject {
 
     //Properties
     private int points;
     private boolean eaten;
 
     //Constructor
-    public Edible(Position position, ObjectType type) {
-        super(position, type);
+    public Fruit(Position position) {
+        super(position, ObjectType.FRUIT);
         points = 100;
     }
 

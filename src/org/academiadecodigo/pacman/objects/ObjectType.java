@@ -4,9 +4,8 @@ import com.googlecode.lanterna.terminal.Terminal;
 
 public enum ObjectType {
     GHOST(Terminal.Color.BLUE, " "),
-    PACMAN(Terminal.Color.YELLOW, " "),
-    FRUIT(Terminal.Color.YELLOW, "."),
-    POWERUP(Terminal.Color.RED, "");
+    FRUIT(Terminal.Color.BLACK, "."),
+    POWERUP(Terminal.Color.BLACK, "");
 
     private Terminal.Color color;
     private String label;
