@@ -6,6 +6,7 @@ import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.movables.Ghost;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.util.LinkedList;
@@ -43,7 +44,7 @@ public class Representation {
 
     }
 
-    public void drawGrid(Player player) {
+    public void drawGrid(GameObject[] gameObjects) {
 
         screen.clear();
 
@@ -66,7 +67,20 @@ public class Representation {
         }
 
         //TODO DRAW ALL OBJECTS
-        screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), "C", Terminal.Color.GREEN, Terminal.Color.BLACK);
+
+        for (GameObject gameObject : gameObjects) {
+
+            if (gameObject instanceof Player) {
+
+                screen.putString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow(), "C", Terminal.Color.GREEN, Terminal.Color.BLACK);
+            }
+
+            if (gameObject instanceof Ghost) {
+
+                screen.putString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow(), "G", Terminal.Color.WHITE, Terminal.Color.RED);
+            }
+        }
+
 
         screen.refresh();
     }

@@ -7,6 +7,7 @@ import org.academiadecodigo.pacman.grid.Representation;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.ObjectFactory;
+import org.academiadecodigo.pacman.objects.movables.Ghost;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
 /**
@@ -18,24 +19,32 @@ public class Game {
     private GameObject[] objects;
     private Representation representation;
     Player player;
+    Ghost ghost;
+    Ghost ghost2;
 
     public void init() {
 
-         //objects = factory.createObjects();
+        //objects = factory.createObjects();
         representation = new Representation();
         representation.init();
         player = new Player(new Position(42, 7), Terminal.Color.GREEN);
+        ghost = new Ghost(new Position(1, 1), Terminal.Color.RED);
+        ghost2 = new Ghost(new Position(22, 13), Terminal.Color.RED);
 
-        objects = new GameObject[]{player
+        objects = new GameObject[]{
+                player,
+                ghost,
+                ghost2
         };
 
-        representation.drawGrid(player);
+        representation.drawGrid(objects);
+        //representation.drawGrid(ghost);
+        //representation.drawGrid(ghost2);
 
         start();
     }
 
     public void start() {
-
 
         while (true) {
 
@@ -65,8 +74,14 @@ public class Game {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             player.move();
-            representation.drawGrid(player);
+            ghost.move();
+            ghost2.move();
+
+            representation.drawGrid(objects);
+            //representation.drawGrid(ghost);
+            //representation.drawGrid(ghost2);
         }
     }
 }
