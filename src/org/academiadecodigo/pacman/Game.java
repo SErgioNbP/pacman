@@ -8,6 +8,7 @@ import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.ObjectFactory;
 import org.academiadecodigo.pacman.objects.movables.Ghost;
+import org.academiadecodigo.pacman.objects.movables.Movable;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
 /**
@@ -73,9 +74,19 @@ public class Game {
                 e.printStackTrace();
             }
 
-            player.move();
-            ghost.move();
-            ghost2.move();
+            for (GameObject gameObject : objects) {
+                if (gameObject instanceof Movable) {
+                    ((Movable) gameObject).move();
+                }
+            }
+
+            for (GameObject gameObject : objects) {
+                for (GameObject gameObject1 : objects) {
+                    if (gameObject instanceof Player && !(gameObject1 instanceof Player)) {
+                        ((Player)gameObject).kill(gameObject1);
+                    }
+                }
+            }
 
             representation.drawGrid(objects);
         }
