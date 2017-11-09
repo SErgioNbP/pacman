@@ -21,7 +21,7 @@ public class Representation {
     private ScreenWriter screenWriter;
     private int cols = Constants.GRID_COLS;
     private int rows = Constants.GRID_ROWS;
-    private String[] mapLine;
+    private String[] mapRow;
     public static LinkedList<Position> walkablePositions = new LinkedList<>();
 
     public void init() {
@@ -38,25 +38,25 @@ public class Representation {
 
         screen.startScreen();
 
-        mapLine = FileHelper.readFromFile().split("\\n");
+        mapRow = FileHelper.readFromFile().split("\\n");
     }
 
     public void drawGrid(GameObject[] gameObjects) {
 
         screen.clear();
 
-        for (int i = 0; i < mapLine.length; i++) {
+        for (int i = 0; i < mapRow.length; i++) {
 
-            char[] row = mapLine[i].toCharArray();
+            char[] mapColumn = mapRow[i].toCharArray();
 
-            for (int j = 0; j < row.length; j++) {
+            for (int j = 0; j < mapColumn.length; j++) {
 
-                if (!(row[j] == '1')) {
+                if (!(mapColumn[j] == '1')) {
 
                     walkablePositions.add(new Position(j, i));
                 }
 
-                switch (row[j]){
+                switch (mapColumn[j]){
 
                     case '0':
                         screen.putString(j, i, ".", Terminal.Color.YELLOW, Terminal.Color.BLACK);

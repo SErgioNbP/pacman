@@ -38,8 +38,6 @@ public class Game {
         };
 
         representation.drawGrid(objects);
-        //representation.drawGrid(ghost);
-        //representation.drawGrid(ghost2);
 
         start();
     }
@@ -80,8 +78,6 @@ public class Game {
             ghost2.move();
 
             representation.drawGrid(objects);
-            //representation.drawGrid(ghost);
-            //representation.drawGrid(ghost2);
         }
     }
 }
