@@ -4,9 +4,11 @@ import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
+import javafx.scene.control.PasswordField;
 import org.academiadecodigo.pacman.Constants;
 import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.util.LinkedList;
 
@@ -67,6 +69,10 @@ public class Representation {
         }
 
         for (GameObject gameObject : gameObjects) {
+
+            if(gameObject instanceof Player && ((Player)gameObject).isKilled()){
+                continue;
+            }
 
             screen.putString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow(), " ", Terminal.Color.WHITE, gameObject.getColor());
         }
