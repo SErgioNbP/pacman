@@ -6,7 +6,6 @@ public class FileHelper {
 
     public static String readFromFile() {
 
-        // ATTENTION: method needs to take a path as argument, to be able to read from different files
         String path = "Map";
         String result = "";
         BufferedReader reader = null;
@@ -39,14 +38,5 @@ public class FileHelper {
         }
 
         return result;
-    }
-
-    public void getInitialPositions(String[] lines) {
-
-    }
-
-    //TODO METHOD TO SAVE GAME STATE
-    public static File writeOnFile(File file) {
-        return null;
     }
 }

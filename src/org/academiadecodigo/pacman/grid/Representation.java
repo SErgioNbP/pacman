@@ -73,7 +73,6 @@ public class Representation {
                 continue;
             }
 
-
             int col = gameObject.getPosition().getCol();
             int row = gameObject.getPosition().getRow();
             String label = gameObject.getType().getLabel();
@@ -100,9 +99,4 @@ public class Representation {
     public Screen getScreen() {
         return screen;
     }
-
-    public ScreenWriter getScreenWriter() {
-        return screenWriter;
-    }
-
 }
