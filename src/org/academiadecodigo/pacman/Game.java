@@ -44,19 +44,19 @@ public class Game {
 
                 if (key.getKind() == Key.Kind.ArrowRight) {
 
-                    player.setDirection(Direction.RIGHT);
+                    player.setNextDirection(Direction.RIGHT);
                 }
                 if (key.getKind() == Key.Kind.ArrowLeft) {
 
-                    player.setDirection(Direction.LEFT);
+                    player.setNextDirection(Direction.LEFT);
                 }
                 if (key.getKind() == Key.Kind.ArrowDown) {
 
-                    player.setDirection(Direction.DOWN);
+                    player.setNextDirection(Direction.DOWN);
                 }
                 if (key.getKind() == Key.Kind.ArrowUp) {
 
-                    player.setDirection(Direction.UP);
+                    player.setNextDirection(Direction.UP);
                 }
             }
             try {

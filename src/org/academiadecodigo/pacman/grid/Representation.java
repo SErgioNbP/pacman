@@ -35,7 +35,7 @@ public class Representation {
         screen.getTerminal().getTerminalSize().setRows(rows);
 
         //screen.getTerminal().setCursorVisible(false);
-        //screen.setCursorPosition(null);
+        screen.setCursorPosition(null);
 
         screenWriter = new ScreenWriter(screen);
 
@@ -61,6 +61,7 @@ public class Representation {
                     screenWriter.drawString(j, i, " ");
                     screenWriter.setBackgroundColor(Terminal.Color.WHITE);
                 }
+                //screen.putString(2, 2, "", Terminal.Color.WHITE, Terminal.Color.WHITE);
             }
         }
 
