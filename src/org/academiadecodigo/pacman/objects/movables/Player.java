@@ -52,6 +52,10 @@ public class Player extends GameObject implements Movable, Interactable {
     @Override
     public void move() {
 
+        if(!alive){
+            return;
+        }
+
         int col = getPosition().getCol() + nextDirection.getMoveCol();
         int row = getPosition().getRow() + nextDirection.getMoveRow();
 
@@ -109,6 +113,7 @@ public class Player extends GameObject implements Movable, Interactable {
     public void kill(GameObject gameObject) {
         if (getPosition().comparePos(gameObject.getPosition())) {
             alive = false;
+            System.out.println("player dead");
         }
     }
 
