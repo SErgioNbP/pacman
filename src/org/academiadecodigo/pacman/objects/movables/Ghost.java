@@ -1,6 +1,7 @@
 package org.academiadecodigo.pacman.objects.movables;
 
 import com.googlecode.lanterna.terminal.Terminal;
+import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
 
@@ -9,10 +10,11 @@ import org.academiadecodigo.pacman.objects.GameObject;
  */
 public class Ghost extends GameObject implements Movable {
 
-    private Position position;
+    private Direction direction;
 
     public Ghost(Position position, Terminal.Color color) {
         super(position, color);
+        direction = Direction.UP;
     }
 
     @Override

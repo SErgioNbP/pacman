@@ -68,7 +68,9 @@ public class Player extends GameObject implements Movable, Interactable {
 
         if (isWalkable(newPosition)) {
             setPosition(newPosition);
+            return;
         }
+        nextDirection = Direction.changeDirection(direction);
     }
 
     public void moveUp() {
@@ -114,17 +116,7 @@ public class Player extends GameObject implements Movable, Interactable {
         nextDirection = direction;
     }
 
-    public static Direction changeDirection(Direction direction) {
 
-        int randomNumber = (int)(Math.random() * 2);
-
-        if (randomNumber == 0) {
-
-            return Direction.turnRight(direction);
-        } else {
-            return Direction.turnLeft(direction);
-        }
-    }
 
     public boolean isWalkable(Position position) {
         for (Position p : Representation.getWalkablePositions()) {

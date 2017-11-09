@@ -59,7 +59,7 @@ public enum Direction {
             case RIGHT:
                 return UP;
             default:
-                return UP;
+                return DOWN;
         }
     }
 
@@ -75,7 +75,18 @@ public enum Direction {
             case RIGHT:
                 return LEFT;
             default:
-                return UP;
+                return RIGHT;
+        }
+    }
+      public static Direction changeDirection(Direction direction) {
+
+        int randomNumber = (int) (Math.random() * 2);
+
+        if (randomNumber == 0) {
+
+            return Direction.turnRight(direction);
+        } else {
+            return Direction.turnLeft(direction);
         }
     }
 }
