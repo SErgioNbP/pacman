@@ -52,6 +52,10 @@ public class Player extends GameObject implements Movable, Interactable {
     @Override
     public void move() {
 
+        if (!alive) {
+            return;
+        }
+
         int col = getPosition().getCol() + nextDirection.getMoveCol();
         int row = getPosition().getRow() + nextDirection.getMoveRow();
 
@@ -107,9 +111,13 @@ public class Player extends GameObject implements Movable, Interactable {
     */
 
     @Override
-    public void kill(GameObject gameObject) {
-        if (getPosition().comparePos(gameObject.getPosition())) {
-            alive = false;
+    public void kill(GameObject[] gameObjects) {
+        for (GameObject gameObject : gameObjects) {
+
+            if (getPosition().comparePos(gameObject.getPosition()) && gameObject instanceof Ghost) {
+                alive = false;
+                System.out.println("player dead");
+            }
         }
     }
 
@@ -131,5 +139,9 @@ public class Player extends GameObject implements Movable, Interactable {
                 return true;
         }
         return false;
+    }
+
+    public boolean isKilled() {
+        return !alive;
     }
 }

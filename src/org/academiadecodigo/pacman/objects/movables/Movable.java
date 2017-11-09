@@ -9,5 +9,5 @@ public interface Movable {
 
     void move();
 
-    void kill(GameObject gameObject);
+    void kill(GameObject[] gameObjects);
 }
