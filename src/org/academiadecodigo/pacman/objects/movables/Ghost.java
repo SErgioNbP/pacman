@@ -1,7 +1,5 @@
 package org.academiadecodigo.pacman.objects.movables;
 
-import com.googlecode.lanterna.terminal.Terminal;
-import javafx.geometry.Pos;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.grid.Representation;
