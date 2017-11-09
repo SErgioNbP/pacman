@@ -6,11 +6,11 @@ import org.academiadecodigo.pacman.grid.Position;
 public abstract class GameObject {
 
     protected Position position;
-    private Terminal.Color color;
+    protected ObjectType type;
 
-    public GameObject(Position position, Terminal.Color color) {
+    public GameObject(Position position, ObjectType type) {
         this.position = position;
-        this.color = color;
+        this.type = type;
     }
 
     public Position getPosition() {
@@ -21,7 +21,7 @@ public abstract class GameObject {
         this.position = position;
     }
 
-    public Terminal.Color getColor() {
-        return color;
+    public ObjectType getType() {
+        return type;
     }
 }

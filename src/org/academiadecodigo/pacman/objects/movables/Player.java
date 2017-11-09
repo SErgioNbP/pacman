@@ -8,6 +8,7 @@ import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Representation;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.ObjectType;
 import org.academiadecodigo.pacman.objects.fruit.Edible;
 import org.academiadecodigo.pacman.objects.fruit.powers.Power;
 
@@ -23,8 +24,8 @@ public class Player extends GameObject implements Movable, Interactable {
     private int points;
     private boolean alive = true;
 
-    public Player(Position position, Terminal.Color color) {
-        super(position, color);
+    public Player(Position position, ObjectType type) {
+        super(position, type);
         points = 0;
     }
 

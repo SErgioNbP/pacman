@@ -6,6 +6,7 @@ import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Representation;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.ObjectType;
 import org.academiadecodigo.pacman.objects.movables.Ghost;
 import org.academiadecodigo.pacman.objects.movables.Movable;
 import org.academiadecodigo.pacman.objects.movables.Player;
@@ -19,19 +20,24 @@ public class Game {
     private Representation representation;
     Player player;
     Ghost ghost;
+    Ghost ghost1;
     Ghost ghost2;
 
     public void init() {
 
         representation = new Representation();
         representation.init();
-        player = new Player(new Position(42, 7), Terminal.Color.GREEN);
-        ghost = new Ghost(new Position(42, 8), Terminal.Color.RED);
-        ghost2 = new Ghost(new Position(22, 13), Terminal.Color.RED);
+
+        player = new Player(new Position(42, 7), ObjectType.PACMAN);
+        ghost = new Ghost(Constants.GHOST_1, ObjectType.GHOST);
+        ghost1 = new Ghost(Constants.GHOST_2, ObjectType.GHOST);
+        ghost2 = new Ghost(Constants.GHOST_3, ObjectType.GHOST);
+
 
         objects = new GameObject[]{
                 player,
                 ghost,
+                ghost1,
                 ghost2
         };
 

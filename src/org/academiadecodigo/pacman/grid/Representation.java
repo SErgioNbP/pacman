@@ -68,7 +68,20 @@ public class Representation {
 
         for (GameObject gameObject : gameObjects) {
 
-            screen.putString(gameObject.getPosition().getCol(), gameObject.getPosition().getRow(), " ", Terminal.Color.WHITE, gameObject.getColor());
+            int col = gameObject.getPosition().getCol();
+            int row = gameObject.getPosition().getRow();
+            String label = gameObject.getType().getLabel();
+            Terminal.Color color = gameObject.getType().getColor();
+            Terminal.Color background;
+
+            if (gameObject.getType().equals("POWERUP")) {
+                background = Terminal.Color.RED;
+
+            } else {
+                background = Terminal.Color.YELLOW;
+            }
+
+            screen.putString(col, row, label, background, color);
         }
 
         screen.refresh();

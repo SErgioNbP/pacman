@@ -3,6 +3,7 @@ package org.academiadecodigo.pacman.objects.fruit;
 import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.ObjectType;
 
 /**
  * Created by codecadet on 05/11/17.
@@ -14,8 +15,8 @@ public class Edible extends GameObject {
     private boolean eaten;
 
     //Constructor
-    public Edible(Position position, Terminal.Color color) {
-        super(position, color);
+    public Edible(Position position, ObjectType type) {
+        super(position, type);
         points = 100;
     }
 
