@@ -15,9 +15,8 @@ import java.util.List;
  */
 public class Ghost extends GameObject implements Movable {
 
-    private Direction direction = Direction.UP;
+    private Direction direction;
     private Direction nextDirection = Direction.UP;
-
 
     public Ghost(Position position) {
         super(position, ObjectType.GHOST);

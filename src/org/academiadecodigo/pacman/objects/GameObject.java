@@ -1,6 +1,5 @@
 package org.academiadecodigo.pacman.objects;
 
-import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.grid.Position;
 
 public abstract class GameObject {

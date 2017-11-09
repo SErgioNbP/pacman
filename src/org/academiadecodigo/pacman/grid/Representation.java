@@ -18,8 +18,6 @@ public class Representation {
 
     private Screen screen;
     private ScreenWriter screenWriter;
-    private int cols = Constants.GRID_COLS;
-    private int rows = Constants.GRID_ROWS;
     private String[] mapRow;
     public static LinkedList<Position> walkablePositions = new LinkedList<>();
 
@@ -27,8 +25,8 @@ public class Representation {
 
         screen = TerminalFacade.createScreen();
 
-        screen.getTerminal().getTerminalSize().setColumns(cols);
-        screen.getTerminal().getTerminalSize().setRows(rows);
+        screen.getTerminal().getTerminalSize().setColumns(Constants.GRID_COLS);
+        screen.getTerminal().getTerminalSize().setRows(Constants.GRID_ROWS);
 
         screen.setCursorPosition(null);
 
