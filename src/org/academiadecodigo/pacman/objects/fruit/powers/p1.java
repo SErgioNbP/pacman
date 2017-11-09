@@ -5,6 +5,8 @@ import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.fruit.Edible;
 
 public class p1 extends Edible implements Power {
+
+    //Constructor
     public p1(Position position, Terminal.Color color) {
         super(position, color);
     }
