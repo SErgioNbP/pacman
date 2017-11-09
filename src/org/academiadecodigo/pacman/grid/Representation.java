@@ -4,8 +4,8 @@ import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
+import org.academiadecodigo.pacman.Constants;
 import org.academiadecodigo.pacman.FileHelper;
-import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.util.LinkedList;
@@ -17,15 +17,9 @@ public class Representation {
 
     private Screen screen;
     private ScreenWriter screenWriter;
-    private int cols;
-    private int rows;
+    private int cols = Constants.GRID_COLS;
+    private int rows = Constants.GRID_ROWS;
     public static LinkedList<Position> walkablePositions = new LinkedList<>();
-
-    public Representation() {
-
-        cols = 55;
-        rows = 30;
-    }
 
     public void init() {
 
