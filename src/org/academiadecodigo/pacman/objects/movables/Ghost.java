@@ -24,8 +24,7 @@ public class Ghost extends GameObject implements Movable {
     }
 
     @Override
-    public void kill(Movable movable) {
+    public void kill(GameObject gameObject) {
 
     }
-
 }

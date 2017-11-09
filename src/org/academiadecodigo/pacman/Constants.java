@@ -1,9 +1,5 @@
 package org.academiadecodigo.pacman;
 
-import org.academiadecodigo.pacman.grid.Position;
-
-import java.util.LinkedList;
-
 public final class Constants {
 
     //TODO FILL THIS CLASS

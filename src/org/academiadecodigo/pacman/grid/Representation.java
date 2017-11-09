@@ -52,15 +52,33 @@ public class Representation {
                 if (!(row[j] == '1')) {
 
                     walkablePositions.add(new Position(j, i));
-                    screenWriter.drawString(j, i, " ");
-                    screenWriter.setBackgroundColor(Terminal.Color.WHITE);
                 }
+
+                switch (row[j]){
+
+                    case '0':
+                        screen.putString(j, i, ".", Terminal.Color.YELLOW, Terminal.Color.BLACK);
+                        break;
+                    case '1':
+                        screenWriter.drawString(j, i, " ");
+                        screenWriter.setBackgroundColor(Terminal.Color.WHITE);
+                        break;
+                    case '2':
+                        screen.putString(j, i, "", Terminal.Color.RED, Terminal.Color.BLACK);
+                        break;
+                    case '4':
+                        screen.putString(j, i, " ", Terminal.Color.WHITE, Terminal.Color.BLUE);
+                        break;
+
+                }
+
+
                 //screen.putString(2, 2, "", Terminal.Color.WHITE, Terminal.Color.WHITE);
             }
         }
 
         //TODO DRAW ALL OBJECTS
-        screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), "C", Terminal.Color.GREEN, Terminal.Color.BLACK);
+        screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), " ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
 
         screen.refresh();
     }

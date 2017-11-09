@@ -31,6 +31,8 @@ public enum Direction {
     }
 
     // TODO MAKE THIS BETTER - ALL IN ONE METHOD?
+
+
     public static Direction turnRight(Direction direction) {
 
         switch (direction) {

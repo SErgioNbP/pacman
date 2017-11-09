@@ -9,7 +9,6 @@ import org.academiadecodigo.pacman.objects.GameObject;
  */
 public class Edible extends GameObject {
 
-    //TODO EDIT THIS CLASS
     //Properties
     private int points;
     private boolean eaten;
@@ -29,7 +28,7 @@ public class Edible extends GameObject {
         return eaten;
     }
 
-    public void setEaten(boolean eaten) {
-        this.eaten = eaten;
+    public void setEaten() {
+        eaten = true;
     }
 }

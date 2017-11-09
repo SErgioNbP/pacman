@@ -112,7 +112,6 @@ public class Player extends GameObject implements Movable, Interactable {
         }
     }
 
-    // TODO EAT METHOD
     public void eat(Edible e) {
         if (getPosition().comparePos(e.getPosition())) {
             points += e.getPoints();
