@@ -66,7 +66,7 @@ public class Representation {
         }
 
         screenWriter = new ScreenWriter(screen);
-        screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), " ", Terminal.Color.GREEN, Terminal.Color.GREEN);
+        screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), "C", Terminal.Color.GREEN, Terminal.Color.BLACK);
         //screenWriter.setBackgroundColor(player.getColor());
 
         screen.refresh();

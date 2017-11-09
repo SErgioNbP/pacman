@@ -116,7 +116,7 @@ public class Player extends GameObject implements Movable, Interactable {
 
     public static Direction changeDirection(Direction direction) {
 
-        int randomNumber = (int) (Math.random() * 2);
+        int randomNumber = (int)(Math.random() * 2);
 
         if (randomNumber == 0) {
 
