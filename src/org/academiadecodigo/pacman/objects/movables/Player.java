@@ -53,13 +53,45 @@ public class Player extends GameObject implements Movable, Interactable {
         int col = getPosition().getCol() + direction.getMoveCol();
         int row = getPosition().getRow() + direction.getMoveRow();
 
-        for (Position pos : Representation.getWalkablePositions()) {
+        Position newPosition = new Position(col, row);
 
-            if (pos.comparePos(new Position(col, row))) {
-                setPosition(pos);
-            }
+        if (isWalkable(newPosition)) {
+            setPosition(newPosition);
+            return;
+        } else {
+            direction = changeDirection(direction);
         }
     }
+
+    public void moveUp() {
+        Position newPosition = new Position(getPosition().getCol(), getPosition().getRow() - 1);
+        if (isWalkable(newPosition)) {
+            setPosition(newPosition);
+        }
+    }
+
+    public void moveDown() {
+        Position newPosition = new Position(getPosition().getCol(), getPosition().getRow() + 1);
+        if (isWalkable(newPosition)) {
+            setPosition(newPosition);
+        }
+    }
+
+    public void moveLeft() {
+        Position newPosition = new Position(getPosition().getCol() - 1, getPosition().getRow());
+        if (isWalkable(newPosition)) {
+            setPosition(newPosition);
+        }
+    }
+
+    public void moveRight() {
+        Position newPosition = new Position(getPosition().getCol() + 1, getPosition().getRow());
+        if (isWalkable(newPosition)) {
+
+            setPosition(newPosition);
+        }
+    }
+
 
     @Override
     public void kill(Movable movable) {
@@ -72,5 +104,26 @@ public class Player extends GameObject implements Movable, Interactable {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public static Direction changeDirection(Direction direction) {
+
+        int randomNumber = (int) (Math.random() * 2);
+
+        if (randomNumber == 0) {
+
+            return Direction.turnRight(direction);
+        } else {
+            return Direction.turnLeft(direction);
+        }
+    }
+
+    public boolean isWalkable(Position position) {
+        for (Position p : Representation.getWalkablePositions()) {
+
+            if (p.comparePos(position))
+                return true;
+        }
+        return false;
     }
 }

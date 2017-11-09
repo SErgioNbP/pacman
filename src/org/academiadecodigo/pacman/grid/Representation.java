@@ -66,23 +66,13 @@ public class Representation {
 
         screenWriter = new ScreenWriter(screen);
         screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), " ", Terminal.Color.GREEN, Terminal.Color.GREEN);
-        screenWriter.setBackgroundColor(player.getColor());
+        //screenWriter.setBackgroundColor(player.getColor());
 
         screen.refresh();
     }
 
     public static LinkedList<Position> getWalkablePositions() {
         return walkablePositions;
-    }
-
-    public Position getWalkablePos(int col, int row) {
-
-        Position pos = new Position(col, row);
-        if (walkablePositions.contains(pos)) {
-            return pos;
-        }
-
-        return null;
     }
 
     public Screen getScreen() {

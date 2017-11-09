@@ -29,4 +29,37 @@ public enum Direction {
     public int getMoveRow() {
         return moveRow;
     }
+
+
+    public static Direction turnRight(Direction direction) {
+
+        switch (direction) {
+            case UP:
+                return RIGHT;
+            case DOWN:
+                return LEFT;
+            case LEFT:
+                return UP;
+            case RIGHT:
+                return DOWN;
+            default:
+                return UP;
+        }
+    }
+
+    public static Direction turnLeft(Direction direction) {
+
+        switch (direction) {
+            case UP:
+                return LEFT;
+            case DOWN:
+                return RIGHT;
+            case LEFT:
+                return DOWN;
+            case RIGHT:
+                return UP;
+            default:
+                return UP;
+        }
+    }
 }
