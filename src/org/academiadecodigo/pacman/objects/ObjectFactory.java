@@ -4,7 +4,7 @@ import org.academiadecodigo.pacman.Constants;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.grid.Representation;
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
-import org.academiadecodigo.pacman.objects.fruit.powers.p1;
+import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
 import org.academiadecodigo.pacman.objects.movables.Ghost;
 
 import java.util.LinkedList;
@@ -33,7 +33,7 @@ public class ObjectFactory {
         }
 
         for (int i = 0; i < Constants.NUM_POWERS; i++) {
-            objects.add(new p1(Constants.POWERUPS[i]));
+            objects.add(new Apple(Constants.POWERUPS[i]));
         }
         return objects;
     }
