@@ -1,6 +1,11 @@
 package org.academiadecodigo.pacman;
 
+import com.googlecode.lanterna.TerminalFacade;
+import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.grid.Position;
+import org.academiadecodigo.pacman.grid.Representation;
+import org.academiadecodigo.pacman.objects.movables.Ghost;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -59,6 +64,12 @@ public class FileHelper {
     }
 
     public static void generateLists() {
+
+        // getGhosts
+        // getPlayers
+        // getPoints
+        // getApples
+
 
         allPositions = new LinkedList<>();
 
@@ -134,5 +145,32 @@ public class FileHelper {
         mapColumn = mapRow[row].toCharArray();
 
         return mapColumn[col];
+    }
+
+    public static void decode(String receivedString, Ghost ghost) {
+
+        String[] strings = receivedString.split(" ");
+
+        if (strings[0].equals("Ghost")) {
+
+            ghost.setPositionColRow(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
+        }
+    }
+
+    public static Ghost[] createGhosts() {
+
+        //Ghost[] ghosts = new Ghost[ghostsPositions.size()];
+        Ghost[] ghosts = new Ghost[1];
+
+        ghosts[0] = new Ghost(new Position(42, 7));
+        /*
+        for (int i = 0; i < ghostsPositions.size(); i++) {
+            Ghost ghost = new Ghost(ghostsPositions.get(i));
+            ghosts[i] = ghost;
+        }
+        */
+
+        return ghosts;
+
     }
 }

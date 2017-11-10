@@ -10,51 +10,49 @@ import java.net.SocketException;
  */
 public class Server {
 
-    public static void main(String[] args) {
-
-        while (true) {
-
-            try {
-
-                int portNumber = 9090;
-
-                byte[] sendBuffer = new byte[1024];
-
-                byte[] receiveBuffer = new byte[1024];
-
-                DatagramSocket socket = new DatagramSocket(portNumber);
-
-                DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
-
-                socket.receive(receivedPacket);
-
-                String stringReceived = new String(receivedPacket.getData(), 0, receivedPacket.getLength());
-
-                System.out.println(stringReceived);
-
-                System.out.println(receivedPacket.getPort());
-
-                String stringToSend = stringReceived.toUpperCase();
-
-                sendBuffer = stringToSend.getBytes();
-
-                DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, receivedPacket.getAddress(), receivedPacket.getPort());
-
-                socket.send(sendPacket);
-
-                socket.close();
+    public void broadcast(String string) {
 
 
-            } catch (SocketException e) {
+        try {
 
-                e.printStackTrace();
+            int portNumber = 9090;
 
-            } catch (IOException e) {
+            byte[] sendBuffer = new byte[1024];
 
-                e.printStackTrace();
-            }
+            byte[] receiveBuffer = new byte[1024];
 
+            DatagramSocket socket = new DatagramSocket(portNumber);
+
+            DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+
+            socket.receive(receivedPacket);
+
+            String stringReceived = new String(receivedPacket.getData(), 0, receivedPacket.getLength());
+
+            System.out.println(stringReceived);
+
+            System.out.println(receivedPacket.getPort());
+
+            String stringToSend = stringReceived.toUpperCase();
+
+            sendBuffer = string.getBytes();
+
+            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, receivedPacket.getAddress(), receivedPacket.getPort());
+
+            socket.send(sendPacket);
+
+            socket.close();
+
+
+        } catch (SocketException e) {
+
+            e.printStackTrace();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
         }
 
     }
+
 }

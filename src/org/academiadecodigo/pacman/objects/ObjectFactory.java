@@ -19,7 +19,7 @@ public class ObjectFactory {
 
         return objects.size();
     }
-
+/*
     public static List<GameObject> createGameObjects() {
 
         objects = new LinkedList<>();
@@ -38,4 +38,6 @@ public class ObjectFactory {
 
         return objects;
     }
+
+    */
 }

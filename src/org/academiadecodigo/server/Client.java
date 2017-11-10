@@ -1,5 +1,8 @@
 package org.academiadecodigo.server;
 
+import org.academiadecodigo.pacman.FileHelper;
+import org.academiadecodigo.pacman.Game;
+
 import java.io.IOException;
 import java.net.*;
 import java.util.Scanner;
@@ -11,32 +14,39 @@ public class Client {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        String stringToSend = "start";
 
-        String stringToSend = scanner.next();
+        Game game = new Game();
 
         byte[] sendBuffer = stringToSend.getBytes();
 
-        byte[] receiveBuffer = new byte [1024];
+        byte[] receiveBuffer = new byte[1024];
 
         //byte[] serverAddress = {127, 0, 0, 1};
 
         try {
-            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("192.168.0.22"), 12345);
 
-            DatagramSocket socket = new DatagramSocket();
+            game.init();
+            while (true) {
 
-            socket.send(sendPacket);
+                DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("localhost"), 9090);
 
-            DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+                DatagramSocket socket = new DatagramSocket();
 
-            socket.receive(receivedPacket);
+                socket.send(sendPacket);
 
-            String receivedString = new String(receivedPacket.getData());
+                DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
-            System.out.println(receivedString.trim());
+                socket.receive(receivedPacket);
 
-            socket.close();
+                String receivedString = new String(receivedPacket.getData());
+
+                game.updatePositions(receivedString.trim());
+
+                System.out.println(receivedString.trim());
+
+                socket.close();
+            }
 
         } catch (UnknownHostException e) {
 

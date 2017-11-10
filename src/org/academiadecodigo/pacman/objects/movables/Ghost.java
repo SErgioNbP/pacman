@@ -20,9 +20,9 @@ public class Ghost extends GameObject implements Movable {
         super(position, ObjectType.GHOST);
         direction = Direction.UP;
     }
-
     @Override
     public void move() {
+/*
         int randomNumber = (int) (Math.random() * 50);
 
         if (randomNumber < 20){
@@ -52,7 +52,7 @@ public class Ghost extends GameObject implements Movable {
         }
 
         direction = Direction.changeGhostDirection();
-    }
+    */}
 
     @Override
     public void kill(List<GameObject> gameObjects) {
@@ -66,5 +66,10 @@ public class Ghost extends GameObject implements Movable {
                 return true;
         }
         return false;
+    }
+
+    public void setPositionColRow(int col, int row){
+
+        this.position = new Position(col, row);
     }
 }
