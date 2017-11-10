@@ -7,10 +7,12 @@ import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.Constants;
 import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.fruit.Fruit;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.util.List;
 
+import static org.academiadecodigo.pacman.objects.ObjectType.FRUIT;
 import static org.academiadecodigo.pacman.objects.ObjectType.POWERUP;
 
 public class Representation {
@@ -86,7 +88,6 @@ public class Representation {
 
             } else if (FileHelper.points.contains(pos)) {
                 color = Terminal.Color.BLACK;
-                stringColor = Terminal.Color.YELLOW;
             }
 
             screen.putString(col, row, label.toString(), stringColor, color);
@@ -128,6 +129,7 @@ public class Representation {
         }
     }
 
+    // TODO THIS LOGIC SHOULD BE IN GAME CLASS
     private void drawPlayers(Player player) {
 
         if (!player.isKilled()) {

@@ -6,6 +6,7 @@ import org.academiadecodigo.pacman.grid.Representation;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.ObjectFactory;
+import org.academiadecodigo.pacman.objects.fruit.Fruit;
 import org.academiadecodigo.pacman.objects.movables.Movable;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
@@ -81,6 +82,9 @@ public class Game {
 
             for (GameObject gameObject : objects) {
                 player.kill(objects);
+                if(gameObject instanceof Fruit) {
+                    player.eat(gameObject);
+                }
             }
 
             representation.drawGrid(FileHelper.allPositions);

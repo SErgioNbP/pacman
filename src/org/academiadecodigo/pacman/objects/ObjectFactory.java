@@ -23,9 +23,9 @@ public class ObjectFactory {
     public static List<GameObject> createGameObjects() {
 
         objects = new LinkedList<>();
+
         for (int i = 0; i < FileHelper.path.size(); i++) {
             objects.add(new Fruit(FileHelper.path.get(i)));
-            System.out.println("here");
         }
 
         for (int i = 0; i < Constants.NUM_GHOSTS; i++) {
