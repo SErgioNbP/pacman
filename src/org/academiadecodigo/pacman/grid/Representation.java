@@ -89,7 +89,6 @@ public class Representation {
                 stringColor = Terminal.Color.YELLOW;
             }
 
-            System.out.println(label.toString());
             screen.putString(col, row, label.toString(), stringColor, color);
         }
     }

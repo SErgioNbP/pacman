@@ -8,14 +8,15 @@ import java.util.List;
 
 public class FileHelper {
 
-    public static List<Position> allPositions = new LinkedList<>();
+    public static List<Position> allPositions;
 
-    public static List<Position> path = new LinkedList<>();
-    public static List<Position> walls = new LinkedList<>();
-    public static List<Position> ghosts = new LinkedList<>();
-    public static List<Position> points = new LinkedList<>();
-    public static List<Position> apples = new LinkedList<>();
-    public static List<Position> players = new LinkedList<>();
+    public static List<Position> walls;
+    public static List<Position> path;
+    public static List<Position> players;
+    public static List<Position> ghosts;
+    public static List<Position> apples;
+    public static List<Position> points;
+
     public static List<Position> edibles;
     public static List<Position> movables;
 
@@ -59,6 +60,15 @@ public class FileHelper {
 
     public static void generateLists() {
 
+        allPositions = new LinkedList<>();
+
+        walls = new LinkedList<>();
+        path = new LinkedList<>();
+        players = new LinkedList<>();
+        ghosts = new LinkedList<>();
+        apples = new LinkedList<>();
+        points = new LinkedList<>();
+
         String[] mapRow = readFromFile().split("\\n");
 
         for (int i = 0; i < mapRow.length; i++) {
@@ -73,9 +83,6 @@ public class FileHelper {
                 if (currentChar == '1') {
                     walls.add(position);
 
-                } else if (!walls.contains(position)) {
-                    path.add(position);
-
                 } else if (currentChar == 'P') {
                     players.add(position);
 
@@ -87,11 +94,16 @@ public class FileHelper {
 
                 } else if (currentChar == '0') {
                     points.add(position);
+
+                } else if (!walls.contains(position)) {
+                    path.add(position);
                 }
+
             }
 
-            allPositions();
         }
+
+        allPositions();
     }
 
     public static void allPositions() {
@@ -99,7 +111,6 @@ public class FileHelper {
         getMovables();
         getEdibles();
 
-        allPositions = new LinkedList<>();
         allPositions.addAll(walls);
         allPositions.addAll(movables);
         allPositions.addAll(edibles);
@@ -117,11 +128,5 @@ public class FileHelper {
         edibles = new LinkedList<>();
         edibles.addAll(apples);
         edibles.addAll(points);
-    }
-
-    public Character charAtPosition(Position pos) {
-
-
-
     }
 }
