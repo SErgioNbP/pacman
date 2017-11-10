@@ -130,6 +130,7 @@ public class Representation {
     }
 
     // TODO THIS LOGIC SHOULD BE IN GAME CLASS
+
     private void drawPlayers(Player player) {
 
         if (!player.isKilled()) {
