@@ -117,14 +117,15 @@ public class Player implements Movable, Interactable {
 
             if (position.comparePos(gameObject.getPosition()) && gameObject instanceof Ghost) {
                 alive = false;
-                System.out.println("player dead");
             }
         }
     }
 
-    public void eat(Fruit e) {
-        if (position.comparePos(e.getPosition())) {
-            points += e.getPoints();
+    public void eat(GameObject e) {
+        Fruit fruit = (Fruit) e;
+        if (position.comparePos(fruit.getPosition())) {
+            points += fruit.getPoints();
+            fruit.setEaten();
         }
     }
 

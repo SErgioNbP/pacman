@@ -7,11 +7,13 @@ import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.Constants;
 import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.objects.GameObject;
+import org.academiadecodigo.pacman.objects.fruit.Fruit;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.academiadecodigo.pacman.objects.ObjectType.FRUIT;
 import static org.academiadecodigo.pacman.objects.ObjectType.POWERUP;
 
 public class Representation {
@@ -51,6 +53,13 @@ public class Representation {
 
         for (GameObject gameObject : gameObjects) {
 
+            if(gameObject.getType().equals(FRUIT)) {
+                Fruit fruit = (Fruit)gameObject;
+                if(fruit.isEaten()){
+                    continue;
+                }
+            }
+
             int col = gameObject.getPosition().getCol();
             int row = gameObject.getPosition().getRow();
             String label = gameObject.getType().getLabel();
@@ -61,7 +70,6 @@ public class Representation {
                 stringColor = Terminal.Color.RED;
 
             } else {
-                System.out.println(gameObject.getType() + "here");
                 stringColor = Terminal.Color.YELLOW;
             }
 

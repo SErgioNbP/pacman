@@ -25,7 +25,6 @@ public class ObjectFactory {
         objects = new LinkedList<>();
         for (int i = 0; i < Representation.walkablePositions.size(); i++) {
             objects.add(new Fruit(Representation.walkablePositions.get(i)));
-            System.out.println("here");
         }
 
         for (int i = 0; i < Constants.NUM_GHOSTS; i++) {
