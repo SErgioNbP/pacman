@@ -8,8 +8,10 @@ public class Test2 {
 
         FileHelper.generateLists();
 
+        System.out.println(FileHelper.getCurrentChar(2,2));
         for (Position pos : FileHelper.allPositions) {
             System.out.println("ALL_POSITIONS : (" + pos.getCol() + "," + pos.getRow() + ")");
+            System.out.println(FileHelper.currentChar);
         }
 
         for (Position pos : FileHelper.players) {

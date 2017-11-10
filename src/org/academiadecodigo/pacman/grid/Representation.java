@@ -65,7 +65,8 @@ public class Representation {
 
             int col = pos.getCol();
             int row = pos.getRow();
-            Character label = FileHelper.currentChar;
+            // TODO METHOD TO GIVE ME CHAR ACCORDING TO POSITION @ FILEHELPER
+            Character label = FileHelper.getCurrentChar(col, row);
             Terminal.Color stringColor = Terminal.Color.WHITE;
             Terminal.Color color = Terminal.Color.WHITE;
 
@@ -88,6 +89,7 @@ public class Representation {
 
             } else if (FileHelper.points.contains(pos)) {
                 color = Terminal.Color.BLACK;
+                stringColor = Terminal.Color.YELLOW;
             }
 
             screen.putString(col, row, label.toString(), stringColor, color);

@@ -12,7 +12,7 @@ public class PlayerClient {
 
         try {
 
-            File file = new File("Map");
+            File file = new File("map");
 
             Socket clientSocket = new Socket(hostname, potNumber);
 

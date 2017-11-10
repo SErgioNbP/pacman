@@ -17,14 +17,16 @@ public class FileHelper {
     public static List<Position> apples;
     public static List<Position> points;
 
-    public static List<Position> edibles;
-    public static List<Position> movables;
+    private static List<Position> edibles;
+    private static List<Position> movables;
+
+    private static String[] mapRow;
+    private static char[] mapColumn;
 
     public static char currentChar;
 
-    public static String readFromFile() {
+    private static String readFromFile(String path) {
 
-        String path = "Map2";
         String result = "";
         BufferedReader reader = null;
 
@@ -69,15 +71,15 @@ public class FileHelper {
         apples = new LinkedList<>();
         points = new LinkedList<>();
 
-        String[] mapRow = readFromFile().split("\\n");
+        mapRow = readFromFile("resources/map").split("\\n");
 
         for (int i = 0; i < mapRow.length; i++) {
 
-            char[] mapColumn = mapRow[i].toCharArray();
+            mapColumn = mapRow[i].toCharArray();
 
             for (int j = 0; j < mapColumn.length; j++) {
 
-                currentChar = mapColumn[j];
+                char currentChar = mapColumn[j];
                 Position position = new Position(j, i);
 
                 if (currentChar == '1') {
@@ -92,21 +94,19 @@ public class FileHelper {
                 } else if (currentChar == '') {
                     apples.add(position);
 
-                } else if (currentChar == '0') {
+                } else if (currentChar == '.') {
                     points.add(position);
 
                 } else if (!walls.contains(position)) {
                     path.add(position);
                 }
-
             }
-
         }
 
         allPositions();
     }
 
-    public static void allPositions() {
+    private static void allPositions() {
 
         getMovables();
         getEdibles();
@@ -123,10 +123,18 @@ public class FileHelper {
         movables.addAll(players);
     }
 
-    public static void getEdibles() {
+    private static void getEdibles() {
 
         edibles = new LinkedList<>();
         edibles.addAll(apples);
         edibles.addAll(points);
+    }
+
+    public static char getCurrentChar(int col, int row) {
+
+        mapColumn = mapRow[row].toCharArray();
+        currentChar = mapColumn[col];
+
+        return currentChar;
     }
 }
