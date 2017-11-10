@@ -17,7 +17,6 @@ public class Representation {
 
     private Screen screen;
     private ScreenWriter screenWriter;
-    private String[] mapRow;
 
     public void init() {
 
@@ -33,8 +32,7 @@ public class Representation {
 
         FileHelper.generateLists();
     }
-
-    //public void drawGrid(List<Position> positions, Player player) {
+/*
     public void drawGrid(List<GameObject> gameObjects, Player player) {
 
         screen.clear();
@@ -45,11 +43,20 @@ public class Representation {
 
         drawPlayers(player);
 
-       // drawEverything(positions);
+        screen.refresh();
+    }
+
+    */
+
+    public void drawGrid(List<Position> positions) {
+
+        screen.clear();
+
+        drawEverything(positions);
 
         screen.refresh();
     }
-/*
+
     private void drawEverything(List<Position> positions) {
 
         for (Position pos : positions) {
@@ -57,35 +64,37 @@ public class Representation {
             int col = pos.getCol();
             int row = pos.getRow();
             Character label = FileHelper.currentChar;
-            Terminal.Color stringColor;
-            Terminal.Color color;
+            Terminal.Color stringColor = Terminal.Color.WHITE;
+            Terminal.Color color = Terminal.Color.WHITE;
 
+            /*
             if (FileHelper.walls.contains(pos)) {
                 color = Terminal.Color.WHITE;
-
-            } else if (FileHelper.players.contains(pos)) {
+                stringColor = color;
+*/
+            if (FileHelper.players.contains(pos)) {
                 color = Terminal.Color.YELLOW;
+                stringColor = color;
 
             } else if (FileHelper.ghosts.contains(pos)) {
                 color = Terminal.Color.BLUE;
+                stringColor = color;
 
-            } else {
+            } else if (FileHelper.apples.contains(pos)) {
                 color = Terminal.Color.BLACK;
-            }
-
-            if (FileHelper.apples.contains(pos)) {
                 stringColor = Terminal.Color.RED;
 
             } else if (FileHelper.points.contains(pos)) {
+                color = Terminal.Color.BLACK;
                 stringColor = Terminal.Color.YELLOW;
-
-            } else if (FileHelper.movables.contains(pos)) {
-                stringColor = color;
             }
 
+            System.out.println(label.toString());
+            screen.putString(col, row, label.toString(), stringColor, color);
         }
     }
-*/
+
+
     public Screen getScreen() {
         return screen;
     }

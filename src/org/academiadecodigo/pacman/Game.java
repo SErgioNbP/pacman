@@ -34,7 +34,8 @@ public class Game {
         player = new Player(new Position(42, 7));
         players.add(player);
 
-        representation.drawGrid(objects, player);
+        representation.drawGrid(FileHelper.allPositions);
+        //representation.drawGrid(objects, player);
 
         start();
     }
@@ -82,7 +83,8 @@ public class Game {
                 player.kill(objects);
             }
 
-            representation.drawGrid(objects, player);
+            representation.drawGrid(FileHelper.allPositions);
+            //representation.drawGrid(objects, player);
         }
     }
 }

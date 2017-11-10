@@ -23,7 +23,7 @@ public class FileHelper {
 
     public static String readFromFile() {
 
-        String path = "Map";
+        String path = "Map2";
         String result = "";
         BufferedReader reader = null;
 
@@ -85,7 +85,7 @@ public class FileHelper {
                 } else if (currentChar == '') {
                     apples.add(position);
 
-                } else if (currentChar == '.') {
+                } else if (currentChar == '0') {
                     points.add(position);
                 }
             }
@@ -117,5 +117,11 @@ public class FileHelper {
         edibles = new LinkedList<>();
         edibles.addAll(apples);
         edibles.addAll(points);
+    }
+
+    public Character charAtPosition(Position pos) {
+
+
+
     }
 }
