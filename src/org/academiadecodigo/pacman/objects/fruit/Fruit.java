@@ -29,7 +29,7 @@ public class Fruit extends GameObject implements Edible {
         return eaten;
     }
 
-    public void setEaten() {
+    public void eat() {
         eaten = true;
     }
 }

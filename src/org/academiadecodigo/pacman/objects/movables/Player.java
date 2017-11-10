@@ -41,7 +41,6 @@ public class Player implements Movable, Interactable {
 
     @Override
     public void onLeaveFocus(FocusChangeDirection focusChangeDirection) {
-
     }
 
     @Override
@@ -125,7 +124,7 @@ public class Player implements Movable, Interactable {
         Fruit fruit = (Fruit) e;
         if (position.comparePos(fruit.getPosition())) {
             points += fruit.getPoints();
-            fruit.setEaten();
+            fruit.eat();
         }
     }
 

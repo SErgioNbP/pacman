@@ -17,13 +17,11 @@ public class FileHelper {
     public static List<Position> apples;
     public static List<Position> points;
 
-    private static List<Position> edibles;
-    private static List<Position> movables;
+    public static List<Position> edibles;
+    public static List<Position> movables;
 
     private static String[] mapRow;
     private static char[] mapColumn;
-
-    public static char currentChar;
 
     private static String readFromFile(String path) {
 
@@ -82,20 +80,20 @@ public class FileHelper {
                 char currentChar = mapColumn[j];
                 Position position = new Position(j, i);
 
-                if (currentChar == '1') {
+                if (currentChar == '0') {
                     walls.add(position);
 
-                } else if (currentChar == 'P') {
-                    players.add(position);
+                } else if (currentChar == '1') {
+                    points.add(position);
 
-                } else if (currentChar == 'G') {
-                    ghosts.add(position);
-
-                } else if (currentChar == '') {
+                } else if (currentChar == '2') {
                     apples.add(position);
 
-                } else if (currentChar == '.') {
-                    points.add(position);
+                } else if (currentChar == '3') {
+                    ghosts.add(position);
+
+                } else if (currentChar == '6') {
+                    players.add(position);
 
                 } else if (!walls.contains(position)) {
                     path.add(position);
@@ -104,6 +102,7 @@ public class FileHelper {
         }
 
         allPositions();
+
     }
 
     private static void allPositions() {
@@ -133,8 +132,7 @@ public class FileHelper {
     public static char getCurrentChar(int col, int row) {
 
         mapColumn = mapRow[row].toCharArray();
-        currentChar = mapColumn[col];
 
-        return currentChar;
+        return mapColumn[col];
     }
 }

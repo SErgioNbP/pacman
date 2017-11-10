@@ -18,12 +18,12 @@ import static org.academiadecodigo.pacman.objects.ObjectType.POWERUP;
 public class Representation {
 
     private Screen screen;
-    private ScreenWriter screenWriter;
+    //private ScreenWriter screenWriter;
 
     public void init() {
 
         screen = TerminalFacade.createScreen();
-        screenWriter = new ScreenWriter(screen);
+        //screenWriter = new ScreenWriter(screen);
 
         screen.setCursorPosition(null);
 
@@ -33,22 +33,9 @@ public class Representation {
         screen.startScreen();
 
         FileHelper.generateLists();
+
+        drawGrid(FileHelper.allPositions);
     }
-/*
-    public void drawGrid(List<GameObject> gameObjects, Player player) {
-
-        screen.clear();
-
-        drawWalls();
-
-        drawObjects(gameObjects);
-
-        drawPlayers(player);
-
-        screen.refresh();
-    }
-
-    */
 
     public void drawGrid(List<Position> positions) {
 
@@ -65,16 +52,10 @@ public class Representation {
 
             int col = pos.getCol();
             int row = pos.getRow();
-            // TODO METHOD TO GIVE ME CHAR ACCORDING TO POSITION @ FILEHELPER
-            Character label = FileHelper.getCurrentChar(col, row);
+            String label = " ";
             Terminal.Color stringColor = Terminal.Color.WHITE;
             Terminal.Color color = Terminal.Color.WHITE;
 
-            /*
-            if (FileHelper.walls.contains(pos)) {
-                color = Terminal.Color.WHITE;
-                stringColor = color;
-*/
             if (FileHelper.players.contains(pos)) {
                 color = Terminal.Color.YELLOW;
                 stringColor = color;
@@ -86,20 +67,36 @@ public class Representation {
             } else if (FileHelper.apples.contains(pos)) {
                 color = Terminal.Color.BLACK;
                 stringColor = Terminal.Color.RED;
+                label = "";
 
             } else if (FileHelper.points.contains(pos)) {
                 color = Terminal.Color.BLACK;
                 stringColor = Terminal.Color.YELLOW;
+                label = ".";
             }
 
-            screen.putString(col, row, label.toString(), stringColor, color);
+            screen.putString(col, row, label, stringColor, color);
         }
     }
-
 
     public Screen getScreen() {
         return screen;
     }
+
+    /*
+    public void drawGrid(List<GameObject> gameObjects, Player player) {
+
+        screen.clear();
+
+        drawWalls();
+
+        drawObjects(gameObjects);
+
+        drawPlayers(player);
+
+        screen.refresh();
+    }
+
 
     public void drawWalls() {
 
@@ -109,6 +106,7 @@ public class Representation {
             screenWriter.setBackgroundColor(Terminal.Color.WHITE);
         }
     }
+
 
     public void drawObjects(List<GameObject> gameObjects) {
 
@@ -139,4 +137,5 @@ public class Representation {
             screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), " ", Terminal.Color.WHITE, Terminal.Color.YELLOW);
         }
     }
+    */
 }

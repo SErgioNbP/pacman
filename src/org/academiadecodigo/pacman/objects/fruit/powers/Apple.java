@@ -30,7 +30,7 @@ public class Apple extends GameObject implements Power,Edible {
     }
 
     @Override
-    public void setEaten() {
+    public void eat() {
         eaten = !eaten;
     }
 

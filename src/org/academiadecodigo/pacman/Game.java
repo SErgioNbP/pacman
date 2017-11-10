@@ -5,7 +5,6 @@ import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Representation;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
-import org.academiadecodigo.pacman.objects.ObjectFactory;
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
 import org.academiadecodigo.pacman.objects.movables.Movable;
 import org.academiadecodigo.pacman.objects.movables.Player;
@@ -13,14 +12,12 @@ import org.academiadecodigo.pacman.objects.movables.Player;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by codecadet on 05/11/17.
- */
+
 public class Game {
 
-    private List<GameObject> objects;
-    private List<Player> players;
-    private Player player;
+    //private List<GameObject> objects;
+    //private List<Player> players;
+    //private Player player;
     private Representation representation;
 
     public void init() {
@@ -28,6 +25,7 @@ public class Game {
         representation = new Representation();
         representation.init();
 
+        /*
         objects = new LinkedList<>();
         objects.addAll(ObjectFactory.createGameObjects());
 
@@ -35,12 +33,14 @@ public class Game {
         player = new Player(new Position(42, 7));
         players.add(player);
 
-        representation.drawGrid(FileHelper.allPositions);
-        //representation.drawGrid(objects, player);
+        representation.drawGrid(objects, player);
 
         start();
+        */
     }
 
+
+    /*
     public void start() {
 
         while (true) {
@@ -66,8 +66,10 @@ public class Game {
                     player.setNextDirection(Direction.UP);
                 }
             }
+
             try {
                 Thread.sleep(200);
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -91,5 +93,6 @@ public class Game {
             //representation.drawGrid(objects, player);
         }
     }
+    */
 }
 

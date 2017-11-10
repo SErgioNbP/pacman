@@ -6,5 +6,5 @@ public interface Edible {
 
     boolean isEaten();
 
-    void setEaten();
+    void eat();
 }
