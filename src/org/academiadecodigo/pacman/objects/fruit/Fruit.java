@@ -8,7 +8,7 @@ import org.academiadecodigo.pacman.objects.ObjectType;
 /**
  * Created by codecadet on 05/11/17.
  */
-public class Fruit extends GameObject {
+public class Fruit extends GameObject implements Edible {
 
     //Properties
     private int points;
