@@ -9,7 +9,6 @@ import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.academiadecodigo.pacman.objects.ObjectType.POWERUP;
@@ -19,33 +18,88 @@ public class Representation {
     private Screen screen;
     private ScreenWriter screenWriter;
     private String[] mapRow;
-    public static LinkedList<Position> walkablePositions = new LinkedList<>();
 
     public void init() {
 
         screen = TerminalFacade.createScreen();
+        screenWriter = new ScreenWriter(screen);
+
+        screen.setCursorPosition(null);
 
         screen.getTerminal().getTerminalSize().setColumns(Constants.GRID_COLS);
         screen.getTerminal().getTerminalSize().setRows(Constants.GRID_ROWS);
 
-        screen.setCursorPosition(null);
-
-        screenWriter = new ScreenWriter(screen);
-
         screen.startScreen();
 
-        mapRow = FileHelper.readFromFile().split("\\n");
-
-        createWalkablePositions();
-
+        FileHelper.generateLists();
     }
 
+    //public void drawGrid(List<Position> positions, Player player) {
     public void drawGrid(List<GameObject> gameObjects, Player player) {
 
         screen.clear();
 
         drawWalls();
 
+        drawObjects(gameObjects);
+
+        drawPlayers(player);
+
+       // drawEverything(positions);
+
+        screen.refresh();
+    }
+/*
+    private void drawEverything(List<Position> positions) {
+
+        for (Position pos : positions) {
+
+            int col = pos.getCol();
+            int row = pos.getRow();
+            Character label = FileHelper.currentChar;
+            Terminal.Color stringColor;
+            Terminal.Color color;
+
+            if (FileHelper.walls.contains(pos)) {
+                color = Terminal.Color.WHITE;
+
+            } else if (FileHelper.players.contains(pos)) {
+                color = Terminal.Color.YELLOW;
+
+            } else if (FileHelper.ghosts.contains(pos)) {
+                color = Terminal.Color.BLUE;
+
+            } else {
+                color = Terminal.Color.BLACK;
+            }
+
+            if (FileHelper.apples.contains(pos)) {
+                stringColor = Terminal.Color.RED;
+
+            } else if (FileHelper.points.contains(pos)) {
+                stringColor = Terminal.Color.YELLOW;
+
+            } else if (FileHelper.movables.contains(pos)) {
+                stringColor = color;
+            }
+
+        }
+    }
+*/
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public void drawWalls() {
+
+        for (Position position : FileHelper.walls) {
+
+            screenWriter.drawString(position.getCol(), position.getRow(), " ");
+            screenWriter.setBackgroundColor(Terminal.Color.WHITE);
+        }
+    }
+
+    public void drawObjects(List<GameObject> gameObjects) {
 
         for (GameObject gameObject : gameObjects) {
 
@@ -59,51 +113,17 @@ public class Representation {
                 stringColor = Terminal.Color.RED;
 
             } else {
-                System.out.println(gameObject.getType() + "here");
                 stringColor = Terminal.Color.YELLOW;
             }
 
             screen.putString(col, row, label, stringColor, color);
         }
+    }
+
+    private void drawPlayers(Player player) {
+
         if (!player.isKilled()) {
             screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), " ", Terminal.Color.WHITE, Terminal.Color.YELLOW);
-        }
-
-        screen.refresh();
-    }
-
-    public Screen getScreen() {
-        return screen;
-    }
-
-    public void createWalkablePositions() {
-        for (int i = 0; i < mapRow.length; i++) {
-
-            char[] mapColumn = mapRow[i].toCharArray();
-
-            for (int j = 0; j < mapColumn.length; j++) {
-
-                if (mapColumn[j] == '0') {
-                    walkablePositions.add(new Position(j, i));
-                }
-            }
-        }
-    }
-
-
-    public void drawWalls() {
-
-        for (int i = 0; i < mapRow.length; i++) {
-
-            char[] mapColumn = mapRow[i].toCharArray();
-
-            for (int j = 0; j < mapColumn.length; j++) {
-
-                if (mapColumn[j] == '1') {
-                    screenWriter.drawString(j, i, " ");
-                    screenWriter.setBackgroundColor(Terminal.Color.WHITE);
-                }
-            }
         }
     }
 }

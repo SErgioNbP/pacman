@@ -29,6 +29,11 @@ public enum Direction {
     public int getMoveRow() {
         return moveRow;
     }
+
+    public static Direction changeGhostDirection(){
+        return randomDirection();
+    }
+
     /*
     public static Direction turnInDirection(Direction direction) {
 
@@ -73,10 +78,6 @@ public enum Direction {
         }
     }*/
 
-    public static Direction changeGhostDirection(){
-
-        return randomDirection();
-    }
 
     /*
     public static Direction changeDirection(Direction direction) {

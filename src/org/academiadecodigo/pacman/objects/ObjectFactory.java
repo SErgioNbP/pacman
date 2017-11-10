@@ -1,8 +1,8 @@
 package org.academiadecodigo.pacman.objects;
 
 import org.academiadecodigo.pacman.Constants;
+import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.grid.Representation;
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
 import org.academiadecodigo.pacman.objects.fruit.powers.p1;
 import org.academiadecodigo.pacman.objects.movables.Ghost;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ObjectFactory {
 
-    private LinkedList<Position> edibles = Representation.walkablePositions;
+    private List<Position> edibles = FileHelper.path;
     private static List<GameObject> objects;
 
     public int getTotalObjects() {
@@ -23,8 +23,8 @@ public class ObjectFactory {
     public static List<GameObject> createGameObjects() {
 
         objects = new LinkedList<>();
-        for (int i = 0; i < Representation.walkablePositions.size(); i++) {
-            objects.add(new Fruit(Representation.walkablePositions.get(i)));
+        for (int i = 0; i < FileHelper.path.size(); i++) {
+            objects.add(new Fruit(FileHelper.path.get(i)));
             System.out.println("here");
         }
 

@@ -3,8 +3,8 @@ package org.academiadecodigo.pacman.objects.movables;
 import com.googlecode.lanterna.gui.Interactable;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.terminal.TerminalPosition;
+import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.grid.Direction;
-import org.academiadecodigo.pacman.grid.Representation;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
@@ -134,7 +134,7 @@ public class Player implements Movable, Interactable {
 
 
     public boolean isWalkable(Position position) {
-        for (Position p : Representation.walkablePositions) {
+        for (Position p : FileHelper.path) {
 
             if (p.comparePos(position))
                 return true;
