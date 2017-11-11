@@ -1,16 +1,6 @@
 package org.academiadecodigo.pacman;
 
-import com.googlecode.lanterna.input.Key;
-import org.academiadecodigo.pacman.grid.Direction;
-import org.academiadecodigo.pacman.grid.Representation;
-import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.GameObject;
-import org.academiadecodigo.pacman.objects.fruit.Fruit;
-import org.academiadecodigo.pacman.objects.movables.Movable;
-import org.academiadecodigo.pacman.objects.movables.Player;
-
-import java.util.LinkedList;
-import java.util.List;
+import org.academiadecodigo.pacman.Screens.Representation;
 
 
 public class Game {
