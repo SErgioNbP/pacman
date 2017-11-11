@@ -1,4 +1,4 @@
-package org.academiadecodigo.pacman.Screens;
+package org.academiadecodigo.pacman.screens;
 
 import com.googlecode.lanterna.TerminalFacade;
 import org.academiadecodigo.pacman.Constants;

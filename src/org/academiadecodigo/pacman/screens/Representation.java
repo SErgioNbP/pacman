@@ -1,14 +1,10 @@
-package org.academiadecodigo.pacman.Screens;
+package org.academiadecodigo.pacman.screens;
 
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.Constants;
 import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.GameObject;
-import org.academiadecodigo.pacman.objects.fruit.Fruit;
-import org.academiadecodigo.pacman.objects.movables.Ghost;
-import org.academiadecodigo.pacman.objects.movables.Player;
 
 public class Representation {
 

@@ -50,12 +50,13 @@ public class Server {
 
                     byte[] receiveBuffer = new byte[1024];
 
-
                     DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
                     socket.receive(receivedPacket);
 
-                    //String stringReceived = new String(receivedPacket.getData(), 0, receivedPacket.getLength());
+                    String receivedString = new String(receivedPacket.getData()).trim();
+
+                    String[] strings = receivedString.split(" ");
 
                     String stringToSend = "";
 
@@ -65,7 +66,6 @@ public class Server {
                     }
 
                     sendBuffer = stringToSend.getBytes();
-                    System.out.println(receivedPacket.getPort());
 
                     DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, receivedPacket.getAddress(), receivedPacket.getPort());
 

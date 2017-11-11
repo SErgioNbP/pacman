@@ -1,4 +1,4 @@
-package org.academiadecodigo.pacman.Screens;
+package org.academiadecodigo.pacman.screens;
 
 /**
  * Created by codecadet on 11/11/2017.

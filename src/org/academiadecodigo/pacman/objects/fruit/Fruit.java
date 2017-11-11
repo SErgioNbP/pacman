@@ -1,26 +1,22 @@
 package org.academiadecodigo.pacman.objects.fruit;
 
-import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.GameObject;
-import org.academiadecodigo.pacman.objects.ObjectType;
 
 /**
  * Created by codecadet on 05/11/17.
  */
-public class Fruit extends GameObject implements Edible {
+public class Fruit implements Edible {
 
-    //Properties
+    private Position position;
     private int points;
-    private boolean eaten;
+    private volatile boolean eaten;
 
-    //Constructor
     public Fruit(Position position) {
-        super(position, ObjectType.FRUIT);
+        this.position = position;
+        eaten = false;
         points = 100;
     }
 
-    //Methods
     public int getPoints() {
         return points;
     }
@@ -31,5 +27,9 @@ public class Fruit extends GameObject implements Edible {
 
     public void eat() {
         eaten = true;
+    }
+
+    public Position getPosition() {
+        return position;
     }
 }

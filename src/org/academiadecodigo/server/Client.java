@@ -6,20 +6,15 @@ import java.net.DatagramSocket;
 import java.io.IOException;
 import java.net.*;
 
-/**
- * Created by codecadet on 26/10/17.
- */
 public class Client implements Runnable {
 
-    Game game;
-    String stringToSend;
+    private Game game;
+    private volatile String stringToSend;
 
     public Client(Game game) {
 
         this.game = game;
-
-        stringToSend = " ";
-
+        stringToSend = "";
     }
 
     @Override
@@ -27,26 +22,25 @@ public class Client implements Runnable {
 
         byte[] receiveBuffer = new byte[1024];
 
-        //byte[] serverAddress = {127, 0, 0, 1};
-
         try {
+
             DatagramSocket socket = new DatagramSocket();
-            System.out.println(socket.getLocalPort());
 
             while (true) {
 
                 byte[] sendBuffer = stringToSend.getBytes();
+                if (!stringToSend.equals("")) {
+
+                    System.out.println("lih");
+                }
+
 
                 DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("localhost"), 9090);
 
-
                 socket.send(sendPacket);
-
-                System.out.println("hhhhhhhhhhhhhhh");
+                System.out.println(new String(sendPacket.getData()));
 
                 DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
-
-                System.out.println("waiting");
 
                 socket.receive(receivedPacket);
 
@@ -54,19 +48,21 @@ public class Client implements Runnable {
 
                 game.updateGhostsPosition(receivedString.trim());
 
-                System.out.println(receivedString.trim());
-
+                stringToSend = "";
             }
 
         } catch (UnknownHostException e) {
-
             e.printStackTrace();
 
         } catch (SocketException e) {
-
             e.printStackTrace();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setStringToSend(String stringToSend) {
+        this.stringToSend = stringToSend;
     }
 }

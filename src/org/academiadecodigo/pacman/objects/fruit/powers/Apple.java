@@ -1,40 +1,38 @@
 package org.academiadecodigo.pacman.objects.fruit.powers;
 
 import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.GameObject;
-import org.academiadecodigo.pacman.objects.ObjectType;
 import org.academiadecodigo.pacman.objects.fruit.Edible;
 
-public class Apple extends GameObject implements Power,Edible {
+public class Apple implements Power, Edible {
 
-    //Properties
+    private Position position;
     private int points;
-    private boolean eaten;
+    private volatile boolean eaten;
     private Power power;
 
-    //Constructor
     public Apple(Position position) {
-        super(position, ObjectType.POWERUP);
+        this.position = position;
         points = 250;
+        eaten = false;
         // power = randomPower;
     }
 
-    @Override
     public int getPoints() {
         return points;
     }
 
-    @Override
     public boolean isEaten() {
         return eaten;
     }
 
-    @Override
     public void eat() {
-        eaten = !eaten;
+        eaten = true;
     }
 
-    @Override
+    public Position getPosition() {
+        return position;
+    }
+
     public Power getPower() {
         return power;
     }

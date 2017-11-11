@@ -1,6 +1,5 @@
-package org.academiadecodigo.pacman.Screens;
+package org.academiadecodigo.pacman.screens;
 
-import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
 
 /**

@@ -6,15 +6,11 @@ import com.googlecode.lanterna.terminal.TerminalPosition;
 import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.GameObject;
-import org.academiadecodigo.pacman.objects.fruit.Fruit;
+import org.academiadecodigo.pacman.objects.fruit.Edible;
 import org.academiadecodigo.pacman.objects.fruit.powers.Power;
 
 import java.util.List;
 
-/**
- * Created by codecadet on 05/11/17.
- */
 public class Player implements Movable, Interactable {
 
     private Direction direction = Direction.LEFT;
@@ -24,11 +20,12 @@ public class Player implements Movable, Interactable {
     private List<Position> walkablePositions;
     private Power power = null;
     private int points;
-    private boolean alive = true;
+    private boolean alive;
 
     public Player(Position position) {
 
         this.position = position;
+        alive = true;
         points = 0;
 
         walkablePositions = Utils.path;
@@ -41,7 +38,6 @@ public class Player implements Movable, Interactable {
 
     @Override
     public void onEnterFocus(FocusChangeDirection focusChangeDirection) {
-
     }
 
     @Override
@@ -56,8 +52,6 @@ public class Player implements Movable, Interactable {
 
     @Override
     public void move() {
-
-        System.out.println(walkablePositions.size());
 
         if (!alive) {
             return;
@@ -83,64 +77,25 @@ public class Player implements Movable, Interactable {
             position = newPosition;
             return;
         }
-        //nextDirection = Direction.changeDirection(direction);
     }
-
-    /*
-    public void moveUp() {
-        Position newPosition = new Position(getPosition().getCol(), getPosition().getRow() - 1);
-        if (isWalkable(newPosition)) {
-            setPosition(newPosition);
-        }
-    }
-
-    public void moveDown() {
-        Position newPosition = new Position(getPosition().getCol(), getPosition().getRow() + 1);
-        if (isWalkable(newPosition)) {
-            setPosition(newPosition);
-        }
-    }
-
-    public void moveLeft() {
-        Position newPosition = new Position(getPosition().getCol() - 1, getPosition().getRow());
-        if (isWalkable(newPosition)) {
-            setPosition(newPosition);
-        }
-    }
-
-    public void moveRight() {
-        Position newPosition = new Position(getPosition().getCol() + 1, getPosition().getRow());
-        if (isWalkable(newPosition)) {
-
-            setPosition(newPosition);
-        }
-    }
-    */
 
     @Override
-    public void kill(List<GameObject> gameObjects) {
-       /* for (GameObject gameObject : gameObjects) {
-
-            if (position.comparePos(gameObject.getPosition()) && gameObject instanceof Ghost) {
-                alive = false;
-            }
-        }*/
+    public void die() {
+        alive = false;
     }
 
-    public void eat(GameObject e) {
-        Fruit fruit = (Fruit) e;
-        if (position.comparePos(fruit.getPosition())) {
-            points += fruit.getPoints();
-            fruit.eat();
-        }
+    public void eat(Edible e) {
+
+        e.eat();
+        points += e.getPoints();
     }
 
     public void setNextDirection(Direction direction) {
         nextDirection = direction;
     }
 
-
     public boolean isWalkable(Position position) {
+
         for (Position p : walkablePositions) {
 
             if (p.comparePos(position))
@@ -149,8 +104,8 @@ public class Player implements Movable, Interactable {
         return false;
     }
 
-    public boolean isKilled() {
-        return !alive;
+    public boolean isAlive() {
+        return alive;
     }
 
     public Position getPosition() {

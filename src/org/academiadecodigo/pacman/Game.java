@@ -1,8 +1,7 @@
 package org.academiadecodigo.pacman;
 
-import org.academiadecodigo.pacman.Screens.Representation;
+import org.academiadecodigo.pacman.screens.Representation;
 
-import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.input.Key;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
@@ -35,8 +34,6 @@ public class Game {
     public void init() {
 
         Utils.generateLists();
-
-        client = new Client(this);
 
         this.client = new Client(this);
         representation = new Representation();
@@ -93,6 +90,8 @@ public class Game {
             }
 
             player1.move();
+            eatFruits();
+            checkDeaths();
             draw();
         }
     }
@@ -108,22 +107,30 @@ public class Game {
 
         for (Apple apple : gameApples) {
 
-            representation.drawApples(apple.getPosition());
+            if (!apple.isEaten()) {
+                representation.drawApples(apple.getPosition());
+            }
         }
 
         for (Fruit fruit : gameFruits) {
 
-            representation.drawFruit(fruit.getPosition());
+            if (!fruit.isEaten()) {
+                representation.drawFruit(fruit.getPosition());
+            }
         }
 
-        representation.drawPlayer(player1.getPosition());
+        if (player1.isAlive()) {
+            representation.drawPlayer(player1.getPosition());
+        }
 
         for (Ghost ghost : gameGhosts) {
 
-            representation.drawGhost(ghost.getPosition());
-        }
+            if (ghost.isAlive()) {
+                representation.drawGhost(ghost.getPosition());
+            }
 
-        representation.refresh();
+            representation.refresh();
+        }
     }
 
     public void updateGhostsPosition(String ghostsPosition) {
@@ -137,6 +144,46 @@ public class Game {
             if (strings[0].equals("Ghost")) {
 
                 gameGhosts.get(i).setPositionColRow(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
+            }
+        }
+    }
+
+    public void eatFruits() {
+
+        for (Fruit fruit : gameFruits) {
+
+            if (!fruit.isEaten()) {
+
+                if (player1.getPosition().comparePos(fruit.getPosition())) {
+
+                    player1.eat(fruit);
+                    client.setStringToSend("Fruit " + player1.getPosition().getCol() + " " + player1.getPosition().getRow());
+                }
+            }
+        }
+
+        for (Apple apple : gameApples) {
+
+            if (!apple.isEaten()) {
+
+                if (player1.getPosition().comparePos(apple.getPosition())) {
+
+                    player1.eat(apple);
+                    client.setStringToSend("Apple " + player1.getPosition().getCol() + " " + player1.getPosition().getRow());
+                }
+
+            }
+        }
+    }
+
+    public void checkDeaths() {
+
+        for (Ghost ghost : gameGhosts) {
+
+            if (player1.getPosition().comparePos(ghost.getPosition())) {
+                // if (player1.hasPowerUp()){
+
+                player1.die();
             }
         }
     }

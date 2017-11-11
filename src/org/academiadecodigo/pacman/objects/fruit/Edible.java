@@ -1,5 +1,7 @@
 package org.academiadecodigo.pacman.objects.fruit;
 
+import org.academiadecodigo.pacman.grid.Position;
+
 public interface Edible {
 
     int getPoints();
@@ -7,4 +9,6 @@ public interface Edible {
     boolean isEaten();
 
     void eat();
+
+    Position getPosition();
 }

@@ -121,7 +121,6 @@ public class Utils {
         return ghosts;
     }
 
-
     public static List<Apple> createApples() {
 
         List<Apple> apples = new LinkedList<>();
