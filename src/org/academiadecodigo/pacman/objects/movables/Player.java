@@ -20,12 +20,17 @@ public class Player implements Movable, Interactable {
     private Direction direction = Direction.UP;
     private Direction nextDirection = Direction.UP;
     private Position position;
+
+    private List<Position> walkablePositions;
     private Power power = null;
     private int points;
     private boolean alive = true;
 
     public Player(Position position) {
         this.position = position;
+
+        FileHelper.generateLists();
+        walkablePositions = FileHelper.path;
         points = 0;
     }
 
@@ -52,6 +57,8 @@ public class Player implements Movable, Interactable {
     @Override
     public void move() {
 
+        System.out.println(walkablePositions.size());
+
         if (!alive) {
             return;
         }
@@ -66,6 +73,9 @@ public class Player implements Movable, Interactable {
             direction = nextDirection;
             return;
         }
+
+        System.out.println(direction);
+        System.out.println(nextDirection);
 
         col = position.getCol() + direction.getMoveCol();
         row = position.getRow() + direction.getMoveRow();
@@ -112,12 +122,12 @@ public class Player implements Movable, Interactable {
 
     @Override
     public void kill(List<GameObject> gameObjects) {
-        for (GameObject gameObject : gameObjects) {
+       /* for (GameObject gameObject : gameObjects) {
 
             if (position.comparePos(gameObject.getPosition()) && gameObject instanceof Ghost) {
                 alive = false;
             }
-        }
+        }*/
     }
 
     public void eat(GameObject e) {
@@ -134,7 +144,7 @@ public class Player implements Movable, Interactable {
 
 
     public boolean isWalkable(Position position) {
-        for (Position p : FileHelper.path) {
+        for (Position p : walkablePositions) {
 
             if (p.comparePos(position))
                 return true;

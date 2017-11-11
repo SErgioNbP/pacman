@@ -6,6 +6,7 @@ public class Position {
     private int row;
     private char c;
 
+
     public Position(int col, int row) {
         this.col = col;
         this.row = row;
@@ -27,5 +28,13 @@ public class Position {
 
     public int getRow() {
         return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
     }
 }

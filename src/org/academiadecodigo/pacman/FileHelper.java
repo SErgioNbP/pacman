@@ -64,8 +64,6 @@ public class FileHelper {
 
         walls = new LinkedList<>();
         path = new LinkedList<>();
-        players = new LinkedList<>();
-        ghosts = new LinkedList<>();
         apples = new LinkedList<>();
         points = new LinkedList<>();
 
@@ -89,12 +87,6 @@ public class FileHelper {
                 } else if (currentChar == '2') {
                     apples.add(position);
 
-                } else if (currentChar == '3') {
-                    ghosts.add(position);
-
-                } else if (currentChar == '6') {
-                    players.add(position);
-
                 } else if (!walls.contains(position)) {
                     path.add(position);
                 }
@@ -107,19 +99,10 @@ public class FileHelper {
 
     private static void allPositions() {
 
-        getMovables();
         getEdibles();
 
         allPositions.addAll(walls);
-        allPositions.addAll(movables);
         allPositions.addAll(edibles);
-    }
-
-    private static void getMovables() {
-
-        movables = new LinkedList<>();
-        movables.addAll(ghosts);
-        movables.addAll(players);
     }
 
     private static void getEdibles() {
@@ -134,5 +117,12 @@ public class FileHelper {
         mapColumn = mapRow[row].toCharArray();
 
         return mapColumn[col];
+    }
+
+    public static List<Position> getAllPositions() {
+
+        generateLists();
+
+        return allPositions;
     }
 }

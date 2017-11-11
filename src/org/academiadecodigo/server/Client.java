@@ -1,5 +1,7 @@
 package org.academiadecodigo.server;
 
+import org.academiadecodigo.pacman.Game;
+
 import java.io.IOException;
 import java.net.*;
 import java.util.Scanner;
@@ -7,12 +9,21 @@ import java.util.Scanner;
 /**
  * Created by codecadet on 26/10/17.
  */
-public class Client {
+public class Client implements Runnable {
 
-    public static void main(String[] args) {
+    Game game;
+    String stringToSend;
 
+    public Client(Game game) {
 
-        String stringToSend = " ";
+        this.game = game;
+
+        stringToSend = " ";
+
+    }
+
+    @Override
+    public void run() {
 
 
         byte[] receiveBuffer = new byte[1024];
@@ -42,6 +53,8 @@ public class Client {
 
                 String receivedString = new String(receivedPacket.getData());
 
+                game.updateGhostsPosition(receivedString.trim());
+
                 System.out.println(receivedString.trim());
 
             }
@@ -59,6 +72,7 @@ public class Client {
             e.printStackTrace();
         }
 
-
     }
+
+
 }

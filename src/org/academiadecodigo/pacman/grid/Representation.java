@@ -8,6 +8,7 @@ import org.academiadecodigo.pacman.Constants;
 import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
+import org.academiadecodigo.pacman.objects.movables.Ghost;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.util.List;
@@ -46,6 +47,16 @@ public class Representation {
         screen.refresh();
     }
 
+    public void drawPlayer(Player player){
+
+        screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), " ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
+    }
+
+    public void drawGhost(Ghost ghost){
+
+        screen.putString(ghost.getPosition().getCol(), ghost.getPosition().getRow(), " ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
+    }
+
     private void drawEverything(List<Position> positions) {
 
         for (Position pos : positions) {
@@ -55,7 +66,7 @@ public class Representation {
             String label = " ";
             Terminal.Color stringColor = Terminal.Color.WHITE;
             Terminal.Color color = Terminal.Color.WHITE;
-
+/*
             if (FileHelper.players.contains(pos)) {
                 color = Terminal.Color.YELLOW;
                 stringColor = color;
@@ -64,7 +75,7 @@ public class Representation {
                 color = Terminal.Color.BLUE;
                 stringColor = color;
 
-            } else if (FileHelper.apples.contains(pos)) {
+            } else*/ if (FileHelper.apples.contains(pos)) {
                 color = Terminal.Color.BLACK;
                 stringColor = Terminal.Color.RED;
                 label = "";
@@ -82,6 +93,15 @@ public class Representation {
     public Screen getScreen() {
         return screen;
     }
+
+    public void clear(){
+        screen.clear();
+    }
+
+    public void refresh(){
+        screen.refresh();
+    }
+
 
     /*
     public void drawGrid(List<GameObject> gameObjects, Player player) {

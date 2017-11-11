@@ -28,9 +28,9 @@ public class ObjectFactory {
             objects.add(new Fruit(FileHelper.path.get(i)));
         }
 
-        for (int i = 0; i < Constants.NUM_GHOSTS; i++) {
+       /* for (int i = 0; i < Constants.NUM_GHOSTS; i++) {
             objects.add(new Ghost(Constants.GHOSTS[i]));
-        }
+        }*/
 
         for (int i = 0; i < Constants.NUM_POWERS; i++) {
             objects.add(new Apple(Constants.POWERUPS[i]));
