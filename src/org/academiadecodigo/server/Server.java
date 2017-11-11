@@ -64,21 +64,23 @@ public class Server {
 
                 DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
-                socket.receive(receivedPacket);
 
+                socket.receive(receivedPacket);
+                addresses.add(receivedPacket);
+                System.out.println(addresses.size());
                 String string = new String(receivedPacket.getData()).trim();
-                if (string.equals("START")) {
+               // if (string.equals("START")) {
 
                     GhostHandler ghostHandler = new GhostHandler(receivedPacket.getAddress(), receivedPacket.getPort());
                     timer.scheduleAtFixedRate(ghostHandler, 5000, 500);
 
-                    if (!addressExists(receivedPacket)) {
-                        addresses.add(receivedPacket);
-                    }
+            //        if (!addressExists(receivedPacket)) {
+              //          addresses.add(receivedPacket);
+                //    }
 
-                } else {
+             //   } else {
                     sendDirectMessage(receivedPacket, string);
-                }
+             //   }
             }
 
         } catch (SocketException e) {
