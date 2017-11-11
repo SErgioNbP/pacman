@@ -60,6 +60,8 @@ public class Game {
 
         while (true) {
 
+
+
             Key key = representation.getScreen().readInput();
 
             if (key != null) {

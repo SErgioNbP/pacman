@@ -2,51 +2,118 @@ package org.academiadecodigo.server;
 
 import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.movables.Ghost;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by codecadet on 26/10/17.
  */
 public class Server {
 
+    private List<DatagramPacket> addresses;
+    private int portNumber = 9090;
+    private volatile List<ServerGhost> serverGhosts;
+    private DatagramSocket socket;
+    ExecutorService executorService;
+    private Timer timer;
+
+
     public static void main(String[] args) {
+
+        Server server = new Server();
+        server.init();
+        server.start();
+    }
+
+    private void init() {
 
         Utils.generateLists();
 
-        List<ServerGhost> serverGhosts = new LinkedList<>();
+        timer = new Timer();
+
+        serverGhosts = new LinkedList<>();
 
         for (int i = 0; i < Utils.ghostsPos.size(); i++) {
 
             serverGhosts.add(new ServerGhost(Utils.ghostsPos.get(i)));
         }
 
-        DatagramSocket socket = null;
+        executorService = Executors.newFixedThreadPool(10);
+
+        addresses = new LinkedList<>();
+    }
+
+    private void start() {
 
         try {
 
-            socket = new DatagramSocket(9090);
+            socket = new DatagramSocket(portNumber);
 
-        } catch (Exception e) {
-            e.getStackTrace();
+            while (true) {
+
+                byte[] receiveBuffer = new byte[1024];
+
+                DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+
+                socket.receive(receivedPacket);
+
+                if (new String(receivedPacket.getData()).trim().equals("START")) {
+
+                    GhostHandler ghostHandler = new GhostHandler(receivedPacket.getAddress(), receivedPacket.getPort());
+                    timer.scheduleAtFixedRate(ghostHandler, 5000, 500);
+
+                    if (!addressExists(receivedPacket)) {
+                        addresses.add(receivedPacket);
+                    }
+                }
+            }
+
+        } catch (SocketException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
-        while (true) {
+    private boolean addressExists(DatagramPacket packet) {
 
-            for (ServerGhost serverGhost : serverGhosts) {
-                serverGhost.move();
+        return addresses.contains(packet);
+    }
+
+    private void broadcast(String string) {
+
+        byte[] sendBuffer = string.getBytes();
+        for (DatagramPacket packet : addresses) {
+            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, packet.getAddress(), packet.getPort());
+            String stringToSend = "";
+        }
+    }
+
+    private static String ghostPositionCoding(Position position) {
+
+        String string = "Ghost " + position.getCol() + " " + position.getRow() + "\n";
+
+        return string;
+    }
+
+    class ListenHandler implements Runnable {
+
+
+        @Override
+        public void run() {
+
+            while (true) {
 
                 try {
 
                     int portNumber = 9090;
-
-                    byte[] sendBuffer;
 
                     byte[] receiveBuffer = new byte[1024];
 
@@ -58,39 +125,41 @@ public class Server {
 
                     String[] strings = receivedString.split(" ");
 
-                    String stringToSend = "";
-
-                    for (ServerGhost ghost : serverGhosts) {
-
-                        stringToSend = stringToSend + ghostPositionCoding(ghost.getPosition());
-                    }
-
-                    sendBuffer = stringToSend.getBytes();
-
-                    DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, receivedPacket.getAddress(), receivedPacket.getPort());
-
-                    socket.send(sendPacket);
-
-
-                } catch (Exception e) {
-
-                    e.printStackTrace();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
-            }
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
     }
 
-    private static String ghostPositionCoding(Position position) {
+    class GhostHandler extends TimerTask {
 
-        String string = "Ghost " + position.getCol() + " " + position.getRow() + "\n";
+        private InetAddress ip;
+        private int portNumber;
+            int i = 0;
 
-        return string;
+        public GhostHandler(InetAddress ip, int portNumber) {
+            this.ip = ip;
+            this.portNumber = portNumber;
+        }
+
+        @Override
+        public void run() {
+
+            for (ServerGhost serverGhost : serverGhosts) {
+                serverGhost.move();
+            }
+            System.out.println(i);
+            i++;
+            String stringToSend = "";
+
+            for (ServerGhost ghost : serverGhosts) {
+
+                stringToSend = stringToSend + ghostPositionCoding(ghost.getPosition());
+            }
+            broadcast(stringToSend);
+
+        }
     }
 }
 
