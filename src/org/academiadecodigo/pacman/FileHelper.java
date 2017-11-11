@@ -1,6 +1,9 @@
 package org.academiadecodigo.pacman;
 
 import org.academiadecodigo.pacman.grid.Position;
+import org.academiadecodigo.pacman.objects.fruit.Fruit;
+import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
+import org.academiadecodigo.pacman.objects.movables.Ghost;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -13,9 +16,9 @@ public class FileHelper {
     public static List<Position> walls;
     public static List<Position> path;
     public static List<Position> players;
-    public static List<Position> ghosts;
-    public static List<Position> apples;
-    public static List<Position> points;
+    public static List<Position> ghostsPos;
+    public static List<Position> applesPos;
+    public static List<Position> fruitsPos;
 
     public static List<Position> edibles;
     public static List<Position> movables;
@@ -65,9 +68,9 @@ public class FileHelper {
         walls = new LinkedList<>();
         path = new LinkedList<>();
         players = new LinkedList<>();
-        ghosts = new LinkedList<>();
-        apples = new LinkedList<>();
-        points = new LinkedList<>();
+        ghostsPos = new LinkedList<>();
+        applesPos = new LinkedList<>();
+        fruitsPos = new LinkedList<>();
 
         mapRow = readFromFile("resources/map").split("\\n");
 
@@ -84,13 +87,13 @@ public class FileHelper {
                     walls.add(position);
 
                 } else if (currentChar == '1') {
-                    points.add(position);
+                    fruitsPos.add(position);
 
                 } else if (currentChar == '2') {
-                    apples.add(position);
+                    applesPos.add(position);
 
                 } else if (currentChar == '3') {
-                    ghosts.add(position);
+                    ghostsPos.add(position);
 
                 } else if (currentChar == '6') {
                     players.add(position);
@@ -102,37 +105,75 @@ public class FileHelper {
         }
 
         allPositions();
-
     }
 
     private static void allPositions() {
 
-        getMovables();
-        getEdibles();
-
         allPositions.addAll(walls);
-        allPositions.addAll(movables);
-        allPositions.addAll(edibles);
+        allPositions.addAll(applesPos);
+        allPositions.addAll(fruitsPos);
+        allPositions.addAll(ghostsPos);
+        allPositions.addAll(players);
     }
 
-    private static void getMovables() {
-
-        movables = new LinkedList<>();
-        movables.addAll(ghosts);
-        movables.addAll(players);
-    }
-
-    private static void getEdibles() {
-
-        edibles = new LinkedList<>();
-        edibles.addAll(apples);
-        edibles.addAll(points);
-    }
 
     public static char getCurrentChar(int col, int row) {
 
         mapColumn = mapRow[row].toCharArray();
 
         return mapColumn[col];
+    }
+
+    public static void decode(String receivedString, Ghost ghost) {
+
+        String[] strings = receivedString.split(" ");
+
+        if (strings[0].equals("Ghost")) {
+
+            ghost.setPositionColRow(Integer.parseInt(strings[1]), Integer.parseInt(strings[3]));
+        }
+    }
+
+    public static List<Ghost> createGhosts() {
+
+        List<Ghost> ghosts = new LinkedList<>();
+
+        for (int i = 0; i < ghostsPos.size(); i++) {
+            Ghost ghost = new Ghost(ghostsPos.get(i));
+            ghosts.add(ghost);
+        }
+
+        return ghosts;
+    }
+
+    public static List<Apple> createApples() {
+
+        List<Apple> apples = new LinkedList<>();
+
+        for (int i = 0; i < applesPos.size(); i++) {
+            Apple apple = new Apple(applesPos.get(i));
+            apples.add(apple);
+        }
+
+        return apples;
+    }
+
+    public static List<Fruit> createFruits() {
+
+        List<Fruit> fruits = new LinkedList<>();
+
+        for (int i = 0; i < fruitsPos.size(); i++) {
+            Fruit fruit = new Fruit(fruitsPos.get(i));
+            fruits.add(fruit);
+        }
+
+        return fruits;
+    }
+
+    public static List<Position> getAllPositions() {
+
+        generateLists();
+
+        return allPositions;
     }
 }

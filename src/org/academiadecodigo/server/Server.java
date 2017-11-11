@@ -1,6 +1,7 @@
 package org.academiadecodigo.server;
 
 import org.academiadecodigo.pacman.grid.Position;
+import org.academiadecodigo.pacman.objects.movables.Ghost;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -15,6 +16,7 @@ import java.util.List;
 public class Server {
 
     public static void main(String[] args) {
+
 
         List<ServerGhost> serverGhosts = new LinkedList<>();
 
@@ -33,8 +35,8 @@ public class Server {
             System.out.println("111");
 
         }
-        while (true) {
 
+        while (true) {
 
             System.out.println("moving");
             for (ServerGhost serverGhost : serverGhosts) {
@@ -56,8 +58,12 @@ public class Server {
 
                     //String stringReceived = new String(receivedPacket.getData(), 0, receivedPacket.getLength());
 
+                    String stringToSend = "";
 
-                    String stringToSend = ghostPositionCoding(serverGhost.getPosition());
+                    for (ServerGhost ghost : serverGhosts) {
+
+                        stringToSend = stringToSend + ghostPositionCoding(ghost.getPosition());
+                    }
 
                     sendBuffer = stringToSend.getBytes();
                     System.out.println(receivedPacket.getPort());
@@ -71,23 +77,21 @@ public class Server {
 
                     e.printStackTrace();
                 }
-
-
             }
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
     private static String ghostPositionCoding(Position position) {
 
-        String string = "Ghost " + position.getCol() + " " + position.getRow();
+        String string = "Ghost " + position.getCol() + " " + position.getRow() + "\n";
 
         return string;
-
     }
 }
+    
