@@ -23,35 +23,7 @@ public class Ghost extends GameObject implements Movable {
 
     @Override
     public void move() {
-        int randomNumber = (int) (Math.random() * 50);
 
-        if (randomNumber < 20){
-            nextDirection = Direction.changeGhostDirection();
-        }
-
-        int col = getPosition().getCol() + nextDirection.getMoveCol();
-        int row = getPosition().getRow() + nextDirection.getMoveRow();
-
-        Position newPosition = new Position(col, row);
-
-
-        if (isWalkable(newPosition)) {
-            setPosition(newPosition);
-            direction = nextDirection;
-            return;
-        }
-
-        col = getPosition().getCol() + direction.getMoveCol();
-        row = getPosition().getRow() + direction.getMoveRow();
-
-        newPosition = new Position(col, row);
-
-        if (isWalkable(newPosition)) {
-            setPosition(newPosition);
-            return;
-        }
-
-        direction = Direction.changeGhostDirection();
     }
 
     @Override

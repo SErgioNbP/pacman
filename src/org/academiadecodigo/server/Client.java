@@ -11,32 +11,42 @@ public class Client {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
 
-        String stringToSend = scanner.next();
+        String stringToSend = " ";
 
-        byte[] sendBuffer = stringToSend.getBytes();
 
-        byte[] receiveBuffer = new byte [1024];
+        byte[] receiveBuffer = new byte[1024];
 
         //byte[] serverAddress = {127, 0, 0, 1};
 
         try {
-            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("192.168.0.22"), 12345);
-
             DatagramSocket socket = new DatagramSocket();
+            System.out.println(socket.getLocalPort());
 
-            socket.send(sendPacket);
+            while (true) {
 
-            DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+                byte[] sendBuffer = stringToSend.getBytes();
 
-            socket.receive(receivedPacket);
+                DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("localhost"), 9090);
 
-            String receivedString = new String(receivedPacket.getData());
 
-            System.out.println(receivedString.trim());
+                socket.send(sendPacket);
 
-            socket.close();
+                System.out.println("hhhhhhhhhhhhhhh");
+
+                DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+
+                System.out.println("waiting");
+
+                socket.receive(receivedPacket);
+
+                String receivedString = new String(receivedPacket.getData());
+
+                System.out.println(receivedString.trim());
+
+            }
+
+            //socket.close();
 
         } catch (UnknownHostException e) {
 

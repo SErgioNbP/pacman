@@ -84,6 +84,7 @@ public enum Direction {
 
         return Direction.turnInDirection(direction);
     }
+    */
 
     public static Direction turnRight(Direction direction) {
 
@@ -132,5 +133,5 @@ public enum Direction {
                 return RIGHT;
         }
     }
-    */
+
 }
