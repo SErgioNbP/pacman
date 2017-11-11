@@ -18,7 +18,7 @@ public class DrawingTest {
 
         Screen screen = new Screen(testScreen);
 
-        screen.drawScreen(ScreenType.INITIAL_SCREEN);
+        screen.drawScreen(ScreenType.WINNING_FINAL_SCREEN);
     }
 
 }

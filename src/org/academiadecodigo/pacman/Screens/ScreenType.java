@@ -5,7 +5,6 @@ package org.academiadecodigo.pacman.Screens;
  */
 public enum ScreenType {
     INITIAL_SCREEN,
-    GAME_SCREEN,
     WINNING_FINAL_SCREEN,
     LOSING_FINAL_SCREEN;
 }
