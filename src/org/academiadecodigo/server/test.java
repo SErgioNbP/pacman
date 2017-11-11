@@ -1,7 +1,5 @@
 package org.academiadecodigo.server;
 
-import javafx.stage.Screen;
-
 public class test {
 
     public static void main(String[] args) {

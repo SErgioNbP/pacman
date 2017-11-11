@@ -1,36 +1,30 @@
 package org.academiadecodigo.pacman;
 
 import com.googlecode.lanterna.TerminalFacade;
-import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.terminal.Terminal;
-import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Representation;
-import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
+import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
 import org.academiadecodigo.pacman.objects.movables.Ghost;
-import org.academiadecodigo.pacman.objects.movables.Movable;
-import org.academiadecodigo.pacman.objects.movables.Player;
 
-import java.util.LinkedList;
 import java.util.List;
-
 
 public class Game {
 
-    //private List<GameObject> objects;
-    //private List<Player> players;
-    //private Player player;
     private Representation representation;
-    private Ghost[] ghosts;
+
+    private List<Ghost> gameGhosts;
+    private List<Apple> gamApples;
+    private List<Fruit> gameFruits;
 
     public void init() {
 
-        getGhosts();
         representation = new Representation();
         representation.init();
 
+        gameGhosts = FileHelper.createGhosts();
+        gamApples = FileHelper.createApples();
+        gameFruits = FileHelper.createFruits();
 
         Screen screen = TerminalFacade.createScreen();
 
@@ -45,17 +39,12 @@ public class Game {
 
             //FileHelper.generateLists();
 
-
-            for (Ghost ghost : ghosts) {
-                screen.putString(ghost.getPosition().getCol(), ghost.getPosition().getRow(), " ", Terminal.Color.WHITE, Terminal.Color.BLUE);
-            }
-
-            screen.refresh();
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            screen.refresh();
         }
         /*
         objects = new LinkedList<>();
@@ -73,7 +62,7 @@ public class Game {
 
     public void updatePositions(String newPositions) {
 
-        for (Ghost ghost : ghosts) {
+        for (Ghost ghost : gameGhosts) {
 
             FileHelper.decode(newPositions, ghost);
         }
@@ -135,16 +124,7 @@ public class Game {
     }
     */
 
-    public void getGhosts() {
 
-        ghosts = new Ghost[5];
-
-        for (int i = 0; i < 5; i++) {
-
-            ghosts[i] = new Ghost(new Position(42, 7 + i));
-        }
-
-    }
 }
 
 

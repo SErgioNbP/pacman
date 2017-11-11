@@ -13,7 +13,7 @@ public class GhostServer {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            String string = "Ghost " + 42 + " " + (7 - i);
+            String string = "Ghost " + i + " " + 42 + " " + (7 - i);
 
             server.broadcast(string);
             System.out.println(string);

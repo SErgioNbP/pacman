@@ -17,15 +17,15 @@ public class Test2 {
             System.out.println("Player : (" + pos.getCol() + "," + pos.getRow() + ")");
         }
 
-        for (Position pos : FileHelper.ghosts) {
+        for (Position pos : FileHelper.ghostsPos) {
             System.out.println("Ghost : (" + pos.getCol() + "," + pos.getRow() + ")");
         }
 
-        for (Position pos : FileHelper.apples) {
+        for (Position pos : FileHelper.applesPos) {
             System.out.println("Apple : (" + pos.getCol() + "," + pos.getRow() + ")");
         }
 
-        for (Position pos : FileHelper.points) {
+        for (Position pos : FileHelper.fruitsPos) {
             System.out.println("Point : (" + pos.getCol() + "," + pos.getRow() + ")");
         }
 

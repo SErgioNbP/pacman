@@ -1,13 +1,8 @@
 package org.academiadecodigo.pacman.objects;
 
-import org.academiadecodigo.pacman.Constants;
 import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.fruit.Fruit;
-import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
-import org.academiadecodigo.pacman.objects.movables.Ghost;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class ObjectFactory {
@@ -19,7 +14,8 @@ public class ObjectFactory {
 
         return objects.size();
     }
-/*
+
+    /*
     public static List<GameObject> createGameObjects() {
 
         objects = new LinkedList<>();
@@ -38,6 +34,5 @@ public class ObjectFactory {
 
         return objects;
     }
-
     */
 }
