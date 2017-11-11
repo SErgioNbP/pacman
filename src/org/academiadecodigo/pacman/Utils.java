@@ -4,35 +4,29 @@ import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
 import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
 import org.academiadecodigo.pacman.objects.movables.Ghost;
+import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FileHelper {
-
-    public static List<Position> allPositions;
+public class Utils {
 
     public static List<Position> walls;
     public static List<Position> path;
-    public static List<Position> players;
-    public static List<Position> ghostsPos;
-    public static List<Position> applesPos;
     public static List<Position> fruitsPos;
+    public static List<Position> applesPos;
+    public static List<Position> ghostsPos;
+    public static List<Position> playersPos;
 
-    public static List<Position> edibles;
-    public static List<Position> movables;
 
-    private static String[] mapRow;
-    private static char[] mapColumn;
-
-    private static String readFromFile(String path) {
+    private static String readFromFile() {
 
         String result = "";
         BufferedReader reader = null;
 
         try {
-            reader = new BufferedReader(new FileReader(path));
+            reader = new BufferedReader(new FileReader("resources/map"));
             String line = reader.readLine();
 
             while (line != null) {
@@ -63,20 +57,18 @@ public class FileHelper {
 
     public static void generateLists() {
 
-        allPositions = new LinkedList<>();
-
         walls = new LinkedList<>();
         path = new LinkedList<>();
-        players = new LinkedList<>();
+        playersPos = new LinkedList<>();
         ghostsPos = new LinkedList<>();
         applesPos = new LinkedList<>();
         fruitsPos = new LinkedList<>();
 
-        mapRow = readFromFile("resources/map").split("\\n");
+        String[] mapRow = readFromFile().split("\\n");
 
         for (int i = 0; i < mapRow.length; i++) {
 
-            mapColumn = mapRow[i].toCharArray();
+            char[] mapColumn = mapRow[i].toCharArray();
 
             for (int j = 0; j < mapColumn.length; j++) {
 
@@ -96,32 +88,15 @@ public class FileHelper {
                     ghostsPos.add(position);
 
                 } else if (currentChar == '6') {
-                    players.add(position);
+                    playersPos.add(position);
 
-                } else if (!walls.contains(position)) {
+                }
+
+                if (!walls.contains(position)) {
                     path.add(position);
                 }
             }
         }
-
-        allPositions();
-    }
-
-    private static void allPositions() {
-
-        allPositions.addAll(walls);
-        allPositions.addAll(applesPos);
-        allPositions.addAll(fruitsPos);
-        allPositions.addAll(ghostsPos);
-        allPositions.addAll(players);
-    }
-
-
-    public static char getCurrentChar(int col, int row) {
-
-        mapColumn = mapRow[row].toCharArray();
-
-        return mapColumn[col];
     }
 
     public static void decode(String receivedString, Ghost ghost) {
@@ -138,20 +113,21 @@ public class FileHelper {
 
         List<Ghost> ghosts = new LinkedList<>();
 
-        for (int i = 0; i < ghostsPos.size(); i++) {
-            Ghost ghost = new Ghost(ghostsPos.get(i));
+        for (Position position : ghostsPos) {
+            Ghost ghost = new Ghost(position);
             ghosts.add(ghost);
         }
 
         return ghosts;
     }
 
+
     public static List<Apple> createApples() {
 
         List<Apple> apples = new LinkedList<>();
 
-        for (int i = 0; i < applesPos.size(); i++) {
-            Apple apple = new Apple(applesPos.get(i));
+        for (Position position : applesPos) {
+            Apple apple = new Apple(position);
             apples.add(apple);
         }
 
@@ -162,18 +138,23 @@ public class FileHelper {
 
         List<Fruit> fruits = new LinkedList<>();
 
-        for (int i = 0; i < fruitsPos.size(); i++) {
-            Fruit fruit = new Fruit(fruitsPos.get(i));
+        for (Position position : fruitsPos) {
+            Fruit fruit = new Fruit(position);
             fruits.add(fruit);
         }
 
         return fruits;
     }
 
-    public static List<Position> getAllPositions() {
+    public static List<Player> createPlayers() {
 
-        generateLists();
+        List<Player> players = new LinkedList<>();
 
-        return allPositions;
+        for (Position position : playersPos) {
+            Player player = new Player(position);
+            players.add(player);
+        }
+
+        return players;
     }
 }

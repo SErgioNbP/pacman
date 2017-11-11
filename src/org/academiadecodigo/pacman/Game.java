@@ -4,74 +4,54 @@ import org.academiadecodigo.pacman.Screens.Representation;
 
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.input.Key;
-import com.googlecode.lanterna.screen.Screen;
 import org.academiadecodigo.pacman.grid.Direction;
-
 import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.GameObject;
-import org.academiadecodigo.pacman.objects.fruit.Edible;
+
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
 import org.academiadecodigo.pacman.objects.movables.Ghost;
-import org.academiadecodigo.pacman.objects.movables.Movable;
 import org.academiadecodigo.pacman.objects.movables.Player;
 import org.academiadecodigo.server.Client;
-import org.academiadecodigo.pacman.objects.fruit.Fruit;
 import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Game {
 
-    //private List<GameObject> objects;
-    //private List<Player> players;
-    private Player player;
-    private List<Ghost> ghosts;
-    private List<Position> walls;
-
-    private Representation representation;
     private Client client;
     ExecutorService executorService;
 
+    private Representation representation;
+
     private List<Ghost> gameGhosts;
-    private List<Apple> gamApples;
+    private List<Apple> gameApples;
     private List<Fruit> gameFruits;
+    private List<Player> gamePlayers;
+
+    private Player player1;
+    private Player player2;
 
     public void init() {
 
+        Utils.generateLists();
+
         client = new Client(this);
-
-        ghosts = new LinkedList<>();
-
-        for (int i = 0; i < 5; i++) {
-
-            ghosts.add(new Ghost(new Position(25, 13)));
-        }
-
-        walls = FileHelper.getAllPositions();
 
         this.client = new Client(this);
         representation = new Representation();
         representation.init();
 
-        //gameGhosts = FileHelper.createGhosts();
-        //gamApples = FileHelper.createApples();
-        //gameFruits = FileHelper.createFruits();
+        gameGhosts = Utils.createGhosts();
+        gameApples = Utils.createApples();
+        gameFruits = Utils.createFruits();
+        gamePlayers = Utils.createPlayers();
 
-        /*
-        objects = new LinkedList<>();
-        objects.addAll(ObjectFactory.createGameObjects());
-
-        players = new LinkedList<>();
-        players.add(player);
-        */
-
-        player = new Player(new Position(42, 7));
+        player1 = gamePlayers.get(0);
+        player2 = gamePlayers.get(1);
 
         draw();
-        //representation.drawPlayer(player);
+
         this.executorService = Executors.newFixedThreadPool(5);
 
         start();
@@ -89,19 +69,19 @@ public class Game {
 
                 if (key.getKind() == Key.Kind.ArrowRight) {
 
-                    player.setNextDirection(Direction.RIGHT);
+                    player1.setNextDirection(Direction.RIGHT);
                 }
                 if (key.getKind() == Key.Kind.ArrowLeft) {
 
-                    player.setNextDirection(Direction.LEFT);
+                    player1.setNextDirection(Direction.LEFT);
                 }
                 if (key.getKind() == Key.Kind.ArrowDown) {
 
-                    player.setNextDirection(Direction.DOWN);
+                    player1.setNextDirection(Direction.DOWN);
                 }
                 if (key.getKind() == Key.Kind.ArrowUp) {
 
-                    player.setNextDirection(Direction.UP);
+                    player1.setNextDirection(Direction.UP);
                 }
             }
 
@@ -112,28 +92,8 @@ public class Game {
                 e.printStackTrace();
             }
 
-
-            player.move();
-
+            player1.move();
             draw();
-/*
-            for (GameObject gameObject : objects) {
-                if (gameObject instanceof Movable) {
-                    ((Movable) gameObject).move();
-                }
-            }
-
-
-            for (GameObject gameObject : objects) {
-                player.kill(objects);
-                if(gameObject instanceof Fruit) {
-                    player.eat(gameObject);
-                }
-            }
-
-            representation.drawGrid(FileHelper.allPositions);
-            //representation.drawGrid(objects, player);
-        }*/
         }
     }
 
@@ -141,14 +101,27 @@ public class Game {
 
         representation.clear();
 
-        representation.drawPlayer(player);
+        for (Position pos : Utils.walls) {
 
-        for (Ghost ghost : ghosts) {
-
-            representation.drawGhost(ghost);
+            representation.drawWall(pos);
         }
 
-        //representation.drawGrid(walls);
+        for (Apple apple : gameApples) {
+
+            representation.drawApples(apple.getPosition());
+        }
+
+        for (Fruit fruit : gameFruits) {
+
+            representation.drawFruit(fruit.getPosition());
+        }
+
+        representation.drawPlayer(player1.getPosition());
+
+        for (Ghost ghost : gameGhosts) {
+
+            representation.drawGhost(ghost.getPosition());
+        }
 
         representation.refresh();
     }
@@ -163,7 +136,7 @@ public class Game {
 
             if (strings[0].equals("Ghost")) {
 
-                ghosts.get(i).setPositionColRow(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
+                gameGhosts.get(i).setPositionColRow(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
             }
         }
     }

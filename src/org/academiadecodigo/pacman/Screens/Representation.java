@@ -4,24 +4,19 @@ import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.Constants;
-import org.academiadecodigo.pacman.FileHelper;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
 import org.academiadecodigo.pacman.objects.movables.Ghost;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
-import java.util.List;
-
 public class Representation {
 
     private Screen screen;
-    //private ScreenWriter screenWriter;
 
     public void init() {
 
         screen = TerminalFacade.createScreen();
-        //screenWriter = new ScreenWriter(screen);
 
         screen.setCursorPosition(null);
 
@@ -29,66 +24,26 @@ public class Representation {
         screen.getTerminal().getTerminalSize().setRows(Constants.GRID_ROWS);
 
         screen.startScreen();
-
-        FileHelper.generateLists();
-
-        drawGrid(FileHelper.allPositions);
     }
 
-    public void drawGrid(List<Position> positions) {
-
-        screen.clear();
-
-        drawEverything(positions);
-
-        screen.refresh();
+    public void drawWall(Position pos){
+        screen.putString(pos.getCol(), pos.getRow(), " ", Terminal.Color.WHITE, Terminal.Color.WHITE);
     }
 
-    public void drawPlayer(Player player){
-
-        screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), " ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
+    public void drawFruit(Position pos){
+        screen.putString(pos.getCol(), pos.getRow(), ".", Terminal.Color.YELLOW, Terminal.Color.BLACK);
     }
 
-    public void drawGhost(Ghost ghost){
-
-        screen.putString(ghost.getPosition().getCol(), ghost.getPosition().getRow(), " ", Terminal.Color.YELLOW, Terminal.Color.YELLOW);
+    public void drawApples(Position pos) {
+        screen.putString(pos.getCol(), pos.getRow(), "", Terminal.Color.RED, Terminal.Color.BLACK);
     }
 
-    private void drawEverything(List<Position> positions) {
-
-        for (Position pos : positions) {
-
-            int col = pos.getCol();
-            int row = pos.getRow();
-            String label = " ";
-            Terminal.Color stringColor = Terminal.Color.WHITE;
-            Terminal.Color color = Terminal.Color.WHITE;
-/*
-            if (FileHelper.players.contains(pos)) {
-                color = Terminal.Color.YELLOW;
-                stringColor = color;
-
-            } else if (FileHelper.ghostsPos.contains(pos)) {
-                color = Terminal.Color.BLUE;
-                stringColor = color;
-
-            } else*/ if (FileHelper.applesPos.contains(pos)) {
-                color = Terminal.Color.BLACK;
-                stringColor = Terminal.Color.RED;
-                label = "";
-
-            } else if (FileHelper.fruitsPos.contains(pos)) {
-                color = Terminal.Color.BLACK;
-                stringColor = Terminal.Color.YELLOW;
-                label = ".";
-            }
-
-            screen.putString(col, row, label, stringColor, color);
-        }
+    public void drawPlayer(Position pos){
+        screen.putString(pos.getCol(), pos.getRow(), " ", Terminal.Color.WHITE, Terminal.Color.YELLOW);
     }
 
-    public Screen getScreen() {
-        return screen;
+    public void drawGhost(Position pos){
+        screen.putString(pos.getCol(), pos.getRow(), " ", Terminal.Color.WHITE, Terminal.Color.BLUE);
     }
 
     public void clear(){
@@ -99,60 +54,7 @@ public class Representation {
         screen.refresh();
     }
 
-
-    /*
-    public void drawGrid(List<GameObject> gameObjects, Player player) {
-
-        screen.clear();
-
-        drawWalls();
-
-        drawObjects(gameObjects);
-
-        drawPlayers(player);
-
-        screen.refresh();
+    public Screen getScreen() {
+        return screen;
     }
-
-
-    public void drawWalls() {
-
-        for (Position position : FileHelper.walls) {
-
-            screenWriter.drawString(position.getCol(), position.getRow(), " ");
-            screenWriter.setBackgroundColor(Terminal.Color.WHITE);
-        }
-    }
-
-
-    public void drawObjects(List<GameObject> gameObjects) {
-
-        for (GameObject gameObject : gameObjects) {
-
-            int col = gameObject.getPosition().getCol();
-            int row = gameObject.getPosition().getRow();
-            String label = gameObject.getType().getLabel();
-            Terminal.Color color = gameObject.getType().getColor();
-            Terminal.Color stringColor;
-
-            if (gameObject.getType().equals(POWERUP)) {
-                stringColor = Terminal.Color.RED;
-
-            } else {
-                stringColor = Terminal.Color.YELLOW;
-            }
-
-            screen.putString(col, row, label, stringColor, color);
-        }
-    }
-
-    // TODO THIS LOGIC SHOULD BE IN GAME CLASS
-
-    private void drawPlayers(Player player) {
-
-        if (!player.isKilled()) {
-            screen.putString(player.getPosition().getCol(), player.getPosition().getRow(), " ", Terminal.Color.WHITE, Terminal.Color.YELLOW);
-        }
-    }
-    */
 }

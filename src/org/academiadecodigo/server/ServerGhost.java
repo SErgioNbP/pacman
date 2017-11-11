@@ -1,9 +1,8 @@
 package org.academiadecodigo.server;
 
-import org.academiadecodigo.pacman.FileHelper;
+import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.ObjectType;
 
 /**
  * Created by codecadet on 10/11/17.
@@ -24,15 +23,15 @@ public class ServerGhost {
 
         int randomNumber = (int) (Math.random() * 50);
 
-        if (randomNumber < 10){
+        if (randomNumber < 5){
             nextDirection = Direction.turnBack(direction);
         }
 
-        if (randomNumber >= 10 && randomNumber < 35){
+        else if (randomNumber < 15){
             nextDirection = Direction.turnLeft(direction);
         }
 
-        if (randomNumber >= 35){
+        else if (randomNumber < 25){
             nextDirection = Direction.turnRight(direction);
         }
 
@@ -61,12 +60,12 @@ public class ServerGhost {
 
     public boolean isWalkable(Position position) {
 
-        /*for (Position p : FileHelper.path) {
+        for (Position p : Utils.path) {
 
             if (p.comparePos(position))
                 return true;
         }
-        return false;*/ return true;
+        return false;
     }
 
     public Position getPosition() {

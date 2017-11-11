@@ -1,11 +1,9 @@
 package org.academiadecodigo.pacman.objects.movables;
 
-import javafx.geometry.Pos;
-import org.academiadecodigo.pacman.FileHelper;
+import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
-import org.academiadecodigo.pacman.objects.ObjectType;
 
 import java.util.List;
 
@@ -40,7 +38,7 @@ public class Ghost implements Movable {
     }
 
     public boolean isWalkable(Position position) {
-        for (Position p : FileHelper.path) {
+        for (Position p : Utils.path) {
 
             if (p.comparePos(position))
                 return true;
