@@ -1,5 +1,6 @@
 package org.academiadecodigo.server;
 
+import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.movables.Ghost;
 
@@ -17,12 +18,13 @@ public class Server {
 
     public static void main(String[] args) {
 
+        Utils.generateLists();
 
         List<ServerGhost> serverGhosts = new LinkedList<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < Utils.ghostsPos.size(); i++) {
 
-            serverGhosts.add(new ServerGhost(new Position(42, 7)));
+            serverGhosts.add(new ServerGhost(Utils.ghostsPos.get(i)));
         }
 
         DatagramSocket socket = null;
@@ -32,15 +34,12 @@ public class Server {
             socket = new DatagramSocket(9090);
 
         } catch (Exception e) {
-            System.out.println("111");
-
+            e.getStackTrace();
         }
 
         while (true) {
 
-            System.out.println("moving");
             for (ServerGhost serverGhost : serverGhosts) {
-                System.out.println("kkkkk");
                 serverGhost.move();
 
                 try {
@@ -94,4 +93,4 @@ public class Server {
         return string;
     }
 }
-    
+

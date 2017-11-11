@@ -3,7 +3,7 @@ package org.academiadecodigo.pacman.objects.movables;
 import com.googlecode.lanterna.gui.Interactable;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.terminal.TerminalPosition;
-import org.academiadecodigo.pacman.FileHelper;
+import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class Player implements Movable, Interactable {
 
-    private Direction direction = Direction.UP;
+    private Direction direction = Direction.LEFT;
     private Direction nextDirection = Direction.UP;
     private Position position;
 
@@ -27,11 +27,11 @@ public class Player implements Movable, Interactable {
     private boolean alive = true;
 
     public Player(Position position) {
-        this.position = position;
 
-        FileHelper.generateLists();
-        walkablePositions = FileHelper.path;
+        this.position = position;
         points = 0;
+
+        walkablePositions = Utils.path;
     }
 
     @Override
@@ -73,9 +73,6 @@ public class Player implements Movable, Interactable {
             direction = nextDirection;
             return;
         }
-
-        System.out.println(direction);
-        System.out.println(nextDirection);
 
         col = position.getCol() + direction.getMoveCol();
         row = position.getRow() + direction.getMoveRow();
