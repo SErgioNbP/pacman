@@ -1,5 +1,6 @@
 package org.academiadecodigo.pacman;
 
+import org.academiadecodigo.pacman.objects.movables.Enemy;
 import org.academiadecodigo.pacman.screens.Representation;
 
 import com.googlecode.lanterna.input.Key;
@@ -27,9 +28,10 @@ public class Game {
     private List<Apple> gameApples;
     private List<Fruit> gameFruits;
     private List<Player> gamePlayers;
+    private List<Position> positionList;
 
-    private Player player1;
-    private Player player2;
+    private Player player;
+    private Enemy enemy;
 
     public void init() {
 
@@ -44,8 +46,8 @@ public class Game {
         gameFruits = Utils.createFruits();
         gamePlayers = Utils.createPlayers();
 
-        player1 = gamePlayers.get(0);
-        player2 = gamePlayers.get(1);
+        player = gamePlayers.get(0);
+        enemy = new Enemy(new Position(42, 7));
 
         draw();
 
@@ -66,19 +68,19 @@ public class Game {
 
                 if (key.getKind() == Key.Kind.ArrowRight) {
 
-                    player1.setNextDirection(Direction.RIGHT);
+                    player.setNextDirection(Direction.RIGHT);
                 }
                 if (key.getKind() == Key.Kind.ArrowLeft) {
 
-                    player1.setNextDirection(Direction.LEFT);
+                    player.setNextDirection(Direction.LEFT);
                 }
                 if (key.getKind() == Key.Kind.ArrowDown) {
 
-                    player1.setNextDirection(Direction.DOWN);
+                    player.setNextDirection(Direction.DOWN);
                 }
                 if (key.getKind() == Key.Kind.ArrowUp) {
 
-                    player1.setNextDirection(Direction.UP);
+                    player.setNextDirection(Direction.UP);
                 }
             }
 
@@ -89,7 +91,7 @@ public class Game {
                 e.printStackTrace();
             }
 
-            player1.move();
+            player.move();
             eatFruits();
             checkDeaths();
             draw();
@@ -118,9 +120,12 @@ public class Game {
                 representation.drawFruit(fruit.getPosition());
             }
         }
+        System.out.println(enemy.getPosition().getCol() + " ,  " + enemy.getPosition().getRow());
+        representation.drawEnemy(enemy.getPosition());
 
-        if (player1.isAlive()) {
-            representation.drawPlayer(player1.getPosition());
+        if (player.isAlive()) {
+            client.sendServer("Enemy " + player.getPosition().getCol() + " " + player.getPosition().getRow());
+            representation.drawPlayer(player.getPosition());
         }
 
         for (Ghost ghost : gameGhosts) {
@@ -129,22 +134,64 @@ public class Game {
                 representation.drawGhost(ghost.getPosition());
             }
 
-            representation.refresh();
         }
+        representation.refresh();
+
     }
 
-    public void updateGhostsPosition(String ghostsPosition) {
+    public void updatePosition(String positions) {
 
-        String[] ghostPositions = ghostsPosition.split("\n");
+        String[] typePosition = positions.split("\n");
+        System.out.println(typePosition.length);
 
-        for (int i = 0; i < ghostPositions.length; i++) {
+        String[] type = typePosition[0].split(" ");
 
-            String[] strings = ghostPositions[i].split(" ");
+        switch (type[0]) {
 
-            if (strings[0].equals("Ghost")) {
+            case "Ghost":
 
-                gameGhosts.get(i).setPositionColRow(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
-            }
+                for (int i = 0; i < typePosition.length; i++) {
+
+                    String[] strings = typePosition[i].split(" ");
+
+                    gameGhosts.get(i).setPositionColRow(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
+                }
+
+                break;
+
+            case "Fruit":
+
+                for (Fruit fruit : gameFruits) {
+
+                    if (fruit.getPosition().comparePos(new Position(Integer.parseInt(type[1]), Integer.parseInt(type[2])))) {
+                        fruit.eat();
+                    }
+                }
+
+                break;
+
+            case "Apple":
+
+                for (Apple apple : gameApples) {
+
+                    if (apple.getPosition().comparePos(new Position(Integer.parseInt(type[1]), Integer.parseInt(type[2])))) {
+                        apple.eat();
+                    }
+                }
+
+                break;
+
+            case "Enemy":
+
+                System.out.println("here");
+                enemy.setPosition(Integer.parseInt(type[1]), Integer.parseInt(type[2]));
+                break;
+
+            case "FirstPos":
+                enemy = new Enemy(new Position(Integer.parseInt(type[1]), Integer.parseInt(type[2])));
+                break;
+            default:
+                break;
         }
     }
 
@@ -154,10 +201,10 @@ public class Game {
 
             if (!fruit.isEaten()) {
 
-                if (player1.getPosition().comparePos(fruit.getPosition())) {
+                if (player.getPosition().comparePos(fruit.getPosition())) {
 
-                    player1.eat(fruit);
-                    client.sendServer("Fruit " + player1.getPosition().getCol() + " " + player1.getPosition().getRow());
+                    player.eat(fruit);
+                    client.sendServer("Fruit " + player.getPosition().getCol() + " " + player.getPosition().getRow());
                 }
             }
         }
@@ -166,10 +213,10 @@ public class Game {
 
             if (!apple.isEaten()) {
 
-                if (player1.getPosition().comparePos(apple.getPosition())) {
+                if (player.getPosition().comparePos(apple.getPosition())) {
 
-                    player1.eat(apple);
-                    client.sendServer("Apple " + player1.getPosition().getCol() + " " + player1.getPosition().getRow());
+                    player.eat(apple);
+                    client.sendServer("Apple " + player.getPosition().getCol() + " " + player.getPosition().getRow());
                 }
 
             }
@@ -180,10 +227,10 @@ public class Game {
 
         for (Ghost ghost : gameGhosts) {
 
-            if (player1.getPosition().comparePos(ghost.getPosition())) {
-                // if (player1.hasPowerUp()){
+            if (player.getPosition().comparePos(ghost.getPosition())) {
+                // if (player.hasPowerUp()){
 
-                player1.die();
+                player.die();
             }
         }
     }

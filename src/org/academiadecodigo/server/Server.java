@@ -66,7 +66,8 @@ public class Server {
 
                 socket.receive(receivedPacket);
 
-                if (new String(receivedPacket.getData()).trim().equals("START")) {
+                String string = new String(receivedPacket.getData()).trim();
+                if (string.equals("START")) {
 
                     GhostHandler ghostHandler = new GhostHandler(receivedPacket.getAddress(), receivedPacket.getPort());
                     timer.scheduleAtFixedRate(ghostHandler, 5000, 500);
@@ -74,6 +75,9 @@ public class Server {
                     if (!addressExists(receivedPacket)) {
                         addresses.add(receivedPacket);
                     }
+
+                } else {
+                    sendDirectMessage(receivedPacket, string);
                 }
             }
 
@@ -89,6 +93,23 @@ public class Server {
         return addresses.contains(packet);
     }
 
+    private void sendDirectMessage(DatagramPacket datagramPacket, String string){
+
+        byte[] sendBuffer = string.getBytes();
+
+        for (DatagramPacket packet : addresses){
+            if (!datagramPacket.getAddress().equals(packet.getAddress()) && datagramPacket.getPort() == packet.getPort()){
+
+                DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, packet.getAddress(), packet.getPort());
+                try {
+                    socket.send(sendPacket);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
     private void broadcast(String string) {
 
         byte[] sendBuffer = string.getBytes();
@@ -156,6 +177,9 @@ public class Server {
             for (ServerGhost serverGhost : serverGhosts) {
                 serverGhost.move();
             }
+
+
+
             String stringToSend = "";
 
             for (ServerGhost ghost : serverGhosts) {
@@ -163,7 +187,6 @@ public class Server {
                 stringToSend = stringToSend + ghostPositionCoding(ghost.getPosition());
             }
             broadcast(stringToSend);
-
         }
     }
 }

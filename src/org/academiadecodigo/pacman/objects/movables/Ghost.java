@@ -30,7 +30,8 @@ public class Ghost implements Movable {
     }
 
     public void setPositionColRow(int col, int row) {
-        this.position = new Position(col, row);
+        position.setCol(col);
+        position.setRow(row);
     }
 
     public boolean isAlive() {

@@ -5,7 +5,6 @@ import org.academiadecodigo.pacman.Game;
 import java.net.DatagramSocket;
 import java.io.IOException;
 import java.net.*;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -79,7 +78,7 @@ public class Client {
 
                     String receivedString = new String(receivedPacket.getData());
 
-                    game.updateGhostsPosition(receivedString.trim());
+                    game.updatePosition(receivedString.trim());
                 }
 
             } catch (UnknownHostException e) {

@@ -75,8 +75,11 @@ public class Player implements Movable, Interactable {
 
         if (isWalkable(newPosition)) {
             position = newPosition;
+
             return;
         }
+
+
     }
 
     @Override

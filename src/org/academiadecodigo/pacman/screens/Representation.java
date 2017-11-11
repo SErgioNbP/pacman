@@ -37,6 +37,9 @@ public class Representation {
     public void drawPlayer(Position pos){
         screen.putString(pos.getCol(), pos.getRow(), " ", Terminal.Color.WHITE, Terminal.Color.YELLOW);
     }
+    public void drawEnemy(Position position) {
+        screen.putString(position.getCol(), position.getRow(), " ", Terminal.Color.WHITE, Terminal.Color.GREEN);
+    }
 
     public void drawGhost(Position pos){
         screen.putString(pos.getCol(), pos.getRow(), " ", Terminal.Color.WHITE, Terminal.Color.BLUE);
@@ -53,4 +56,5 @@ public class Representation {
     public Screen getScreen() {
         return screen;
     }
+
 }
