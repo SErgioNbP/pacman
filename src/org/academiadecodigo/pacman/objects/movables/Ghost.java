@@ -22,12 +22,17 @@ public class Ghost implements Movable {
         this.position = position;
         direction = Direction.UP;
     }
-
     @Override
     public void move() {
+/*
+        int randomNumber = (int) (Math.random() * 50);
+        if (isWalkable(newPosition)) {
+            setPosition(newPosition);
+            return;
+        }
 
-
-    }
+        direction = Direction.changeGhostDirection();
+    */}
 
     @Override
     public void kill(List<GameObject> gameObjects) {
@@ -47,9 +52,8 @@ public class Ghost implements Movable {
         return position;
     }
 
-    public void setPosition(int col, int row){
+    public void setPositionColRow(int col, int row){
 
-        position.setCol(col);
-        position.setRow(row);
+        this.position = new Position(col, row);
     }
 }

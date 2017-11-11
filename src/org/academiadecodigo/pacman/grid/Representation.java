@@ -2,19 +2,13 @@ package org.academiadecodigo.pacman.grid;
 
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.ScreenWriter;
 import com.googlecode.lanterna.terminal.Terminal;
 import org.academiadecodigo.pacman.Constants;
 import org.academiadecodigo.pacman.FileHelper;
-import org.academiadecodigo.pacman.objects.GameObject;
-import org.academiadecodigo.pacman.objects.fruit.Fruit;
 import org.academiadecodigo.pacman.objects.movables.Ghost;
 import org.academiadecodigo.pacman.objects.movables.Player;
 
 import java.util.List;
-
-import static org.academiadecodigo.pacman.objects.ObjectType.FRUIT;
-import static org.academiadecodigo.pacman.objects.ObjectType.POWERUP;
 
 public class Representation {
 
@@ -71,16 +65,16 @@ public class Representation {
                 color = Terminal.Color.YELLOW;
                 stringColor = color;
 
-            } else if (FileHelper.ghosts.contains(pos)) {
+            } else if (FileHelper.ghostsPos.contains(pos)) {
                 color = Terminal.Color.BLUE;
                 stringColor = color;
 
-            } else*/ if (FileHelper.apples.contains(pos)) {
+            } else*/ if (FileHelper.applesPos.contains(pos)) {
                 color = Terminal.Color.BLACK;
                 stringColor = Terminal.Color.RED;
                 label = "";
 
-            } else if (FileHelper.points.contains(pos)) {
+            } else if (FileHelper.fruitsPos.contains(pos)) {
                 color = Terminal.Color.BLACK;
                 stringColor = Terminal.Color.YELLOW;
                 label = ".";

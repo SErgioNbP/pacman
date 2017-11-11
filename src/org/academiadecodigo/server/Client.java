@@ -2,9 +2,9 @@ package org.academiadecodigo.server;
 
 import org.academiadecodigo.pacman.Game;
 
+import java.net.DatagramSocket;
 import java.io.IOException;
 import java.net.*;
-import java.util.Scanner;
 
 /**
  * Created by codecadet on 26/10/17.
@@ -24,7 +24,6 @@ public class Client implements Runnable {
 
     @Override
     public void run() {
-
 
         byte[] receiveBuffer = new byte[1024];
 
@@ -59,8 +58,6 @@ public class Client implements Runnable {
 
             }
 
-            //socket.close();
-
         } catch (UnknownHostException e) {
 
             e.printStackTrace();
@@ -71,8 +68,5 @@ public class Client implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-
 }

@@ -1,8 +1,11 @@
 package org.academiadecodigo.pacman;
 
+import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.input.Key;
+import com.googlecode.lanterna.screen.Screen;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Representation;
+
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.GameObject;
 import org.academiadecodigo.pacman.objects.fruit.Edible;
@@ -11,12 +14,13 @@ import org.academiadecodigo.pacman.objects.movables.Ghost;
 import org.academiadecodigo.pacman.objects.movables.Movable;
 import org.academiadecodigo.pacman.objects.movables.Player;
 import org.academiadecodigo.server.Client;
+import org.academiadecodigo.pacman.objects.fruit.Fruit;
+import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 
 public class Game {
 
@@ -24,12 +28,15 @@ public class Game {
     //private List<Player> players;
     private Player player;
     private List<Ghost> ghosts;
-    private List<Edible> edibles;
     private List<Position> walls;
 
     private Representation representation;
     private Client client;
     ExecutorService executorService;
+
+    private List<Ghost> gameGhosts;
+    private List<Apple> gamApples;
+    private List<Fruit> gameFruits;
 
     public void init() {
 
@@ -48,6 +55,10 @@ public class Game {
         representation = new Representation();
         representation.init();
 
+        //gameGhosts = FileHelper.createGhosts();
+        //gamApples = FileHelper.createApples();
+        //gameFruits = FileHelper.createFruits();
+
         /*
         objects = new LinkedList<>();
         objects.addAll(ObjectFactory.createGameObjects());
@@ -55,6 +66,7 @@ public class Game {
         players = new LinkedList<>();
         players.add(player);
         */
+
         player = new Player(new Position(42, 7));
 
         draw();
@@ -63,8 +75,6 @@ public class Game {
 
         start();
     }
-
-
 
     public void start() {
 
@@ -152,8 +162,13 @@ public class Game {
 
             if (strings[0].equals("Ghost")) {
 
-                ghosts.get(i).setPosition(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
+                ghosts.get(i).setPositionColRow(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
             }
         }
     }
 }
+
+
+
+
+

@@ -17,6 +17,7 @@ public class Server {
 
     public static void main(String[] args) {
 
+
         List<ServerGhost> serverGhosts = new LinkedList<>();
 
         for (int i = 0; i < 5; i++) {
@@ -34,8 +35,8 @@ public class Server {
             System.out.println("111");
 
         }
-        while (true) {
 
+        while (true) {
 
             System.out.println("moving");
             for (ServerGhost serverGhost : serverGhosts) {
@@ -59,7 +60,7 @@ public class Server {
 
                     String stringToSend = "";
 
-                    for (ServerGhost ghost : serverGhosts){
+                    for (ServerGhost ghost : serverGhosts) {
 
                         stringToSend = stringToSend + ghostPositionCoding(ghost.getPosition());
                     }
@@ -76,15 +77,13 @@ public class Server {
 
                     e.printStackTrace();
                 }
-
-
             }
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
@@ -93,6 +92,6 @@ public class Server {
         String string = "Ghost " + position.getCol() + " " + position.getRow() + "\n";
 
         return string;
-
     }
 }
+    
