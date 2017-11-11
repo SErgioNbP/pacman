@@ -48,7 +48,9 @@ public class Server {
         executorService = Executors.newFixedThreadPool(10);
 
         addresses = new LinkedList<>();
+
     }
+
 
     private void start() {
 
@@ -92,7 +94,11 @@ public class Server {
         byte[] sendBuffer = string.getBytes();
         for (DatagramPacket packet : addresses) {
             DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, packet.getAddress(), packet.getPort());
-            String stringToSend = "";
+            try {
+                socket.send(sendPacket);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -123,6 +129,8 @@ public class Server {
 
                     String receivedString = new String(receivedPacket.getData()).trim();
 
+                    System.out.println(receivedString);
+
                     String[] strings = receivedString.split(" ");
 
                 } catch (IOException e1) {
@@ -136,7 +144,6 @@ public class Server {
 
         private InetAddress ip;
         private int portNumber;
-            int i = 0;
 
         public GhostHandler(InetAddress ip, int portNumber) {
             this.ip = ip;
@@ -149,8 +156,6 @@ public class Server {
             for (ServerGhost serverGhost : serverGhosts) {
                 serverGhost.move();
             }
-            System.out.println(i);
-            i++;
             String stringToSend = "";
 
             for (ServerGhost ghost : serverGhosts) {

@@ -56,11 +56,9 @@ public class Game {
 
     public void start() {
 
-        executorService.submit(client);
-
+        client.sendServer("START");
+        client.startListening();
         while (true) {
-
-
 
             Key key = representation.getScreen().readInput();
 
@@ -159,7 +157,7 @@ public class Game {
                 if (player1.getPosition().comparePos(fruit.getPosition())) {
 
                     player1.eat(fruit);
-                    client.setStringToSend("Fruit " + player1.getPosition().getCol() + " " + player1.getPosition().getRow());
+                    client.sendServer("Fruit " + player1.getPosition().getCol() + " " + player1.getPosition().getRow());
                 }
             }
         }
@@ -171,7 +169,7 @@ public class Game {
                 if (player1.getPosition().comparePos(apple.getPosition())) {
 
                     player1.eat(apple);
-                    client.setStringToSend("Apple " + player1.getPosition().getCol() + " " + player1.getPosition().getRow());
+                    client.sendServer("Apple " + player1.getPosition().getCol() + " " + player1.getPosition().getRow());
                 }
 
             }
