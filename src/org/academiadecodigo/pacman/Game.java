@@ -1,5 +1,6 @@
 package org.academiadecodigo.pacman;
 
+import org.academiadecodigo.keyboard.KeyboardHandler;
 import org.academiadecodigo.pacman.objects.movables.Enemy;
 import org.academiadecodigo.pacman.screens.Representation;
 
@@ -15,15 +16,18 @@ import org.academiadecodigo.server.Client;
 import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Game {
 
     private Client client;
-    ExecutorService executorService;
+    private ExecutorService executorService;
 
     private Representation representation;
+    private Timer timer;
 
     private List<Ghost> gameGhosts;
     private List<Apple> gameApples;
@@ -33,6 +37,8 @@ public class Game {
 
     private Player player;
     private Enemy enemy;
+
+    private KeyboardHandler keyboardHandler;
 
     public void init() {
 
@@ -54,50 +60,30 @@ public class Game {
 
         this.executorService = Executors.newFixedThreadPool(5);
 
+        keyboardHandler = new KeyboardHandler(representation.getScreen(), player, this);
+
+        executorService.submit(keyboardHandler);
+
         representation.clear();
 
         representation.getCurrentScreen().drawScreen(ScreenType.INITIAL_SCREEN);
 
-        start();
     }
 
     public void start() {
+        GameThread gameThread = new GameThread();
+        executorService.submit(gameThread);
+    }
 
-        while (true) {
+    class GameThread implements Runnable {
 
-            Key key = representation.getScreen().readInput();
+        @Override
+        public void run() {
 
-            if (key != null) {
-
-                if (key.getKind() == Key.Kind.ArrowRight) {
-
-                    player.setNextDirection(Direction.RIGHT);
-                }
-                if (key.getKind() == Key.Kind.ArrowLeft) {
-
-                    player.setNextDirection(Direction.LEFT);
-                }
-                if (key.getKind() == Key.Kind.ArrowDown) {
-
-                    player.setNextDirection(Direction.DOWN);
-                }
-                if (key.getKind() == Key.Kind.ArrowUp) {
-
-                    player.setNextDirection(Direction.UP);
-                }
-                if (key.getKind() == Key.Kind.Enter) {
-
-                    gameStart();
-                }
-
-            }
-
-            try {
-                Thread.sleep(200);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+                player.move();
+                eatFruits();
+                checkDeaths();
+                draw();
         }
     }
 
@@ -144,11 +130,13 @@ public class Game {
 
     }
 
-    public void updatePosition(String positions) {
+    public synchronized void updatePosition(String positions) {
 
         String[] typePosition = positions.split("\n");
 
         String[] type = typePosition[0].split(" ");
+
+            start();
 
         switch (type[0]) {
 
@@ -241,19 +229,8 @@ public class Game {
         }
     }
 
-    public void gameStart() {
-
-        while(true) {
-
-            player.move();
-            eatFruits();
-            checkDeaths();
-            draw();
-
-        }
-
-    }
 }
+
 
 
 
