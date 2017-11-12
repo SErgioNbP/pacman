@@ -73,13 +73,14 @@ public class Server {
                         addresses.add(receivedPacket);
                     }
                 }
-
-                GhostHandler ghostHandler = new GhostHandler();
-                timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
-
-                ListenHandler listenHandler = new ListenHandler();
-                executorService.submit(listenHandler);
             }
+            System.out.println(addresses.size());
+
+            GhostHandler ghostHandler = new GhostHandler();
+            timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
+
+            ListenHandler listenHandler = new ListenHandler();
+            executorService.submit(listenHandler);
 
         } catch (SocketException e) {
             e.printStackTrace();
@@ -170,8 +171,6 @@ public class Server {
                         System.out.println(receivedPacket.getAddress());
                         continue;
                     }
-
-                    System.out.println(addresses.size());
 
                     sendDirectMessage(receivedPacket, receivedString);
 
