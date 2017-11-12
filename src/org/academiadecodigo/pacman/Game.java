@@ -35,9 +35,13 @@ public class Game {
     private List<Position> positionList;
 
     private Player player;
+    private Position playerStartPosition;
     private Enemy enemy;
+    private Position enemyStartPosition;
     private int enemyScore;
     private boolean running;
+
+    private boolean canBeInitialized = false;
 
     private KeyboardHandler keyboardHandler;
 
@@ -56,10 +60,10 @@ public class Game {
 
         client.sendServer("START");
         client.startListening();
-        player = gamePlayers.get(0);
-        enemy = new Enemy(new Position(42, 7));
 
         this.executorService = Executors.newFixedThreadPool(5);
+        player = new Player(new Position(10, 10));
+        enemy = new Enemy(new Position(10, 10));
 
         keyboardHandler = new KeyboardHandler(representation.getScreen(), player, this);
 
@@ -74,6 +78,14 @@ public class Game {
     }
 
     public void start() {
+
+        while (!canBeInitialized) {
+
+        }
+
+        player.setPosition(playerStartPosition);
+        enemy.setPosition(enemyStartPosition);
+
         GameThread gameThread = new GameThread();
         timer.scheduleAtFixedRate(gameThread, 0, 200);
         running = true;
@@ -153,6 +165,21 @@ public class Game {
         String[] words = messageLines[0].split(" ");
 
         String type = words[0];
+
+        if (type.equals("player")) {
+
+            String[] playerEnemyPositions = positions.split("\n");
+
+            String[] playerInitialPosition = playerEnemyPositions[0].split(" ");
+            String[] enemyInitialPosition = playerEnemyPositions[1].split(" ");
+
+            playerStartPosition = new Position(Integer.parseInt(playerInitialPosition[1]), Integer.parseInt(playerInitialPosition[2]));
+            enemyStartPosition = new Position(Integer.parseInt(enemyInitialPosition[1]), Integer.parseInt(enemyInitialPosition[2]));
+
+            canBeInitialized = true;
+
+            System.out.println("entrou");
+        }
 
         switch (type) {
 
@@ -250,7 +277,7 @@ public class Game {
 
                 if (player.getPower() != null) {
 
-                    if (player.getPower().equals(PowerType.EDIBLEGHOSTS)) {
+                    if (player.getPower().equals(PowerType.EDIBLE_GHOSTS)) {
                         ghost.die();
                         player.setPower(null);
 

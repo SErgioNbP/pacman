@@ -57,13 +57,10 @@ public class Client {
             this.socket = socket;
         }
 
-
         @Override
         public void run() {
 
-
             try {
-
 
                 while (true) {
 

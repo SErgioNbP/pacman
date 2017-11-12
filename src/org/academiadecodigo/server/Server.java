@@ -58,23 +58,27 @@ public class Server {
 
             socket = new DatagramSocket(portNumber);
 
-            while (addresses.size() < 2) {
 
-                byte[] receiveBuffer = new byte[1024];
+            byte[] receiveBuffer = new byte[1024];
 
-                DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+            DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
-                socket.receive(receivedPacket);
-                String string = new String(receivedPacket.getData()).trim();
+            socket.receive(receivedPacket);
+            String string = new String(receivedPacket.getData()).trim();
 
-                if (string.equals("START")) {
+            if (string.equals("START")) {
 
-                    if (!addressExists(receivedPacket) || addresses.size() == 0) {
-                        addresses.add(receivedPacket);
-                    }
+                if (!addressExists(receivedPacket) || addresses.size() == 0) {
+                    addresses.add(receivedPacket);
                 }
             }
-            System.out.println(addresses.size());
+
+            String player1 = "player 42 7\nenemy 42 5";
+            String player2 = "player 42 5\nenemy 42 7";
+
+            sendDirectMessage(addresses.get(0), player2);
+            sendDirectMessage(addresses.get(1), player1);
+
 
             GhostHandler ghostHandler = new GhostHandler();
             timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
@@ -112,8 +116,10 @@ public class Server {
             if (!datagramPacket.getAddress().toString().equals(packet.getAddress().toString())) {
 
                 DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, packet.getAddress(), packet.getPort());
+
                 try {
                     socket.send(sendPacket);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

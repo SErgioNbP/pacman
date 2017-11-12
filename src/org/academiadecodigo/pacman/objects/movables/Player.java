@@ -18,6 +18,7 @@ public class Player implements Movable, Interactable {
     private Direction direction = Direction.LEFT;
     private Direction nextDirection = Direction.UP;
     private Position position;
+    private Position initialPosition;
 
     private List<Position> walkablePositions;
     private PowerType power;
@@ -148,5 +149,9 @@ public class Player implements Movable, Interactable {
 
     public int getScore() {
         return points;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }
