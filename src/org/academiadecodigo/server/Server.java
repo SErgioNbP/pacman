@@ -66,21 +66,19 @@ public class Server {
 
 
                 socket.receive(receivedPacket);
-                addresses.add(receivedPacket);
-                System.out.println(addresses.size());
                 String string = new String(receivedPacket.getData()).trim();
-               // if (string.equals("START")) {
+                if (string.equals("START")) {
 
                     GhostHandler ghostHandler = new GhostHandler(receivedPacket.getAddress(), receivedPacket.getPort());
                     timer.scheduleAtFixedRate(ghostHandler, 5000, 500);
 
-            //        if (!addressExists(receivedPacket)) {
-              //          addresses.add(receivedPacket);
-                //    }
+                    if (!addressExists(receivedPacket) || addresses.size() == 0) {
+                        addresses.add(receivedPacket);
+                    }
 
-             //   } else {
+                } else {
                     sendDirectMessage(receivedPacket, string);
-             //   }
+                }
             }
 
         } catch (SocketException e) {
@@ -90,17 +88,27 @@ public class Server {
         }
     }
 
+
     private boolean addressExists(DatagramPacket packet) {
+
+        for (DatagramPacket datagramPacket : addresses) {
+
+            if (datagramPacket.getSocketAddress().equals(packet.getSocketAddress()) || datagramPacket.getPort() == datagramPacket.getPort()) {
+
+                return true;
+            }
+        }
 
         return addresses.contains(packet);
     }
 
-    private void sendDirectMessage(DatagramPacket datagramPacket, String string){
+    private void sendDirectMessage(DatagramPacket datagramPacket, String string) {
 
         byte[] sendBuffer = string.getBytes();
 
-        for (DatagramPacket packet : addresses){
-            if (!datagramPacket.getAddress().equals(packet.getAddress()) && datagramPacket.getPort() == packet.getPort()){
+        for (DatagramPacket packet : addresses) {
+
+            if (!datagramPacket.getAddress().toString().equals(packet.getAddress().toString()) && datagramPacket.getPort() == packet.getPort()) {
 
                 DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, packet.getAddress(), packet.getPort());
                 try {
@@ -112,6 +120,7 @@ public class Server {
         }
 
     }
+
     private void broadcast(String string) {
 
         byte[] sendBuffer = string.getBytes();
@@ -179,7 +188,6 @@ public class Server {
             for (ServerGhost serverGhost : serverGhosts) {
                 serverGhost.move();
             }
-
 
 
             String stringToSend = "";

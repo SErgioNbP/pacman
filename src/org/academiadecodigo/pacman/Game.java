@@ -120,8 +120,10 @@ public class Game {
                 representation.drawFruit(fruit.getPosition());
             }
         }
-        System.out.println(enemy.getPosition().getCol() + " ,  " + enemy.getPosition().getRow());
-        representation.drawEnemy(enemy.getPosition());
+
+        if (enemy.isAlive()) {
+            representation.drawEnemy(enemy.getPosition());
+        }
 
         if (player.isAlive()) {
             client.sendServer("Enemy " + player.getPosition().getCol() + " " + player.getPosition().getRow());
@@ -183,7 +185,6 @@ public class Game {
 
             case "Enemy":
 
-                System.out.println("here");
                 enemy.setPosition(Integer.parseInt(type[1]), Integer.parseInt(type[2]));
                 break;
 
