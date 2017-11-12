@@ -20,7 +20,7 @@ public class Client {
 
     }
 
-    public void startListening(){
+    public void startListening() {
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
@@ -62,19 +62,23 @@ public class Client {
         @Override
         public void run() {
 
-            byte[] receiveBuffer = new byte[1024];
 
             try {
 
 
                 while (true) {
 
+                    byte[] receiveBuffer = new byte[1024];
 
                     DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
                     socket.receive(receivedPacket);
 
                     String receivedString = new String(receivedPacket.getData());
+
+                    String[] strings = receivedString.split("\n");
+
+                    System.out.println(strings.length);
 
                     game.updatePosition(receivedString.trim());
                 }
