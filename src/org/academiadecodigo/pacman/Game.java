@@ -10,6 +10,7 @@ import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
 import org.academiadecodigo.pacman.objects.movables.Ghost;
 import org.academiadecodigo.pacman.objects.movables.Player;
+import org.academiadecodigo.pacman.screens.ScreenType;
 import org.academiadecodigo.server.Client;
 import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
 
@@ -51,9 +52,11 @@ public class Game {
         player = gamePlayers.get(0);
         enemy = new Enemy(new Position(42, 7));
 
-        draw();
-
         this.executorService = Executors.newFixedThreadPool(5);
+
+        representation.clear();
+
+        representation.getCurrentScreen().drawScreen(ScreenType.INITIAL_SCREEN);
 
         start();
     }
@@ -82,6 +85,11 @@ public class Game {
 
                     player.setNextDirection(Direction.UP);
                 }
+                if (key.getKind() == Key.Kind.Enter) {
+
+                    gameStart();
+                }
+
             }
 
             try {
@@ -90,11 +98,6 @@ public class Game {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-            player.move();
-            eatFruits();
-            checkDeaths();
-            draw();
         }
     }
 
@@ -151,7 +154,7 @@ public class Game {
 
             case "Ghost":
 
-                if(typePosition.length != 5){
+                if (typePosition.length != 5) {
                     return;
                 }
 
@@ -236,6 +239,19 @@ public class Game {
                 player.die();
             }
         }
+    }
+
+    public void gameStart() {
+
+        while(true) {
+
+            player.move();
+            eatFruits();
+            checkDeaths();
+            draw();
+
+        }
+
     }
 }
 

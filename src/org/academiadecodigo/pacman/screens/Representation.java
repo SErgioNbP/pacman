@@ -9,6 +9,7 @@ import org.academiadecodigo.pacman.grid.Position;
 public class Representation {
 
     private Screen screen;
+    private org.academiadecodigo.pacman.screens.Screen currentScreen;
 
     public void init() {
 
@@ -18,6 +19,8 @@ public class Representation {
 
         screen.getTerminal().getTerminalSize().setColumns(Constants.GRID_COLS);
         screen.getTerminal().getTerminalSize().setRows(Constants.GRID_ROWS);
+
+        currentScreen = new org.academiadecodigo.pacman.screens.Screen(screen);
 
         screen.startScreen();
     }
@@ -57,4 +60,7 @@ public class Representation {
         return screen;
     }
 
+    public org.academiadecodigo.pacman.screens.Screen getCurrentScreen() {
+        return currentScreen;
+    }
 }
