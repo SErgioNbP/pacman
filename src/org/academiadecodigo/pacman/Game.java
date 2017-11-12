@@ -187,7 +187,6 @@ public class Game {
                 break;
 
             case "Enemy":
-                System.out.println("99999");
                 enemy.setPosition(Integer.parseInt(type[1]), Integer.parseInt(type[2]));
                 break;
 
