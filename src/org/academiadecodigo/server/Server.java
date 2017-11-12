@@ -58,7 +58,6 @@ public class Server {
 
             socket = new DatagramSocket(portNumber);
 
-
             byte[] receiveBuffer = new byte[1024];
 
             DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);

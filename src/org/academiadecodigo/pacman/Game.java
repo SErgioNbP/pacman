@@ -32,7 +32,6 @@ public class Game {
     private List<Apple> gameApples;
     private List<Fruit> gameFruits;
     private List<Player> gamePlayers;
-    private List<Position> positionList;
 
     private Player player;
     private Enemy enemy;
