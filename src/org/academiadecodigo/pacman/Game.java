@@ -62,6 +62,8 @@ public class Game {
 
         keyboardHandler = new KeyboardHandler(representation.getScreen(), player, this);
 
+        timer = new Timer();
+
         executorService.submit(keyboardHandler);
 
         representation.clear();
@@ -72,18 +74,18 @@ public class Game {
 
     public void start() {
         GameThread gameThread = new GameThread();
-        executorService.submit(gameThread);
+        timer.scheduleAtFixedRate(gameThread, 0, 200);
     }
 
-    class GameThread implements Runnable {
+    class GameThread extends TimerTask {
 
         @Override
         public void run() {
 
-                player.move();
-                eatFruits();
-                checkDeaths();
-                draw();
+            player.move();
+            eatFruits();
+            checkDeaths();
+            draw();
         }
     }
 
@@ -136,11 +138,11 @@ public class Game {
 
         String[] type = typePosition[0].split(" ");
 
-            start();
 
         switch (type[0]) {
 
             case "Ghost":
+
 
                 if (typePosition.length != 5) {
                     return;
