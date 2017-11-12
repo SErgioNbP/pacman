@@ -46,6 +46,8 @@ public class Game {
         gameFruits = Utils.createFruits();
         gamePlayers = Utils.createPlayers();
 
+        client.sendServer("START");
+        client.startListening();
         player = gamePlayers.get(0);
         enemy = new Enemy(new Position(42, 7));
 
@@ -58,8 +60,6 @@ public class Game {
 
     public void start() {
 
-        client.sendServer("START");
-        client.startListening();
         while (true) {
 
             Key key = representation.getScreen().readInput();
@@ -144,13 +144,16 @@ public class Game {
     public void updatePosition(String positions) {
 
         String[] typePosition = positions.split("\n");
-        System.out.println(typePosition.length);
 
         String[] type = typePosition[0].split(" ");
 
         switch (type[0]) {
 
             case "Ghost":
+
+                if(typePosition.length != 5){
+                    return;
+                }
 
                 for (int i = 0; i < typePosition.length; i++) {
 
@@ -184,7 +187,7 @@ public class Game {
                 break;
 
             case "Enemy":
-
+                System.out.println("99999");
                 enemy.setPosition(Integer.parseInt(type[1]), Integer.parseInt(type[2]));
                 break;
 

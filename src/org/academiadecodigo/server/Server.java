@@ -21,7 +21,7 @@ public class Server {
     private int portNumber = 9090;
     private volatile List<ServerGhost> serverGhosts;
     private DatagramSocket socket;
-    ExecutorService executorService;
+    private ExecutorService executorService;
     private Timer timer;
 
 
@@ -58,26 +58,24 @@ public class Server {
 
             socket = new DatagramSocket(portNumber);
 
-            while (true) {
+            byte[] receiveBuffer = new byte[1024];
 
-                byte[] receiveBuffer = new byte[1024];
-
-                DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+            DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
 
-                socket.receive(receivedPacket);
-                String string = new String(receivedPacket.getData()).trim();
-                if (string.equals("START")) {
+            socket.receive(receivedPacket);
+            String string = new String(receivedPacket.getData()).trim();
 
-                    GhostHandler ghostHandler = new GhostHandler(receivedPacket.getAddress(), receivedPacket.getPort());
-                    timer.scheduleAtFixedRate(ghostHandler, 5000, 500);
+            if (string.equals("START")) {
 
-                    if (!addressExists(receivedPacket) || addresses.size() == 0) {
-                        addresses.add(receivedPacket);
-                    }
+                GhostHandler ghostHandler = new GhostHandler();
+                timer.scheduleAtFixedRate(ghostHandler, 0, 300);
 
-                } else {
-                    sendDirectMessage(receivedPacket, string);
+                ListenHandler listenHandler = new ListenHandler();
+                executorService.submit(listenHandler);
+
+                if (!addressExists(receivedPacket) || addresses.size() == 0) {
+                    addresses.add(receivedPacket);
                 }
             }
 
@@ -99,7 +97,7 @@ public class Server {
             }
         }
 
-        return addresses.contains(packet);
+        return false;
     }
 
     private void sendDirectMessage(DatagramPacket datagramPacket, String string) {
@@ -151,8 +149,6 @@ public class Server {
 
                 try {
 
-                    int portNumber = 9090;
-
                     byte[] receiveBuffer = new byte[1024];
 
                     DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
@@ -161,9 +157,9 @@ public class Server {
 
                     String receivedString = new String(receivedPacket.getData()).trim();
 
-                    System.out.println(receivedString);
+                    sendDirectMessage(receivedPacket, receivedString);
 
-                    String[] strings = receivedString.split(" ");
+                    //broadcast(receivedString);
 
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -174,21 +170,14 @@ public class Server {
 
     class GhostHandler extends TimerTask {
 
-        private InetAddress ip;
-        private int portNumber;
-
-        public GhostHandler(InetAddress ip, int portNumber) {
-            this.ip = ip;
-            this.portNumber = portNumber;
-        }
 
         @Override
         public void run() {
 
+
             for (ServerGhost serverGhost : serverGhosts) {
                 serverGhost.move();
             }
-
 
             String stringToSend = "";
 
@@ -196,6 +185,7 @@ public class Server {
 
                 stringToSend = stringToSend + ghostPositionCoding(ghost.getPosition());
             }
+
             broadcast(stringToSend);
         }
     }
