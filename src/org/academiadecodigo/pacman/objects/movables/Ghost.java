@@ -29,7 +29,7 @@ public class Ghost implements Movable {
         return position;
     }
 
-    public void setPositionColRow(int col, int row) {
+    public void setPosition(int col, int row) {
         position.setCol(col);
         position.setRow(row);
     }

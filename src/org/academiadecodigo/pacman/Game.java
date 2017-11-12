@@ -4,8 +4,6 @@ import org.academiadecodigo.keyboard.KeyboardHandler;
 import org.academiadecodigo.pacman.objects.movables.Enemy;
 import org.academiadecodigo.pacman.screens.Representation;
 
-import com.googlecode.lanterna.input.Key;
-import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
 
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
@@ -134,25 +132,21 @@ public class Game {
 
     public synchronized void updatePosition(String positions) {
 
-        String[] typePosition = positions.split("\n");
+        String[] messageLines = positions.split("\n");
 
-        String[] type = typePosition[0].split(" ");
+        String[] words = messageLines[0].split(" ");
 
+        String type = words[0];
 
-        switch (type[0]) {
+        switch (type) {
 
             case "Ghost":
 
+                for (int i = 0; i < messageLines.length; i++) {
 
-                if (typePosition.length != 5) {
-                    return;
-                }
+                    String[] strings = messageLines[i].split(" ");
 
-                for (int i = 0; i < typePosition.length; i++) {
-
-                    String[] strings = typePosition[i].split(" ");
-
-                    gameGhosts.get(i).setPositionColRow(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
+                    gameGhosts.get(i).setPosition(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
                 }
 
                 break;
@@ -161,7 +155,7 @@ public class Game {
 
                 for (Fruit fruit : gameFruits) {
 
-                    if (fruit.getPosition().comparePos(new Position(Integer.parseInt(type[1]), Integer.parseInt(type[2])))) {
+                    if (fruit.getPosition().comparePos(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])))) {
                         fruit.eat();
                     }
                 }
@@ -172,7 +166,7 @@ public class Game {
 
                 for (Apple apple : gameApples) {
 
-                    if (apple.getPosition().comparePos(new Position(Integer.parseInt(type[1]), Integer.parseInt(type[2])))) {
+                    if (apple.getPosition().comparePos(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])))) {
                         apple.eat();
                     }
                 }
@@ -180,11 +174,11 @@ public class Game {
                 break;
 
             case "Enemy":
-                enemy.setPosition(Integer.parseInt(type[1]), Integer.parseInt(type[2]));
+                enemy.setPosition(Integer.parseInt(words[1]), Integer.parseInt(words[2]));
                 break;
 
             case "FirstPos":
-                enemy = new Enemy(new Position(Integer.parseInt(type[1]), Integer.parseInt(type[2])));
+                enemy = new Enemy(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])));
                 break;
             default:
                 break;
