@@ -37,6 +37,7 @@ public class Game {
     private Player player;
     private Enemy enemy;
     private int enemyScore;
+    private boolean running;
 
     private KeyboardHandler keyboardHandler;
 
@@ -75,6 +76,7 @@ public class Game {
     public void start() {
         GameThread gameThread = new GameThread();
         timer.scheduleAtFixedRate(gameThread, 0, 200);
+        running = true;
     }
 
     class GameThread extends TimerTask {
@@ -82,10 +84,15 @@ public class Game {
         @Override
         public void run() {
 
-            player.move();
-            eatFruits();
-            checkDeaths();
-            draw();
+            while (running) {
+
+                player.move();
+                eatFruits();
+                checkDeaths();
+                draw();
+            }
+
+            gameEnd();
         }
     }
 
@@ -131,7 +138,7 @@ public class Game {
 
         representation.drawScore(player.getScore(), enemyScore);
 
-        if(player.getPower() != null) {
+        if (player.getPower() != null) {
             representation.drawPowerUp(player.getPower().toString());
         }
 
@@ -264,14 +271,14 @@ public class Game {
 
         for (Fruit fruit : gameFruits) {
 
-            if (!fruit.isEaten()){
+            if (!fruit.isEaten()) {
                 return false;
             }
         }
 
         for (Apple apple : gameApples) {
 
-            if(!apple.isEaten()) {
+            if (!apple.isEaten()) {
                 return false;
             }
         }
@@ -279,13 +286,13 @@ public class Game {
         return true;
     }
 
-    public void gameEnd(){
+    public void gameEnd() {
 
         if (!player.isAlive()) {
             representation.getCurrentScreen().drawScreen(ScreenType.LOSING_FINAL_SCREEN);
         }
 
-        if (enemyScore > player.getScore()){
+        if (enemyScore > player.getScore()) {
             representation.getCurrentScreen().drawScreen(ScreenType.LOSING_FINAL_SCREEN);
 
         } else {
