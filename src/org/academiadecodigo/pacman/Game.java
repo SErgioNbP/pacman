@@ -238,7 +238,7 @@ public class Game {
 
                 if (player.getPower() != null) {
 
-                    if (player.getPower().equals(PowerType.EDIBLEGHOSTS)) {
+                    if (player.getPower().equals(PowerType.EDIBLE_GHOSTS)) {
                         ghost.die();
                         player.setPower(null);
 
