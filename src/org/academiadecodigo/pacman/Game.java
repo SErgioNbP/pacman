@@ -41,6 +41,7 @@ public class Game {
     private int enemyScore;
 
     private boolean canBeInitialized = false;
+    private boolean ready = false;
 
     private KeyboardHandler keyboardHandler;
 
@@ -85,6 +86,7 @@ public class Game {
         player.setPosition(playerStartPosition);
         enemy.setPosition(enemyStartPosition);
 
+
         GameThread gameThread = new GameThread();
         timer.scheduleAtFixedRate(gameThread, 0, 200);
     }
@@ -98,6 +100,9 @@ public class Game {
             eatFruits();
             checkDeaths();
             draw();
+            while (!ready) {
+
+            }
         }
     }
 
@@ -143,7 +148,7 @@ public class Game {
 
         representation.drawScore(player.getScore(), enemyScore);
 
-        if(player.getPower() != null) {
+        if (player.getPower() != null) {
             representation.drawPowerUp(player.getPower().toString());
         }
 
@@ -161,17 +166,7 @@ public class Game {
 
         if (type.equals("player")) {
 
-            String[] playerEnemyPositions = positions.split("\n");
 
-            String[] playerInitialPosition = playerEnemyPositions[0].split(" ");
-            String[] enemyInitialPosition = playerEnemyPositions[1].split(" ");
-
-            playerStartPosition = new Position(Integer.parseInt(playerInitialPosition[1]), Integer.parseInt(playerInitialPosition[2]));
-            enemyStartPosition = new Position(Integer.parseInt(enemyInitialPosition[1]), Integer.parseInt(enemyInitialPosition[2]));
-
-            canBeInitialized = true;
-
-            System.out.println("entrou");
         }
 
         switch (type) {
@@ -219,6 +214,23 @@ public class Game {
 
             case "Score":
                 enemyScore = Integer.parseInt(words[1]);
+                break;
+
+            case "Player":
+                String[] playerEnemyPositions = positions.split("\n");
+                String[] playerInitialPosition = playerEnemyPositions[0].split(" ");
+                String[] enemyInitialPosition = playerEnemyPositions[1].split(" ");
+
+                playerStartPosition = new Position(Integer.parseInt(playerInitialPosition[1]), Integer.parseInt(playerInitialPosition[2]));
+                enemyStartPosition = new Position(Integer.parseInt(enemyInitialPosition[1]), Integer.parseInt(enemyInitialPosition[2]));
+
+                canBeInitialized = true;
+
+                System.out.println("entrou");
+
+            case "Server":
+                ready = true;
+
 
             default:
                 break;

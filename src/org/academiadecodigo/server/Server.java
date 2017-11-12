@@ -54,6 +54,8 @@ public class Server {
 
     private void start() {
 
+        int i = 0;
+
         try {
 
             socket = new DatagramSocket(portNumber);
@@ -66,24 +68,32 @@ public class Server {
                 DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
                 socket.receive(receivedPacket);
-                String string = new String(receivedPacket.getData()).trim();
 
-                if (string.equals("START")) {
+                //String string = new String(receivedPacket.getData()).trim();
 
-                    System.out.println("entrou");
 
-                    if (!addressExists(receivedPacket) || addresses.size() == 0) {
-                        addresses.add(receivedPacket);
-                    }
+                if (addresses.size() == 0) {
+                    addresses.add(receivedPacket);
+                    System.out.println("entrou" + i);
+                }
+
+
+                if (!addressExists(receivedPacket)) {
+                    addresses.add(receivedPacket);
+                    System.out.println("entrou" + i);
+                    System.out.println(addresses.size());
                 }
             }
 
-            String player1 = "player 42 7\nenemy 42 5";
-            String player2 = "player 42 5\nenemy 42 7";
+
+            String player1 = "Player 42 7\nenemy 42 5";
+            String player2 = "Player 42 5\nenemy 42 7";
 
             sendDirectMessage(addresses.get(0), player2);
             sendDirectMessage(addresses.get(1), player1);
 
+            String string = "Server";
+            broadcast(string);
 
             GhostHandler ghostHandler = new GhostHandler();
             timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
