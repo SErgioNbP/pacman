@@ -55,6 +55,8 @@ public class Game {
         gamePlayers = Utils.createPlayers();
 
         client.startListening();
+        client.sendServer("");
+
         player = gamePlayers.get(0);
         enemy = new Enemy(new Position(42, 7));
 

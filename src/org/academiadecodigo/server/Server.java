@@ -50,13 +50,15 @@ public class Server {
 
     private void start() {
 
+        int startCount = 0;
+
         try {
 
             socket = new DatagramSocket(portNumber);
 
             String string = "";
 
-            while (addresses.size() < 2) {
+            while (startCount < 2) {
 
                 byte[] receiveBuffer = new byte[1024];
 
@@ -68,11 +70,12 @@ public class Server {
 
                 if (string.equals("START")) {
 
+                    startCount++;
+                }
 
-                    if (!addressExists(receivedPacket) || addresses.size() == 0) {
-                        System.out.println(addresses.size());
-                        addresses.add(receivedPacket);
-                    }
+                if (!addressExists(receivedPacket) || addresses.size() == 0) {
+                    System.out.println(addresses.size());
+                    addresses.add(receivedPacket);
                 }
             }
             GhostHandler ghostHandler = new GhostHandler();
