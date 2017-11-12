@@ -74,7 +74,12 @@ public class Server {
                     }
                 }
             }
-            System.out.println(addresses.size());
+
+            String player1 = "player 42 7\nenemy 42 5";
+            String player2 = "player 42 5\nenemy 42 7";
+
+            sendDirectMessage(addresses.get(0), player2);
+            sendDirectMessage(addresses.get(1), player1);
 
             GhostHandler ghostHandler = new GhostHandler();
             timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
@@ -112,8 +117,10 @@ public class Server {
             if (!datagramPacket.getAddress().toString().equals(packet.getAddress().toString())) {
 
                 DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, packet.getAddress(), packet.getPort());
+
                 try {
                     socket.send(sendPacket);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
