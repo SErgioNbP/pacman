@@ -221,7 +221,7 @@ public class Game {
                 break;
 
             case "FirstPos":
-                enemy = new Enemy(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])));
+                enemy.setPosition(Integer.parseInt(words[1]), Integer.parseInt(words[2]));
                 break;
 
             case "Score":
@@ -235,7 +235,7 @@ public class Game {
     public void eatFruits() {
 
         if (noMoreEdibles()) {
-            gameEnd();
+           running = false;
         }
 
         for (Fruit fruit : gameFruits) {
@@ -289,7 +289,7 @@ public class Game {
                 }
 
                 player.die();
-                gameEnd();
+                running = false;
             }
         }
     }

@@ -8,15 +8,11 @@ public enum PowerType {
     private String message;
 
     PowerType(String message) {
-
         this.message = message;
-
     }
 
     public static PowerType randomPowerType() {
-
         return values()[(int) (Math.random() * 3)];
-
     }
 
     @Override

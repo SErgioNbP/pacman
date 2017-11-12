@@ -7,8 +7,6 @@ import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.fruit.Edible;
-import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
-import org.academiadecodigo.pacman.objects.fruit.powers.Power;
 import org.academiadecodigo.pacman.objects.fruit.powers.PowerType;
 
 import java.util.List;
