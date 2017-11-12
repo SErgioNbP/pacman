@@ -6,15 +6,11 @@ import org.academiadecodigo.pacman.grid.Position;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Created by codecadet on 26/10/17.
- */
 public class Server {
 
     private List<DatagramPacket> addresses;
@@ -62,21 +58,22 @@ public class Server {
 
             DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
+
             socket.receive(receivedPacket);
             String string = new String(receivedPacket.getData()).trim();
 
             if (string.equals("START")) {
 
+                GhostHandler ghostHandler = new GhostHandler();
+                timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
+
+                ListenHandler listenHandler = new ListenHandler();
+                executorService.submit(listenHandler);
+
                 if (!addressExists(receivedPacket) || addresses.size() == 0) {
                     addresses.add(receivedPacket);
                 }
             }
-
-            GhostHandler ghostHandler = new GhostHandler();
-            timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
-
-            ListenHandler listenHandler = new ListenHandler();
-            executorService.submit(listenHandler);
 
         } catch (SocketException e) {
             e.printStackTrace();
@@ -162,11 +159,13 @@ public class Server {
 
                     String receivedString = new String(receivedPacket.getData()).trim();
 
-                    if (receivedString.equals("START")) {
+                    if(receivedString.equals("START")){
 
                         System.out.println(receivedPacket.getAddress());
                         continue;
                     }
+
+                    System.out.println(addresses.size());
 
                     sendDirectMessage(receivedPacket, receivedString);
 
@@ -180,7 +179,6 @@ public class Server {
     }
 
     class GhostHandler extends TimerTask {
-
 
         @Override
         public void run() {
@@ -201,4 +199,3 @@ public class Server {
         }
     }
 }
-
