@@ -142,11 +142,12 @@ public class Game {
 
             case "Ghost":
 
-                for (int i = 0; i < messageLines.length; i++) {
+                for (Ghost ghost : gameGhosts) {
 
-                    String[] strings = messageLines[i].split(" ");
+                    String[] strings = messageLines[gameGhosts.indexOf(ghost)].split(" ");
 
-                    gameGhosts.get(i).setPosition(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
+                    ghost.setPosition(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
+
                 }
 
                 break;
