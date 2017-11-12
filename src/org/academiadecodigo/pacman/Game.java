@@ -42,6 +42,7 @@ public class Game {
 
     private boolean canBeInitialized = false;
     private boolean ready = false;
+    private boolean singlePlayer = false;
 
     private KeyboardHandler keyboardHandler;
 
@@ -58,8 +59,6 @@ public class Game {
         gameFruits = Utils.createFruits();
         gamePlayers = Utils.createPlayers();
 
-        client.sendServer("START");
-        client.startListening();
 
         this.executorService = Executors.newFixedThreadPool(5);
         player = new Player(new Position(10, 10));
@@ -79,16 +78,32 @@ public class Game {
 
     public void start() {
 
+        client.sendServer("START");
+        client.startListening();
+
         while (!canBeInitialized) {
 
         }
 
-        player.setPosition(playerStartPosition);
-        enemy.setPosition(enemyStartPosition);
+        if (!singlePlayer) {
+
+            player.setPosition(playerStartPosition);
+            enemy.setPosition(enemyStartPosition);
+        }
 
 
         GameThread gameThread = new GameThread();
         timer.scheduleAtFixedRate(gameThread, 0, 200);
+    }
+
+    public void setSinglePlayerMode() {
+
+        client.sendServer("Single");
+        canBeInitialized = true;
+        ready = true;
+        singlePlayer = true;
+
+        start();
     }
 
     class GameThread extends TimerTask {

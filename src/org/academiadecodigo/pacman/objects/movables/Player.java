@@ -15,10 +15,9 @@ import java.util.List;
 
 public class Player implements Movable, Interactable {
 
-    private Direction direction = Direction.LEFT;
-    private Direction nextDirection = Direction.UP;
+    private Direction direction;
+    private Direction nextDirection;
     private Position position;
-    private Position initialPosition;
 
     private List<Position> walkablePositions;
     private PowerType power;
@@ -34,6 +33,8 @@ public class Player implements Movable, Interactable {
         points = 0;
         power = null;
         walkablePositions = Utils.path;
+        direction = Direction.LEFT;
+        nextDirection = Direction.UP;
     }
 
     @Override

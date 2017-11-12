@@ -62,26 +62,28 @@ public class Server {
 
             while (addresses.size() < 2) {
 
-
                 byte[] receiveBuffer = new byte[1024];
 
                 DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
                 socket.receive(receivedPacket);
 
-                //String string = new String(receivedPacket.getData()).trim();
-
+                String string = new String(receivedPacket.getData()).trim();
 
                 if (addresses.size() == 0) {
                     addresses.add(receivedPacket);
                     System.out.println("entrou" + i);
                 }
 
-
                 if (!addressExists(receivedPacket)) {
                     addresses.add(receivedPacket);
                     System.out.println("entrou" + i);
                     System.out.println(addresses.size());
+                }
+
+                if (string.equals("Single")) {
+
+                    break;
                 }
             }
 
@@ -90,7 +92,11 @@ public class Server {
             String player2 = "Player 42 5\nenemy 42 7";
 
             sendDirectMessage(addresses.get(0), player2);
-            sendDirectMessage(addresses.get(1), player1);
+
+            if (addresses.size() == 2) {
+
+                sendDirectMessage(addresses.get(1), player1);
+            }
 
             String string = "Server";
             broadcast(string);

@@ -62,6 +62,10 @@ public class KeyboardHandler implements Runnable{
                     game.start();
                 }
 
+                if(key.getKind() == Key.Kind.Escape){
+                    game.setSinglePlayerMode();
+                }
+
             }
 
         }
