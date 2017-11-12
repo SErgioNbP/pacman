@@ -200,6 +200,10 @@ public class Game {
 
     public void eatFruits() {
 
+        if (noMoreEdibles()) {
+            gameEnd();
+        }
+
         for (Fruit fruit : gameFruits) {
 
             if (!fruit.isEaten()) {
@@ -227,6 +231,7 @@ public class Game {
 
             }
         }
+
         client.sendServer("Score " + player.getScore());
     }
 
@@ -246,14 +251,48 @@ public class Game {
 
                         player.setPower(null);
                         continue;
-
                     }
                 }
+
                 player.die();
+                gameEnd();
             }
         }
     }
 
+    public boolean noMoreEdibles() {
+
+        for (Fruit fruit : gameFruits) {
+
+            if (!fruit.isEaten()){
+                return false;
+            }
+        }
+
+        for (Apple apple : gameApples) {
+
+            if(!apple.isEaten()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void gameEnd(){
+
+        if (!player.isAlive()) {
+            representation.getCurrentScreen().drawScreen(ScreenType.LOSING_FINAL_SCREEN);
+        }
+
+        if (enemyScore > player.getScore()){
+            representation.getCurrentScreen().drawScreen(ScreenType.LOSING_FINAL_SCREEN);
+
+        } else {
+            representation.getCurrentScreen().drawScreen(ScreenType.WINNING_FINAL_SCREEN);
+
+        }
+    }
 }
 
 
