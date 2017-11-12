@@ -29,8 +29,8 @@ public class Client {
 
     public void sendServer(String string) {
 
-        byte[] sendBuffer = string.getBytes();
 
+        byte[] sendBuffer = string.getBytes();
 
         try {
             socket = new DatagramSocket();
