@@ -208,6 +208,8 @@ public class Game {
                 if (player.getPosition().comparePos(apple.getPosition())) {
 
                     player.setPower(apple.getPowerType());
+                    System.out.println(player.getPower().toString());
+
                     player.eat(apple);
                     client.sendServer("Apple " + player.getPosition().getCol() + " " + player.getPosition().getRow());
                 }
@@ -222,16 +224,20 @@ public class Game {
 
             if (player.getPosition().comparePos(ghost.getPosition())) {
 
-                if (player.getPower().equals(PowerType.EDIBLEGHOSTS)) {
-                    ghost.die();
+                if (player.getPower() != null) {
 
-                } else if (player.getPower().equals(PowerType.IMMUNE)) {
+                    if (player.getPower().equals(PowerType.EDIBLEGHOSTS)) {
+                        ghost.die();
+                        player.setPower(null);
 
-                    continue;
+                    } else if (player.getPower().equals(PowerType.IMMUNE)) {
 
-                } else {
-                    player.die();
+                        player.setPower(null);
+                        continue;
+
+                    }
                 }
+                player.die();
             }
         }
     }

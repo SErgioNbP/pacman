@@ -23,9 +23,11 @@ public class Player implements Movable, Interactable {
     private PowerType power;
     private int points;
     private boolean alive;
+    private int counter;
 
     public Player(Position position) {
 
+        counter = 0;
         this.position = position;
         alive = true;
         points = 0;
@@ -91,16 +93,27 @@ public class Player implements Movable, Interactable {
 
     public void eat(Edible e) {
 
-        if(power.equals(PowerType.DOUBLE_POINTS)) {
 
-            points += e.getPoints() * 2;
+        if (power != null) {
 
-        } else {
+            if (power.equals(PowerType.DOUBLE_POINTS)) {
 
-            points += e.getPoints();
+                if (counter < 10) {
 
+                    counter++;
+                    points += e.getPoints();
+
+                } else {
+
+                    counter = 0;
+                    setPower(null);
+                }
+            }
         }
-            e.eat();
+
+        e.eat();
+        points += e.getPoints();
+        System.out.println(points);
     }
 
     public void setNextDirection(Direction direction) {
