@@ -58,6 +58,8 @@ public class Server {
 
             socket = new DatagramSocket(portNumber);
 
+            while (addresses.size() < 2) {
+
 
             byte[] receiveBuffer = new byte[1024];
 
@@ -78,6 +80,7 @@ public class Server {
 
             sendDirectMessage(addresses.get(0), player2);
             sendDirectMessage(addresses.get(1), player1);
+            }
 
 
             GhostHandler ghostHandler = new GhostHandler();
