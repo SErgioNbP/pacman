@@ -54,7 +54,6 @@ public class Game {
         gameFruits = Utils.createFruits();
         gamePlayers = Utils.createPlayers();
 
-        client.sendServer("START");
         client.startListening();
         player = gamePlayers.get(0);
         enemy = new Enemy(new Position(42, 7));
@@ -74,7 +73,7 @@ public class Game {
     }
 
     public void start() {
-        client.sendServer("gamestart");
+        client.sendServer("START");
         GameThread gameThread = new GameThread();
         timer.scheduleAtFixedRate(gameThread, 0, 200);
     }

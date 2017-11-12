@@ -68,11 +68,6 @@ public class Server {
 
                 if (string.equals("START")) {
 
-                    GhostHandler ghostHandler = new GhostHandler();
-                    timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
-
-                    ListenHandler listenHandler = new ListenHandler();
-                    executorService.submit(listenHandler);
 
                     if (!addressExists(receivedPacket) || addresses.size() == 0) {
                         System.out.println(addresses.size());
@@ -80,10 +75,13 @@ public class Server {
                     }
                 }
             }
-            if (string.equals("gamestart")) {
+            GhostHandler ghostHandler = new GhostHandler();
+            timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
 
-                broadcast("GAMESTART");
-            }
+            ListenHandler listenHandler = new ListenHandler();
+            executorService.submit(listenHandler);
+
+            broadcast("GAMESTART");
 
 
         } catch (SocketException e) {
