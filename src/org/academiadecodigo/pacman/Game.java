@@ -93,6 +93,16 @@ public class Game {
 
         representation.clear();
 
+        if (!player.isAlive()) {
+            gameOverScreen();
+            return;
+        }
+
+        if (noMoreEdibles()) {
+            representation.drawWinningScreen();
+            return;
+        }
+
         for (Position pos : Utils.walls) {
 
             representation.drawWall(pos);
@@ -249,11 +259,39 @@ public class Game {
 
                     }
                 }
+
                 player.die();
             }
         }
     }
 
+    public void gameOverScreen(){
+
+        representation.clear();
+
+        representation.drawLosingScreen();
+
+        representation.refresh();
+    }
+
+    public boolean noMoreEdibles(){
+
+        for (Fruit fruit : gameFruits){
+
+            if (!fruit.isEaten()){
+                return false;
+            }
+        }
+
+        for (Apple apple : gameApples) {
+
+            if (!apple.isEaten()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
 

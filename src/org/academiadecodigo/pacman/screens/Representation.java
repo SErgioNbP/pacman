@@ -73,4 +73,11 @@ public class Representation {
         screen.putString(60, 7, "PowerUp:".toUpperCase(), Terminal.Color.GREEN, Terminal.Color.BLACK);
         screen.putString(57, 8, player, Terminal.Color.GREEN, Terminal.Color.BLACK);
     }
+
+    public void drawWinningScreen() {
+        currentScreen.drawScreen(ScreenType.WINNING_FINAL_SCREEN);
+    }
+    public void drawLosingScreen() {
+        currentScreen.drawScreen(ScreenType.LOSING_FINAL_SCREEN);
+    }
 }
