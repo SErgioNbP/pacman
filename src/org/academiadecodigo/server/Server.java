@@ -58,18 +58,20 @@ public class Server {
 
             socket = new DatagramSocket(portNumber);
 
+            while (addresses.size() < 2) {
 
-            byte[] receiveBuffer = new byte[1024];
+                byte[] receiveBuffer = new byte[1024];
 
-            DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+                DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
-            socket.receive(receivedPacket);
-            String string = new String(receivedPacket.getData()).trim();
+                socket.receive(receivedPacket);
+                String string = new String(receivedPacket.getData()).trim();
 
-            if (string.equals("START")) {
+                if (string.equals("START")) {
 
-                if (!addressExists(receivedPacket) || addresses.size() == 0) {
-                    addresses.add(receivedPacket);
+                    if (!addressExists(receivedPacket) || addresses.size() == 0) {
+                        addresses.add(receivedPacket);
+                    }
                 }
             }
 
