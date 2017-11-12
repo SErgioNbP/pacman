@@ -3,7 +3,16 @@ package org.academiadecodigo.pacman.objects.fruit.powers;
 /**
  * Created by codecadet on 05/11/17.
  */
-public interface Power {
+public class Power {
 
-    Power getPower();
+    public void applyPower(PowerType powerType) {
+
+        switch (powerType) {
+
+
+            case EDIBLEGHOSTS:
+                break;
+        }
+
+    }
 }

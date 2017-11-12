@@ -1,6 +1,7 @@
 package org.academiadecodigo.pacman;
 
 import org.academiadecodigo.keyboard.KeyboardHandler;
+import org.academiadecodigo.pacman.objects.fruit.powers.PowerType;
 import org.academiadecodigo.pacman.objects.movables.Enemy;
 import org.academiadecodigo.pacman.screens.Representation;
 
@@ -206,6 +207,7 @@ public class Game {
 
                 if (player.getPosition().comparePos(apple.getPosition())) {
 
+                    player.setPower(apple.getPowerType());
                     player.eat(apple);
                     client.sendServer("Apple " + player.getPosition().getCol() + " " + player.getPosition().getRow());
                 }
@@ -219,9 +221,17 @@ public class Game {
         for (Ghost ghost : gameGhosts) {
 
             if (player.getPosition().comparePos(ghost.getPosition())) {
-                // if (player.hasPowerUp()){
 
-                player.die();
+                if (player.getPower().equals(PowerType.EDIBLEGHOSTS)) {
+                    ghost.die();
+
+                } else if (player.getPower().equals(PowerType.IMMUNE)) {
+
+                    continue;
+
+                } else {
+                    player.die();
+                }
             }
         }
     }

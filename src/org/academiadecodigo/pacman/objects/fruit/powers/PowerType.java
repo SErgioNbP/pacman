@@ -1,8 +1,13 @@
 package org.academiadecodigo.pacman.objects.fruit.powers;
 
 public enum PowerType {
-    // extra points?
-    // extra life?
-    // immunity?
+    DOUBLE_POINTS,
+    IMMUNE,
     EDIBLEGHOSTS;
+
+    public static PowerType randomPowerType() {
+
+        return values()[(int) (Math.random() * values().length)];
+
+    }
 }
