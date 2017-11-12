@@ -101,6 +101,8 @@ public class Server {
             String string = "Server";
             broadcast(string);
 
+            System.out.println("why");
+
             GhostHandler ghostHandler = new GhostHandler();
             timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
 
@@ -227,7 +229,6 @@ public class Server {
 
                 stringToSend = stringToSend + ghostPositionCoding(ghost.getPosition());
             }
-
             broadcast(stringToSend);
         }
     }

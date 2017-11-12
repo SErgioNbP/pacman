@@ -179,11 +179,6 @@ public class Game {
 
         String type = words[0];
 
-        if (type.equals("player")) {
-
-
-        }
-
         switch (type) {
 
             case "Ghost":
@@ -195,6 +190,7 @@ public class Game {
                     ghost.setPosition(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
 
                 }
+                System.out.println("why2");
 
                 break;
 
