@@ -63,4 +63,9 @@ public class Representation {
     public org.academiadecodigo.pacman.screens.Screen getCurrentScreen() {
         return currentScreen;
     }
+
+    public void drawScore(int playerScore, int enemyScore) {
+        screen.putString(58, 5, "Player 1: " + playerScore, Terminal.Color.GREEN, Terminal.Color.BLACK);
+        screen.putString(58, 10, "Player 2: " + enemyScore, Terminal.Color.GREEN, Terminal.Color.BLACK);
+    }
 }

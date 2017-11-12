@@ -114,4 +114,8 @@ public class Player implements Movable, Interactable {
     public Position getPosition() {
         return position;
     }
+
+    public int getScore() {
+        return points;
+    }
 }
