@@ -7,7 +7,9 @@ import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.fruit.Edible;
+import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
 import org.academiadecodigo.pacman.objects.fruit.powers.Power;
+import org.academiadecodigo.pacman.objects.fruit.powers.PowerType;
 
 import java.util.List;
 
@@ -18,16 +20,18 @@ public class Player implements Movable, Interactable {
     private Position position;
 
     private List<Position> walkablePositions;
-    private Power power = null;
+    private PowerType power;
     private int points;
     private boolean alive;
+    private int counter;
 
     public Player(Position position) {
 
+        counter = 0;
         this.position = position;
         alive = true;
         points = 0;
-
+        power = null;
         walkablePositions = Utils.path;
     }
 
@@ -89,8 +93,27 @@ public class Player implements Movable, Interactable {
 
     public void eat(Edible e) {
 
+
+        if (power != null) {
+
+            if (power.equals(PowerType.DOUBLE_POINTS)) {
+
+                if (counter < 10) {
+
+                    counter++;
+                    points += e.getPoints();
+
+                } else {
+
+                    counter = 0;
+                    setPower(null);
+                }
+            }
+        }
+
         e.eat();
         points += e.getPoints();
+        System.out.println(points);
     }
 
     public void setNextDirection(Direction direction) {
@@ -113,5 +136,17 @@ public class Player implements Movable, Interactable {
 
     public Position getPosition() {
         return position;
+    }
+
+    public PowerType getPower() {
+        return power;
+    }
+
+    public void setPower(PowerType powerType) {
+        this.power = powerType;
+    }
+
+    public int getScore() {
+        return points;
     }
 }

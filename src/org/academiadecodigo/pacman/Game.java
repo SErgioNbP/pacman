@@ -1,10 +1,10 @@
 package org.academiadecodigo.pacman;
 
+import org.academiadecodigo.keyboard.KeyboardHandler;
+import org.academiadecodigo.pacman.objects.fruit.powers.PowerType;
 import org.academiadecodigo.pacman.objects.movables.Enemy;
 import org.academiadecodigo.pacman.screens.Representation;
 
-import com.googlecode.lanterna.input.Key;
-import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
 
 import org.academiadecodigo.pacman.objects.fruit.Fruit;
@@ -15,15 +15,18 @@ import org.academiadecodigo.server.Client;
 import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Game {
 
     private Client client;
-    ExecutorService executorService;
+    private ExecutorService executorService;
 
     private Representation representation;
+    private Timer timer;
 
     private List<Ghost> gameGhosts;
     private List<Apple> gameApples;
@@ -33,6 +36,9 @@ public class Game {
 
     private Player player;
     private Enemy enemy;
+    private int enemyScore;
+
+    private KeyboardHandler keyboardHandler;
 
     public void init() {
 
@@ -54,50 +60,32 @@ public class Game {
 
         this.executorService = Executors.newFixedThreadPool(5);
 
+        keyboardHandler = new KeyboardHandler(representation.getScreen(), player, this);
+
+        timer = new Timer();
+
+        executorService.submit(keyboardHandler);
+
         representation.clear();
 
         representation.getCurrentScreen().drawScreen(ScreenType.INITIAL_SCREEN);
 
-        start();
     }
 
     public void start() {
+        GameThread gameThread = new GameThread();
+        timer.scheduleAtFixedRate(gameThread, 0, 200);
+    }
 
-        while (true) {
+    class GameThread extends TimerTask {
 
-            Key key = representation.getScreen().readInput();
+        @Override
+        public void run() {
 
-            if (key != null) {
-
-                if (key.getKind() == Key.Kind.ArrowRight) {
-
-                    player.setNextDirection(Direction.RIGHT);
-                }
-                if (key.getKind() == Key.Kind.ArrowLeft) {
-
-                    player.setNextDirection(Direction.LEFT);
-                }
-                if (key.getKind() == Key.Kind.ArrowDown) {
-
-                    player.setNextDirection(Direction.DOWN);
-                }
-                if (key.getKind() == Key.Kind.ArrowUp) {
-
-                    player.setNextDirection(Direction.UP);
-                }
-                if (key.getKind() == Key.Kind.Enter) {
-
-                    gameStart();
-                }
-
-            }
-
-            try {
-                Thread.sleep(200);
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            player.move();
+            eatFruits();
+            checkDeaths();
+            draw();
         }
     }
 
@@ -140,29 +128,35 @@ public class Game {
             }
 
         }
+
+        representation.drawScore(player.getScore(), enemyScore);
+
+        if(player.getPower() != null) {
+            representation.drawPowerUp(player.getPower().toString());
+        }
+
         representation.refresh();
 
     }
 
-    public void updatePosition(String positions) {
+    public synchronized void updatePosition(String positions) {
 
-        String[] typePosition = positions.split("\n");
+        String[] messageLines = positions.split("\n");
 
-        String[] type = typePosition[0].split(" ");
+        String[] words = messageLines[0].split(" ");
 
-        switch (type[0]) {
+        String type = words[0];
+
+        switch (type) {
 
             case "Ghost":
 
-                if (typePosition.length != 5) {
-                    return;
-                }
+                for (Ghost ghost : gameGhosts) {
 
-                for (int i = 0; i < typePosition.length; i++) {
+                    String[] strings = messageLines[gameGhosts.indexOf(ghost)].split(" ");
 
-                    String[] strings = typePosition[i].split(" ");
+                    ghost.setPosition(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
 
-                    gameGhosts.get(i).setPositionColRow(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
                 }
 
                 break;
@@ -171,7 +165,7 @@ public class Game {
 
                 for (Fruit fruit : gameFruits) {
 
-                    if (fruit.getPosition().comparePos(new Position(Integer.parseInt(type[1]), Integer.parseInt(type[2])))) {
+                    if (fruit.getPosition().comparePos(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])))) {
                         fruit.eat();
                     }
                 }
@@ -182,20 +176,23 @@ public class Game {
 
                 for (Apple apple : gameApples) {
 
-                    if (apple.getPosition().comparePos(new Position(Integer.parseInt(type[1]), Integer.parseInt(type[2])))) {
+                    if (apple.getPosition().comparePos(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])))) {
                         apple.eat();
                     }
                 }
-
                 break;
 
             case "Enemy":
-                enemy.setPosition(Integer.parseInt(type[1]), Integer.parseInt(type[2]));
+                enemy.setPosition(Integer.parseInt(words[1]), Integer.parseInt(words[2]));
                 break;
 
             case "FirstPos":
-                enemy = new Enemy(new Position(Integer.parseInt(type[1]), Integer.parseInt(type[2])));
+                enemy = new Enemy(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])));
                 break;
+
+            case "Score":
+                enemyScore = Integer.parseInt(words[1]);
+
             default:
                 break;
         }
@@ -221,12 +218,16 @@ public class Game {
 
                 if (player.getPosition().comparePos(apple.getPosition())) {
 
+                    player.setPower(apple.getPowerType());
+                    System.out.println(player.getPower().toString());
+
                     player.eat(apple);
                     client.sendServer("Apple " + player.getPosition().getCol() + " " + player.getPosition().getRow());
                 }
 
             }
         }
+        client.sendServer("Score " + player.getScore());
     }
 
     public void checkDeaths() {
@@ -234,26 +235,27 @@ public class Game {
         for (Ghost ghost : gameGhosts) {
 
             if (player.getPosition().comparePos(ghost.getPosition())) {
-                // if (player.hasPowerUp()){
 
+                if (player.getPower() != null) {
+
+                    if (player.getPower().equals(PowerType.EDIBLEGHOSTS)) {
+                        ghost.die();
+                        player.setPower(null);
+
+                    } else if (player.getPower().equals(PowerType.IMMUNE)) {
+
+                        player.setPower(null);
+                        continue;
+
+                    }
+                }
                 player.die();
             }
         }
     }
 
-    public void gameStart() {
-
-        while(true) {
-
-            player.move();
-            eatFruits();
-            checkDeaths();
-            draw();
-
-        }
-
-    }
 }
+
 
 
 

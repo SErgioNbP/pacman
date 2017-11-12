@@ -14,7 +14,7 @@ public class Fruit implements Edible {
     public Fruit(Position position) {
         this.position = position;
         eaten = false;
-        points = 100;
+        points = 10;
     }
 
     public int getPoints() {

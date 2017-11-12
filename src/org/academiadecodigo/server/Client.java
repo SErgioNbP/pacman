@@ -20,7 +20,7 @@ public class Client {
 
     }
 
-    public void startListening(){
+    public void startListening() {
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
@@ -35,7 +35,7 @@ public class Client {
         try {
             socket = new DatagramSocket();
 
-            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("192.168.0.26"), 9090);
+            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("localhost"), 9090);
 
             socket.send(sendPacket);
 
@@ -62,13 +62,13 @@ public class Client {
         @Override
         public void run() {
 
-            byte[] receiveBuffer = new byte[1024];
 
             try {
 
 
                 while (true) {
 
+                    byte[] receiveBuffer = new byte[1024];
 
                     DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 

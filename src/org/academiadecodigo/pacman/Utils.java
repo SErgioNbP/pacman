@@ -105,7 +105,7 @@ public class Utils {
 
         if (strings[0].equals("Ghost")) {
 
-            ghost.setPositionColRow(Integer.parseInt(strings[1]), Integer.parseInt(strings[3]));
+            ghost.setPosition(Integer.parseInt(strings[1]), Integer.parseInt(strings[3]));
         }
     }
 
