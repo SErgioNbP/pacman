@@ -54,26 +54,37 @@ public class Server {
 
             socket = new DatagramSocket(portNumber);
 
-            byte[] receiveBuffer = new byte[1024];
+            String string = "";
 
-            DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+            while (addresses.size() < 2) {
+
+                byte[] receiveBuffer = new byte[1024];
+
+                DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
 
-            socket.receive(receivedPacket);
-            String string = new String(receivedPacket.getData()).trim();
+                socket.receive(receivedPacket);
+                string = new String(receivedPacket.getData()).trim();
 
-            if (string.equals("START")) {
+                if (string.equals("START")) {
 
-                GhostHandler ghostHandler = new GhostHandler();
-                timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
+                    GhostHandler ghostHandler = new GhostHandler();
+                    timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
 
-                ListenHandler listenHandler = new ListenHandler();
-                executorService.submit(listenHandler);
+                    ListenHandler listenHandler = new ListenHandler();
+                    executorService.submit(listenHandler);
 
-                if (!addressExists(receivedPacket) || addresses.size() == 0) {
-                    addresses.add(receivedPacket);
+                    if (!addressExists(receivedPacket) || addresses.size() == 0) {
+                        System.out.println(addresses.size());
+                        addresses.add(receivedPacket);
+                    }
                 }
             }
+            if (string.equals("gamestart")) {
+
+                broadcast("GAMESTART");
+            }
+
 
         } catch (SocketException e) {
             e.printStackTrace();
@@ -159,11 +170,6 @@ public class Server {
 
                     String receivedString = new String(receivedPacket.getData()).trim();
 
-                    if(receivedString.equals("START")){
-
-                        System.out.println(receivedPacket.getAddress());
-                        continue;
-                    }
 
                     System.out.println(addresses.size());
 

@@ -37,6 +37,8 @@ public class Game {
     private Enemy enemy;
     private int enemyScore;
 
+    private boolean ready = false;
+
     private KeyboardHandler keyboardHandler;
 
     public void init() {
@@ -72,6 +74,7 @@ public class Game {
     }
 
     public void start() {
+        client.sendServer("gamestart");
         GameThread gameThread = new GameThread();
         timer.scheduleAtFixedRate(gameThread, 0, 200);
     }
@@ -80,6 +83,12 @@ public class Game {
 
         @Override
         public void run() {
+
+            while(!ready){
+                System.out.println("not ready");
+            }
+
+            System.out.println(ready);
 
             player.move();
             eatFruits();
@@ -201,6 +210,10 @@ public class Game {
 
             case "Score":
                 enemyScore = Integer.parseInt(words[1]);
+                break;
+            case "GAMESTART":
+                ready = true;
+                System.out.println("game is ready");
 
             default:
                 break;

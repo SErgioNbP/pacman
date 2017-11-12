@@ -113,7 +113,6 @@ public class Player implements Movable, Interactable {
 
         e.eat();
         points += e.getPoints();
-        System.out.println(points);
     }
 
     public void setNextDirection(Direction direction) {
