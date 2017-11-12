@@ -69,13 +69,13 @@ public class Server {
 
                 if (string.equals("START")) {
 
-                    GhostHandler ghostHandler = new GhostHandler();
-                    timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
-
                     if (!addressExists(receivedPacket) || addresses.size() == 0) {
                         addresses.add(receivedPacket);
                     }
                 }
+
+                GhostHandler ghostHandler = new GhostHandler();
+                timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
 
                 ListenHandler listenHandler = new ListenHandler();
                 executorService.submit(listenHandler);
