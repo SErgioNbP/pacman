@@ -69,7 +69,7 @@ public class Server {
             if (string.equals("START")) {
 
                 GhostHandler ghostHandler = new GhostHandler();
-                timer.scheduleAtFixedRate(ghostHandler, 0, 300);
+                timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
 
                 ListenHandler listenHandler = new ListenHandler();
                 executorService.submit(listenHandler);
@@ -91,7 +91,7 @@ public class Server {
 
         for (DatagramPacket datagramPacket : addresses) {
 
-            if (datagramPacket.getSocketAddress().equals(packet.getSocketAddress()) || datagramPacket.getPort() == datagramPacket.getPort()) {
+            if (datagramPacket.getAddress().equals(packet.getAddress())) {
 
                 return true;
             }
@@ -106,7 +106,7 @@ public class Server {
 
         for (DatagramPacket packet : addresses) {
 
-            if (!datagramPacket.getAddress().toString().equals(packet.getAddress().toString()) && datagramPacket.getPort() == packet.getPort()) {
+            if (!datagramPacket.getAddress().toString().equals(packet.getAddress().toString())) {
 
                 DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, packet.getAddress(), packet.getPort());
                 try {
@@ -149,13 +149,27 @@ public class Server {
 
                 try {
 
+
                     byte[] receiveBuffer = new byte[1024];
 
                     DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
                     socket.receive(receivedPacket);
 
+                    if (!addressExists(receivedPacket)) {
+                        addresses.add(receivedPacket);
+                        System.out.println("added second player");
+                    }
+
                     String receivedString = new String(receivedPacket.getData()).trim();
+
+                    if(receivedString.equals("START")){
+
+                        System.out.println(receivedPacket.getAddress());
+                        continue;
+                    }
+
+                    System.out.println(addresses.size());
 
                     sendDirectMessage(receivedPacket, receivedString);
 
