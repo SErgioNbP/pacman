@@ -131,6 +131,10 @@ public class Game {
 
         representation.drawScore(player.getScore(), enemyScore);
 
+        if(player.getPower() != null) {
+            representation.drawPowerUp(player.getPower().toString());
+        }
+
         representation.refresh();
 
     }

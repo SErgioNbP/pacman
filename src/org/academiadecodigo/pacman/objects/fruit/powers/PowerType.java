@@ -3,7 +3,7 @@ package org.academiadecodigo.pacman.objects.fruit.powers;
 public enum PowerType {
     DOUBLE_POINTS("Double Points!"),
     IMMUNE("Immunity!"),
-    EDIBLEGHOSTS("Eat Ghosts! mofo");
+    EDIBLEGHOSTS("Eat Ghosts!");
 
     private String message;
 
@@ -15,9 +15,12 @@ public enum PowerType {
 
     public static PowerType randomPowerType() {
 
-        return values()[(int) (Math.random() * values().length)];
+        return values()[(int) (Math.random() * 3)];
 
     }
 
-
+    @Override
+    public String toString() {
+        return message;
+    }
 }
