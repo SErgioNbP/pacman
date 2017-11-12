@@ -58,7 +58,7 @@ public class Server {
 
             String string = "";
 
-            while (startCount < 2) {
+            while (startCount < 2 || addresses.size() < 2) {
 
                 byte[] receiveBuffer = new byte[1024];
 
