@@ -35,7 +35,7 @@ public class Client {
         try {
             socket = new DatagramSocket();
 
-            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("localhost"), 9090);
+            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("192.168.0.26"), 9090);
 
             socket.send(sendPacket);
 
