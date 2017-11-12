@@ -32,7 +32,6 @@ public class Game {
     private List<Apple> gameApples;
     private List<Fruit> gameFruits;
     private List<Player> gamePlayers;
-    private List<Position> positionList;
 
     private Player player;
     private Position playerStartPosition;
@@ -109,6 +108,16 @@ public class Game {
 
         representation.clear();
 
+        if (!player.isAlive()) {
+            gameOverScreen();
+            return;
+        }
+
+        if (noMoreEdibles()) {
+            representation.drawWinningScreen();
+            return;
+        }
+
         for (Position pos : Utils.walls) {
 
             representation.drawWall(pos);
@@ -146,6 +155,10 @@ public class Game {
         }
 
         representation.drawScore(player.getScore(), enemyScore);
+
+        if(player.getPower() != null) {
+            representation.drawPowerUp(player.getPower().toString());
+        }
 
         representation.refresh();
 
@@ -265,7 +278,7 @@ public class Game {
 
                 if (player.getPower() != null) {
 
-                    if (player.getPower().equals(PowerType.EDIBLEGHOSTS)) {
+                    if (player.getPower().equals(PowerType.EDIBLE_GHOSTS)) {
                         ghost.die();
                         player.setPower(null);
 
@@ -276,11 +289,39 @@ public class Game {
 
                     }
                 }
+
                 player.die();
             }
         }
     }
 
+    public void gameOverScreen(){
+
+        representation.clear();
+
+        representation.drawLosingScreen();
+
+        representation.refresh();
+    }
+
+    public boolean noMoreEdibles(){
+
+        for (Fruit fruit : gameFruits){
+
+            if (!fruit.isEaten()){
+                return false;
+            }
+        }
+
+        for (Apple apple : gameApples) {
+
+            if (!apple.isEaten()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
 

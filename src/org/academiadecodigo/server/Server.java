@@ -6,15 +6,11 @@ import org.academiadecodigo.pacman.grid.Position;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Created by codecadet on 26/10/17.
- */
 public class Server {
 
     private List<DatagramPacket> addresses;
@@ -60,9 +56,11 @@ public class Server {
 
             while (addresses.size() < 2) {
 
+
                 byte[] receiveBuffer = new byte[1024];
 
                 DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+
 
                 socket.receive(receivedPacket);
                 String string = new String(receivedPacket.getData()).trim();
@@ -88,9 +86,16 @@ public class Server {
             ListenHandler listenHandler = new ListenHandler();
             executorService.submit(listenHandler);
 
-        } catch (SocketException e) {
+
+        } catch (
+                SocketException e)
+
+        {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (
+                IOException e)
+
+        {
             e.printStackTrace();
         }
     }
@@ -180,6 +185,8 @@ public class Server {
                         continue;
                     }
 
+                    System.out.println(addresses.size());
+
                     sendDirectMessage(receivedPacket, receivedString);
 
                     //broadcast(receivedString);
@@ -192,7 +199,6 @@ public class Server {
     }
 
     class GhostHandler extends TimerTask {
-
 
         @Override
         public void run() {
@@ -213,4 +219,3 @@ public class Server {
         }
     }
 }
-

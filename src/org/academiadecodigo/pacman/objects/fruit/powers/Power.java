@@ -10,7 +10,7 @@ public class Power {
         switch (powerType) {
 
 
-            case EDIBLEGHOSTS:
+            case EDIBLE_GHOSTS:
                 break;
         }
 
