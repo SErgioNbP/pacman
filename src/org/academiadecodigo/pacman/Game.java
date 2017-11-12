@@ -58,6 +58,10 @@ public class Game {
         gamePlayers = Utils.createPlayers();
 
         client.sendServer("START");
+        client.sendServer("START");
+        client.sendServer("START");
+        client.sendServer("START");
+
         client.startListening();
 
         this.executorService = Executors.newFixedThreadPool(5);
