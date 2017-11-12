@@ -76,10 +76,6 @@ public class Client {
 
                     String receivedString = new String(receivedPacket.getData());
 
-                    String[] strings = receivedString.split("\n");
-
-                    System.out.println(strings.length);
-
                     game.updatePosition(receivedString.trim());
                 }
 

@@ -36,6 +36,7 @@ public class Game {
 
     private Player player;
     private Enemy enemy;
+    private int enemyScore;
 
     private KeyboardHandler keyboardHandler;
 
@@ -127,6 +128,9 @@ public class Game {
             }
 
         }
+
+        representation.drawScore(player.getScore(), enemyScore);
+
         representation.refresh();
 
     }
@@ -172,7 +176,6 @@ public class Game {
                         apple.eat();
                     }
                 }
-
                 break;
 
             case "Enemy":
@@ -182,6 +185,10 @@ public class Game {
             case "FirstPos":
                 enemy = new Enemy(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])));
                 break;
+
+            case "Score":
+                enemyScore = Integer.parseInt(words[1]);
+
             default:
                 break;
         }
@@ -216,6 +223,7 @@ public class Game {
 
             }
         }
+        client.sendServer("Score " + player.getScore());
     }
 
     public void checkDeaths() {

@@ -12,7 +12,7 @@ public class Apple extends Power implements Edible {
 
     public Apple(Position position) {
         this.position = position;
-        points = 250;
+        points = 50;
         eaten = false;
         powerType = PowerType.randomPowerType();
     }

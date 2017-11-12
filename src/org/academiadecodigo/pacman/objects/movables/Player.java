@@ -145,4 +145,8 @@ public class Player implements Movable, Interactable {
     public void setPower(PowerType powerType) {
         this.power = powerType;
     }
+
+    public int getScore() {
+        return points;
+    }
 }
