@@ -157,8 +157,6 @@ public class Game {
 
         if (type.equals("player")) {
 
-            System.out.println("entrou");
-
             String[] playerEnemyPositions = positions.split("\n");
 
             String[] playerInitialPosition = playerEnemyPositions[0].split(" ");
@@ -168,6 +166,8 @@ public class Game {
             enemyStartPosition = new Position(Integer.parseInt(enemyInitialPosition[1]), Integer.parseInt(enemyInitialPosition[2]));
 
             canBeInitialized = true;
+
+            System.out.println("entrou");
         }
 
         switch (type) {
