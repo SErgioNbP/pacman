@@ -58,25 +58,27 @@ public class Server {
 
             socket = new DatagramSocket(portNumber);
 
-            byte[] receiveBuffer = new byte[1024];
+            while (addresses.size() < 2) {
 
-            DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+                byte[] receiveBuffer = new byte[1024];
 
+                DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
-            socket.receive(receivedPacket);
-            String string = new String(receivedPacket.getData()).trim();
+                socket.receive(receivedPacket);
+                String string = new String(receivedPacket.getData()).trim();
 
-            if (string.equals("START")) {
+                if (string.equals("START")) {
 
-                GhostHandler ghostHandler = new GhostHandler();
-                timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
+                    GhostHandler ghostHandler = new GhostHandler();
+                    timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
+
+                    if (!addressExists(receivedPacket) || addresses.size() == 0) {
+                        addresses.add(receivedPacket);
+                    }
+                }
 
                 ListenHandler listenHandler = new ListenHandler();
                 executorService.submit(listenHandler);
-
-                if (!addressExists(receivedPacket) || addresses.size() == 0) {
-                    addresses.add(receivedPacket);
-                }
             }
 
         } catch (SocketException e) {
@@ -163,7 +165,7 @@ public class Server {
 
                     String receivedString = new String(receivedPacket.getData()).trim();
 
-                    if(receivedString.equals("START")){
+                    if (receivedString.equals("START")) {
 
                         System.out.println(receivedPacket.getAddress());
                         continue;
