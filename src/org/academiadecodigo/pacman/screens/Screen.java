@@ -25,7 +25,8 @@ public class Screen {
 
             case INITIAL_SCREEN:
 
-                String title = "__________                                      \n" +
+                String title =
+                        "__________                                      \n" +
                         "\\______   \\_____    ____   _____ _____    ____  \n" +
                         " |     ___/\\__  \\ _/ ___\\ /     \\\\__  \\  /    \\ \n" +
                         " |    |     / __ \\\\  \\___|  Y Y  \\/ __ \\|   |  \\\n" +
@@ -36,11 +37,12 @@ public class Screen {
 
                 for(int i = 0; i < strings.length; i++) {
 
-                    screen.putString(3,1 + i,strings[i], Terminal.Color.YELLOW, Terminal.Color.BLACK);
+                    screen.putString(13,1 + i,strings[i], Terminal.Color.YELLOW, Terminal.Color.BLACK);
 
                 }
 
-                String pacman = "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n" +
+                String pacman =
+                        "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n" +
                         "▓▒░▒▓▒░▒▓▒░▒▓▒░▒▓▒░▒▓▒░▒▓▒░▒▓▒░▒▓▒░▒▓▒░▒▓▒░▒▓▒░▓▒░▒▓▒░▓\n" +
                         "▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\n" +
                         "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n" +
@@ -60,21 +62,23 @@ public class Screen {
 
                 for (int i = 0; i < pacmanStrings.length; i++) {
 
-                    screen.putString(0,8 + i,pacmanStrings[i], Terminal.Color.YELLOW, Terminal.Color.BLACK);
+                    screen.putString(10,8 + i,pacmanStrings[i], Terminal.Color.YELLOW, Terminal.Color.BLACK);
 
                 }
 
                 String instructions =
-                        "                                .         .        \n" +
-                                ".-..-..-,.-.-  .-.-..-. .-.-,  -|-.-.  .-.| .-. . .\n" +
-                                "|-''  `'--'-'  -'|-'`-`-`-`'-   '-`-'  |-''-`-`-'-|\n" +
-                                "'                '                     '        `-'";
+                                ";-.                            .             .             .         \n" +
+                                "|  )                           |             |             |         \n" +
+                                "|-'  ;-. ,-. ,-. ,-.   ,-. ;-. |-  ,-. ;-.   |-  ,-.   ;-. | ,-: . . \n" +
+                                "|    |   |-' `-. `-.   |-' | | |   |-' |     |   | |   | | | | | | | \n" +
+                                "'    '   `-' `-' `-'   `-' ' ' `-' `-' '     `-' `-'   |-' ' `-` `-| \n" +
+                                "                                                       '         `-' ";
 
                 String[] instructionsStrings = instructions.split("\\n");
 
                 for (int i = 0; i < instructionsStrings.length; i++) {
 
-                    screen.putString(2,24 + i,instructionsStrings[i], Terminal.Color.YELLOW, Terminal.Color.BLACK);
+                    screen.putString(3,24 + i,instructionsStrings[i], Terminal.Color.YELLOW, Terminal.Color.BLACK);
 
                 }
 
@@ -86,7 +90,8 @@ public class Screen {
 
                 screen.clear();
 
-                String youWord = " __      __                  \n" +
+                String youWord =
+                        " __      __                  \n" +
                         "/  \\    /  |                 \n" +
                         "$$  \\  /$$/______   __    __ \n" +
                         " $$  \\/$$//      \\ /  |  /  |\n" +
@@ -104,7 +109,8 @@ public class Screen {
 
                 }
 
-                String win = " __       __  __           \n" +
+                String win =
+                        " __       __  __           \n" +
                         "/  |  _  /  |/  |          \n" +
                         "$$ | / \\ $$ |$$/  _______  \n" +
                         "$$ |/$  \\$$ |/  |/       \\ \n" +
@@ -130,7 +136,8 @@ public class Screen {
 
                 screen.clear();
 
-                String you = "▓██   ██▓ ▒█████   █    ██ \n" +
+                String you =
+                        "▓██   ██▓ ▒█████   █    ██ \n" +
                         " ▒██  ██▒▒██▒  ██▒ ██  ▓██▒\n" +
                         "  ▒██ ██░▒██░  ██▒▓██  ▒██░\n" +
                         "  ░ ▐██▓░▒██   ██░▓▓█  ░██░\n" +
@@ -150,7 +157,8 @@ public class Screen {
 
                 }
 
-                String lose = " ██▓     ▒█████    ██████ ▓█████ \n" +
+                String lose =
+                        " ██▓     ▒█████    ██████ ▓█████ \n" +
                         "▓██▒    ▒██▒  ██▒▒██    ▒ ▓█   ▀ \n" +
                         "▒██░    ▒██░  ██▒░ ▓██▄   ▒███   \n" +
                         "▒██░    ▒██   ██░  ▒   ██▒▒▓█  ▄ \n" +
