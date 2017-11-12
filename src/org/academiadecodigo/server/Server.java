@@ -68,6 +68,7 @@ public class Server {
                 String string = new String(receivedPacket.getData()).trim();
 
                 if (string.equals("START")) {
+                    System.out.println("GGGGGGG");
 
                     if (!addressExists(receivedPacket) || addresses.size() == 0) {
                         addresses.add(receivedPacket);
