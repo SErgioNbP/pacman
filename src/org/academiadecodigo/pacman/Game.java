@@ -143,6 +143,10 @@ public class Game {
 
         representation.drawScore(player.getScore(), enemyScore);
 
+        if(player.getPower() != null) {
+            representation.drawPowerUp(player.getPower().toString());
+        }
+
         representation.refresh();
 
     }
@@ -261,7 +265,7 @@ public class Game {
 
                 if (player.getPower() != null) {
 
-                    if (player.getPower().equals(PowerType.EDIBLEGHOSTS)) {
+                    if (player.getPower().equals(PowerType.EDIBLE_GHOSTS)) {
                         ghost.die();
                         player.setPower(null);
 
