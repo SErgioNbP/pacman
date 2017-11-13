@@ -102,9 +102,16 @@ public class Game {
         String[] messageLines = positions.split("\n");
         String[] words = messageLines[0].split(" ");
         String type = words[0];
+        int numLines = messageLines.length;
+
         switch (type) {
 
             case "Ghost":
+
+                if (numLines < gameGhosts.size()) {
+                    gameGhosts.remove(0);
+                }
+
                 for (Ghost ghost : gameGhosts) {
                     String[] strings = messageLines[gameGhosts.indexOf(ghost)].split(" ");
                     ghost.setPosition(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
