@@ -1,7 +1,7 @@
 package org.academiadecodigo.server;
 
-import org.academiadecodigo.pacman.Utils;
-import org.academiadecodigo.pacman.grid.Position;
+import org.academiadecodigo.gameplay.Utils;
+import org.academiadecodigo.gameplay.grid.Position;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

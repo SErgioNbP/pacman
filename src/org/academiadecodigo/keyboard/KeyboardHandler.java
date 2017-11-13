@@ -2,9 +2,9 @@ package org.academiadecodigo.keyboard;
 
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.screen.Screen;
-import org.academiadecodigo.pacman.Game;
-import org.academiadecodigo.pacman.grid.Direction;
-import org.academiadecodigo.pacman.objects.movables.Player;
+import org.academiadecodigo.gameplay.Game;
+import org.academiadecodigo.gameplay.grid.Direction;
+import org.academiadecodigo.gameplay.objects.movables.Player;
 
 public class KeyboardHandler implements Runnable{
 

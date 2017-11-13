@@ -1,4 +1,4 @@
-package org.academiadecodigo.pacman;
+package org.academiadecodigo.gameplay;
 
 public class Main {
 

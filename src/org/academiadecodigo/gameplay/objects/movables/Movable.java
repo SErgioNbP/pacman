@@ -1,6 +1,6 @@
-package org.academiadecodigo.pacman.objects.movables;
+package org.academiadecodigo.gameplay.objects.movables;
 
-import org.academiadecodigo.pacman.grid.Position;
+import org.academiadecodigo.gameplay.grid.Position;
 
 public interface Movable {
 

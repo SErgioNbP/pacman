@@ -1,4 +1,4 @@
-package org.academiadecodigo.pacman.screens;
+package org.academiadecodigo.graphics;
 
 import com.googlecode.lanterna.terminal.Terminal;
 

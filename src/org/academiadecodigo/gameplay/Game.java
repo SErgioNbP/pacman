@@ -1,15 +1,15 @@
-package org.academiadecodigo.pacman;
+package org.academiadecodigo.gameplay;
 import org.academiadecodigo.keyboard.KeyboardHandler;
-import org.academiadecodigo.pacman.objects.fruit.powers.PowerType;
-import org.academiadecodigo.pacman.objects.movables.Enemy;
-import org.academiadecodigo.pacman.screens.Representation;
-import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.fruit.Fruit;
-import org.academiadecodigo.pacman.objects.movables.Ghost;
-import org.academiadecodigo.pacman.objects.movables.Player;
-import org.academiadecodigo.pacman.screens.GraphicsType;
+import org.academiadecodigo.gameplay.objects.fruit.powers.PowerType;
+import org.academiadecodigo.gameplay.objects.movables.Enemy;
+import org.academiadecodigo.graphics.Representation;
+import org.academiadecodigo.gameplay.grid.Position;
+import org.academiadecodigo.gameplay.objects.fruit.Fruit;
+import org.academiadecodigo.gameplay.objects.movables.Ghost;
+import org.academiadecodigo.gameplay.objects.movables.Player;
+import org.academiadecodigo.graphics.GraphicsType;
 import org.academiadecodigo.server.Client;
-import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
+import org.academiadecodigo.gameplay.objects.fruit.powers.Apple;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -183,11 +183,6 @@ public class Game {
                 enemy.setPosition(Integer.parseInt(words[1]), Integer.parseInt(words[2]));
                 break;
 
-            case "FirstPos":
-
-                enemy = new Enemy(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])));
-                break;
-
             case "Score":
 
                 enemyScore = Integer.parseInt(words[1]);
@@ -246,6 +241,7 @@ public class Game {
 
                     if (player.getPower().equals(PowerType.EDIBLE_GHOSTS)) {
                         ghost.die();
+                        player.givePoints(ghost.getPoints());
                         player.setPower(null);
                         client.sendServer("DeadGhost " + player.getPosition().getCol() + " " + player.getPosition().getRow());
 

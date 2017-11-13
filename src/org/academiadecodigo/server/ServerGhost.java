@@ -1,8 +1,8 @@
 package org.academiadecodigo.server;
 
-import org.academiadecodigo.pacman.Utils;
-import org.academiadecodigo.pacman.grid.Direction;
-import org.academiadecodigo.pacman.grid.Position;
+import org.academiadecodigo.gameplay.Utils;
+import org.academiadecodigo.gameplay.grid.Direction;
+import org.academiadecodigo.gameplay.grid.Position;
 
 public class ServerGhost {
 
@@ -57,7 +57,7 @@ public class ServerGhost {
     }
 
 
-    public boolean isWalkable(Position position) {
+    private boolean isWalkable(Position position) {
 
         for (Position p : Utils.path) {
 

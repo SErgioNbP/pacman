@@ -1,10 +1,10 @@
-package org.academiadecodigo.pacman.screens;
+package org.academiadecodigo.graphics;
 
 import com.googlecode.lanterna.TerminalFacade;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
-import org.academiadecodigo.pacman.Constants;
-import org.academiadecodigo.pacman.grid.Position;
+import org.academiadecodigo.gameplay.Constants;
+import org.academiadecodigo.gameplay.grid.Position;
 
 public class Representation {
 
@@ -71,6 +71,6 @@ public class Representation {
 
     public void drawPowerUp(String player) {
         screen.putString(60, 7, "PowerUp:".toUpperCase(), Terminal.Color.GREEN, Terminal.Color.BLACK);
-        screen.putString(57, 8, player, Terminal.Color.GREEN, Terminal.Color.BLACK);
+        screen.putString(58, 8, player, Terminal.Color.GREEN, Terminal.Color.BLACK);
     }
 }

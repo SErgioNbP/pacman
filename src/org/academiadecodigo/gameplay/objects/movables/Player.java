@@ -1,13 +1,13 @@
-package org.academiadecodigo.pacman.objects.movables;
+package org.academiadecodigo.gameplay.objects.movables;
 
 import com.googlecode.lanterna.gui.Interactable;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.terminal.TerminalPosition;
-import org.academiadecodigo.pacman.Utils;
-import org.academiadecodigo.pacman.grid.Direction;
-import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.fruit.Edible;
-import org.academiadecodigo.pacman.objects.fruit.powers.PowerType;
+import org.academiadecodigo.gameplay.Utils;
+import org.academiadecodigo.gameplay.grid.Direction;
+import org.academiadecodigo.gameplay.grid.Position;
+import org.academiadecodigo.gameplay.objects.fruit.Edible;
+import org.academiadecodigo.gameplay.objects.fruit.powers.PowerType;
 
 import java.util.List;
 
@@ -150,5 +150,9 @@ public class Player implements Movable, Interactable {
 
     public int getScore() {
         return points;
+    }
+
+    public void givePoints(int points) {
+        this.points += points;
     }
 }

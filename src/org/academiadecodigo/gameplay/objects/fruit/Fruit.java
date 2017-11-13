@@ -1,6 +1,6 @@
-package org.academiadecodigo.pacman.objects.fruit;
+package org.academiadecodigo.gameplay.objects.fruit;
 
-import org.academiadecodigo.pacman.grid.Position;
+import org.academiadecodigo.gameplay.grid.Position;
 
 public class Fruit implements Edible {
 

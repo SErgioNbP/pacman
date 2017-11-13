@@ -1,7 +1,7 @@
-package org.academiadecodigo.pacman.screens;
+package org.academiadecodigo.graphics;
 
 import com.googlecode.lanterna.TerminalFacade;
-import org.academiadecodigo.pacman.Constants;
+import org.academiadecodigo.gameplay.Constants;
 
 public class DrawingTest {
 

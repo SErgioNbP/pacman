@@ -1,4 +1,4 @@
-package org.academiadecodigo.pacman.screens;
+package org.academiadecodigo.graphics;
 
 public enum GraphicsType {
     INITIAL_SCREEN,

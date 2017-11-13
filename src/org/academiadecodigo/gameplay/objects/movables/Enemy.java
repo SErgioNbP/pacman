@@ -1,19 +1,15 @@
-package org.academiadecodigo.pacman.objects.movables;
+package org.academiadecodigo.gameplay.objects.movables;
 
-import org.academiadecodigo.pacman.grid.Direction;
-import org.academiadecodigo.pacman.grid.Position;
+import org.academiadecodigo.gameplay.grid.Position;
 
-public class Ghost implements Movable {
+public class Enemy implements Movable {
 
-    private Direction direction;
-    private Direction nextDirection = Direction.UP;
     private Position position;
     private boolean alive;
 
-    public Ghost(Position position) {
+    public Enemy(Position position) {
         this.position = position;
         alive = true;
-        direction = Direction.UP;
     }
 
     @Override
@@ -41,4 +37,3 @@ public class Ghost implements Movable {
         position.setRow(row);
     }
 }
-

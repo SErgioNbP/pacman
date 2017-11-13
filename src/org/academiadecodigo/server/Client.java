@@ -1,6 +1,6 @@
 package org.academiadecodigo.server;
 
-import org.academiadecodigo.pacman.Game;
+import org.academiadecodigo.gameplay.Game;
 import java.net.DatagramSocket;
 import java.io.IOException;
 import java.net.*;

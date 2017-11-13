@@ -1,10 +1,9 @@
-package org.academiadecodigo.pacman;
+package org.academiadecodigo.gameplay;
 
-import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.fruit.Fruit;
-import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
-import org.academiadecodigo.pacman.objects.movables.Ghost;
-import org.academiadecodigo.pacman.objects.movables.Player;
+import org.academiadecodigo.gameplay.grid.Position;
+import org.academiadecodigo.gameplay.objects.fruit.Fruit;
+import org.academiadecodigo.gameplay.objects.fruit.powers.Apple;
+import org.academiadecodigo.gameplay.objects.movables.Ghost;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -25,7 +24,7 @@ public class Utils {
 
         try {
 
-            reader = new BufferedReader(new FileReader("resources/map"));
+            reader = new BufferedReader(new FileReader("resources/gameLevel"));
             String line = reader.readLine();
 
             while (line != null) {

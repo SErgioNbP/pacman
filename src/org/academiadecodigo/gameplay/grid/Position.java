@@ -1,4 +1,4 @@
-package org.academiadecodigo.pacman.grid;
+package org.academiadecodigo.gameplay.grid;
 
 public class Position {
 
