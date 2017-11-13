@@ -45,7 +45,7 @@ public class KeyboardHandler implements Runnable{
                 }
 
                 if (key.getKind() == Key.Kind.Enter) {
-                    game.start();
+                    game.sendReadyMessage();
                 }
             }
         }

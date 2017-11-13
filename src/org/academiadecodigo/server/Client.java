@@ -1,6 +1,7 @@
 package org.academiadecodigo.server;
 
 import org.academiadecodigo.gameplay.Game;
+
 import java.net.DatagramSocket;
 import java.io.IOException;
 import java.net.*;
@@ -21,8 +22,10 @@ public class Client {
 
     public void startListening() {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        executorService.submit(new ClientListen(socket));
+        //ExecutorService executorService = Executors.newFixedThreadPool(2);
+        System.out.println("start listening");
+        Thread thread = new Thread(new ClientListen(socket));
+        thread.start();
     }
 
     public void sendServer(String string) {
@@ -32,7 +35,7 @@ public class Client {
         try {
             socket = new DatagramSocket();
 
-            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("localhost"), 9090);
+            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("192.168.0.26"), 9090);
 
             socket.send(sendPacket);
 
@@ -67,9 +70,14 @@ public class Client {
 
                     DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
+                    if (receivedPacket == null) {
+                        return;
+                    }
                     socket.receive(receivedPacket);
 
                     String receivedString = new String(receivedPacket.getData());
+
+                    System.out.println(receivedString.trim());
 
                     game.updatePosition(receivedString.trim());
                 }

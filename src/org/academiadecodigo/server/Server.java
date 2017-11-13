@@ -2,6 +2,7 @@ package org.academiadecodigo.server;
 
 import org.academiadecodigo.gameplay.Utils;
 import org.academiadecodigo.gameplay.grid.Position;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -18,6 +19,7 @@ public class Server {
     private DatagramSocket socket;
     private ExecutorService executorService;
     private Timer timer;
+    private int startCount;
 
     public static void main(String[] args) {
 
@@ -29,6 +31,8 @@ public class Server {
     private void init() {
 
         Utils.generateLists();
+
+        startCount = 0;
 
         timer = new Timer();
 
@@ -51,22 +55,33 @@ public class Server {
             // TODO wait for all players to login
             socket = new DatagramSocket(portNumber);
 
-            byte[] receiveBuffer = new byte[1024];
+            while (startCount < 2){
 
-            DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+                byte[] receiveBuffer = new byte[1024];
 
-            socket.receive(receivedPacket);
-            String string = new String(receivedPacket.getData()).trim();
+                DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
-            if (string.equals("START")) {
+                socket.receive(receivedPacket);
+                String string = new String(receivedPacket.getData()).trim();
 
-                if (!addressExists(receivedPacket) || addresses.size() == 0) {
-                    addresses.add(receivedPacket);
+                if (string.equals("START")) {
+
+                    startCount++;
+
+                    if (!addressExists(receivedPacket) || addresses.size() == 0) {
+                        addresses.add(receivedPacket);
+                    }
+
                 }
-
-                ListenHandler listenHandler = new ListenHandler();
-                executorService.submit(listenHandler);
             }
+            System.out.println("about to broadcast");
+            broadcast("GameStart");
+
+            ListenHandler listenHandler = new ListenHandler();
+            executorService.submit(listenHandler);
+
+            GhostHandler ghostHandler = new GhostHandler();
+            timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
 
         } catch (SocketException e) {
             e.printStackTrace();
@@ -148,11 +163,6 @@ public class Server {
                     socket.receive(receivedPacket);
                     String receivedString = new String(receivedPacket.getData()).trim();
 
-                    if (receivedString.equals("START")) {
-
-                        GhostHandler ghostHandler = new GhostHandler();
-                        timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
-                    }
 
                     if (!addressExists(receivedPacket)) {
                         addresses.add(receivedPacket);

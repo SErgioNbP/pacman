@@ -46,8 +46,8 @@ public class Game {
         gameApples = Utils.createApples();
         gameFruits = Utils.createFruits();
 
-        client.sendServer("START");
-        client.startListening();
+        //client.sendServer("START");
+        //client.startListening();
 
         player = new Player(new Position(10, 10));
         enemy = new Enemy(new Position(10, 10));
@@ -66,6 +66,11 @@ public class Game {
 
         GameThread gameThread = new GameThread();
         timer.scheduleAtFixedRate(gameThread, 0, 200);
+    }
+
+    public void sendReadyMessage() {
+        client.sendServer("START");
+        client.startListening();
     }
 
     class GameThread extends TimerTask {
@@ -187,6 +192,10 @@ public class Game {
 
                 enemyScore = Integer.parseInt(words[1]);
                 break;
+
+            case "GameStart":
+
+                start();
 
             default:
                 break;
