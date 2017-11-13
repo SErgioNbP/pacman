@@ -90,12 +90,10 @@ public class Game {
 
         @Override
         public void run() {
-
+            System.out.println(ready);
             if (!ready) {
                 return;
             }
-            System.out.println(ready);
-
             player.move();
             eatFruits();
             checkDeaths();

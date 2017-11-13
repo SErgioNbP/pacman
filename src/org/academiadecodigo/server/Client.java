@@ -22,7 +22,7 @@ public class Client {
 
     public void startListening() {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
 
         executorService.submit(new ClientListen(socket));
     }
@@ -75,6 +75,8 @@ public class Client {
                     socket.receive(receivedPacket);
 
                     String receivedString = new String(receivedPacket.getData());
+
+                    System.out.println(receivedString.trim());
 
                     game.updatePosition(receivedString.trim());
                 }
