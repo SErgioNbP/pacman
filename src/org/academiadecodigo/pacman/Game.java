@@ -54,7 +54,7 @@ public class Game {
         client.startListening();
 
         player = new Player(new Position(10, 10));
-        enemy = new Enemy(new Position(10, 10));
+        enemy = new Enemy(new Position(20, 12));
 
         this.executorService = Executors.newFixedThreadPool(5);
 
@@ -119,7 +119,10 @@ public class Game {
         if (enemy.isAlive()) {
             representation.drawEnemy(enemy.getPosition());
 
+        } else {
+            representation.enemyDisapper(enemy.getPosition());
         }
+
 
         if (player.isAlive()) {
             client.sendServer("Enemy " + player.getPosition().getCol() + " " + player.getPosition().getRow());
@@ -238,6 +241,13 @@ public class Game {
     public void checkDeaths() {
 
         for (Ghost ghost : gameGhosts) {
+
+            /* TODO when enemy dies, it broadcasts a message saying Enemy dead which calls the method enemy.die()
+            if (enemy.getPosition().comparePos(ghost.getPosition())) {
+
+                enemy.die();
+            }
+            */
 
             if (player.getPosition().comparePos(ghost.getPosition())) {
 

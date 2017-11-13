@@ -74,6 +74,10 @@ public class Representation {
         screen.putString(57, 8, player, Terminal.Color.GREEN, Terminal.Color.BLACK);
     }
 
+    public void enemyDisapper(Position pos) {
+        screen.putString(pos.getCol(), pos.getRow(), " ", Terminal.Color.BLACK, Terminal.Color.BLACK);
+    }
+
     public void drawWinningScreen() {
         currentScreen.drawScreen(ScreenType.WINNING_FINAL_SCREEN);
     }
