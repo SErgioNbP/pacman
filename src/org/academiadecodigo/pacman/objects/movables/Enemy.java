@@ -2,36 +2,38 @@ package org.academiadecodigo.pacman.objects.movables;
 
 import org.academiadecodigo.pacman.grid.Position;
 
-
 public class Enemy implements Movable {
 
     private Position position;
     private boolean alive;
 
-    public Enemy(Position position){
+    public Enemy(Position position) {
         this.position = position;
         alive = true;
     }
 
-   public Position getPosition(){
-        return position;
-   }
+    @Override
+    public void move() {
+    }
 
+    @Override
     public boolean isAlive() {
         return alive;
     }
 
     @Override
-    public void move() {
-
+    public void die() {
+        alive = false;
     }
 
-    public void die(){
-       alive = false;
+    @Override
+    public Position getPosition() {
+        return position;
     }
 
+    @Override
     public void setPosition(int col, int row) {
-       position.setCol(col);
-       position.setRow(row);
+        position.setCol(col);
+        position.setRow(row);
     }
 }

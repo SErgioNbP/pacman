@@ -2,9 +2,6 @@ package org.academiadecodigo.pacman.objects.fruit;
 
 import org.academiadecodigo.pacman.grid.Position;
 
-/**
- * Created by codecadet on 05/11/17.
- */
 public class Fruit implements Edible {
 
     private Position position;

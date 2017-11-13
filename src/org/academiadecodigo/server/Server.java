@@ -2,8 +2,6 @@ package org.academiadecodigo.server;
 
 import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Position;
-import org.academiadecodigo.pacman.objects.movables.Ghost;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -20,7 +18,6 @@ public class Server {
     private DatagramSocket socket;
     private ExecutorService executorService;
     private Timer timer;
-
 
     public static void main(String[] args) {
 
@@ -45,35 +42,30 @@ public class Server {
         executorService = Executors.newFixedThreadPool(10);
 
         addresses = new LinkedList<>();
-
     }
-
 
     private void start() {
 
         try {
 
+            // TODO wait for all players to login
             socket = new DatagramSocket(portNumber);
 
             byte[] receiveBuffer = new byte[1024];
 
             DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
-
             socket.receive(receivedPacket);
             String string = new String(receivedPacket.getData()).trim();
 
             if (string.equals("START")) {
 
-                GhostHandler ghostHandler = new GhostHandler();
-                timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
-
-                ListenHandler listenHandler = new ListenHandler();
-                executorService.submit(listenHandler);
-
                 if (!addressExists(receivedPacket) || addresses.size() == 0) {
                     addresses.add(receivedPacket);
                 }
+
+                ListenHandler listenHandler = new ListenHandler();
+                executorService.submit(listenHandler);
             }
 
         } catch (SocketException e) {
@@ -82,7 +74,6 @@ public class Server {
             e.printStackTrace();
         }
     }
-
 
     private boolean addressExists(DatagramPacket packet) {
 
@@ -106,23 +97,28 @@ public class Server {
             if (!datagramPacket.getAddress().toString().equals(packet.getAddress().toString())) {
 
                 DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, packet.getAddress(), packet.getPort());
+
                 try {
                     socket.send(sendPacket);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
-
     }
 
     private void broadcast(String string) {
 
         byte[] sendBuffer = string.getBytes();
+
         for (DatagramPacket packet : addresses) {
+
             DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, packet.getAddress(), packet.getPort());
+
             try {
                 socket.send(sendPacket);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -138,7 +134,6 @@ public class Server {
 
     class ListenHandler implements Runnable {
 
-
         @Override
         public void run() {
 
@@ -146,37 +141,34 @@ public class Server {
 
                 try {
 
-
                     byte[] receiveBuffer = new byte[1024];
 
                     DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
                     socket.receive(receivedPacket);
+                    String receivedString = new String(receivedPacket.getData()).trim();
+
+                    if (receivedString.equals("START")) {
+
+                        GhostHandler ghostHandler = new GhostHandler();
+                        timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
+                    }
 
                     if (!addressExists(receivedPacket)) {
                         addresses.add(receivedPacket);
-                        System.out.println("added second player");
                     }
 
-                    String receivedString = new String(receivedPacket.getData()).trim();
                     String[] words = receivedString.split(" ");
 
                     if (words[0].equals("DeadGhost")) {
-
                         killGhost(Integer.parseInt(words[1]), Integer.parseInt(words[2]));
                     }
 
                     if (receivedString.equals("START")) {
-
-                        System.out.println(receivedPacket.getAddress());
                         continue;
                     }
 
-                    System.out.println(addresses.size());
-
                     sendDirectMessage(receivedPacket, receivedString);
-
-                    //broadcast(receivedString);
 
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -200,12 +192,10 @@ public class Server {
         }
     }
 
-
     class GhostHandler extends TimerTask {
 
         @Override
         public void run() {
-
 
             for (ServerGhost serverGhost : serverGhosts) {
                 serverGhost.move();

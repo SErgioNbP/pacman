@@ -34,58 +34,6 @@ public enum Direction {
         return randomDirection();
     }
 
-    /*
-    public static Direction turnInDirection(Direction direction) {
-
-        int randomNumber = (int) (Math.random() * 2);
-
-        switch (direction) {
-
-            case UP:
-
-                if (randomNumber == 0) {
-                    return RIGHT;
-                } else {
-                    return DOWN;
-                }
-
-            case DOWN:
-
-                if (randomNumber == 0) {
-                    return LEFT;
-                } else {
-                    return UP;
-                }
-
-            case LEFT:
-
-                if (randomNumber == 0) {
-                    return RIGHT;
-                } else {
-                    return UP;
-                }
-
-            case RIGHT:
-
-                if (randomNumber == 0) {
-                    return LEFT;
-                } else {
-                    return DOWN;
-                }
-
-            default:
-                return UP;
-        }
-    }*/
-
-
-    /*
-    public static Direction changeDirection(Direction direction) {
-
-        return Direction.turnInDirection(direction);
-    }
-    */
-
     public static Direction turnRight(Direction direction) {
 
         switch (direction) {
@@ -133,5 +81,4 @@ public enum Direction {
                 return RIGHT;
         }
     }
-
 }

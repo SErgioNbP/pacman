@@ -9,7 +9,7 @@ import org.academiadecodigo.pacman.grid.Position;
 public class Representation {
 
     private Screen screen;
-    private org.academiadecodigo.pacman.screens.Screen currentScreen;
+    private Graphics currentGraphics;
 
     public void init() {
 
@@ -20,7 +20,7 @@ public class Representation {
         screen.getTerminal().getTerminalSize().setColumns(Constants.GRID_COLS);
         screen.getTerminal().getTerminalSize().setRows(Constants.GRID_ROWS);
 
-        currentScreen = new org.academiadecodigo.pacman.screens.Screen(screen);
+        currentGraphics = new Graphics(screen);
 
         screen.startScreen();
     }
@@ -60,8 +60,8 @@ public class Representation {
         return screen;
     }
 
-    public org.academiadecodigo.pacman.screens.Screen getCurrentScreen() {
-        return currentScreen;
+    public Graphics getCurrentGraphics() {
+        return currentGraphics;
     }
 
     public void drawScore(int playerScore, int enemyScore) {
@@ -72,12 +72,5 @@ public class Representation {
     public void drawPowerUp(String player) {
         screen.putString(60, 7, "PowerUp:".toUpperCase(), Terminal.Color.GREEN, Terminal.Color.BLACK);
         screen.putString(57, 8, player, Terminal.Color.GREEN, Terminal.Color.BLACK);
-    }
-
-    public void drawWinningScreen() {
-        currentScreen.drawScreen(ScreenType.WINNING_FINAL_SCREEN);
-    }
-    public void drawLosingScreen() {
-        currentScreen.drawScreen(ScreenType.LOSING_FINAL_SCREEN);
     }
 }

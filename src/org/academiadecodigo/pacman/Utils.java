@@ -12,13 +12,11 @@ import java.util.List;
 
 public class Utils {
 
-    public static List<Position> walls;
+    static List<Position> walls;
     public static List<Position> path;
-    public static List<Position> fruitsPos;
-    public static List<Position> applesPos;
+    private static List<Position> fruitsPos;
+    private static List<Position> applesPos;
     public static List<Position> ghostsPos;
-    public static List<Position> playersPos;
-
 
     private static String readFromFile() {
 
@@ -26,6 +24,7 @@ public class Utils {
         BufferedReader reader = null;
 
         try {
+
             reader = new BufferedReader(new FileReader("resources/map"));
             String line = reader.readLine();
 
@@ -59,7 +58,6 @@ public class Utils {
 
         walls = new LinkedList<>();
         path = new LinkedList<>();
-        playersPos = new LinkedList<>();
         ghostsPos = new LinkedList<>();
         applesPos = new LinkedList<>();
         fruitsPos = new LinkedList<>();
@@ -86,26 +84,12 @@ public class Utils {
 
                 } else if (currentChar == '3') {
                     ghostsPos.add(position);
-
-                } else if (currentChar == '6') {
-                    playersPos.add(position);
-
                 }
 
                 if (!walls.contains(position)) {
                     path.add(position);
                 }
             }
-        }
-    }
-
-    public static void decode(String receivedString, Ghost ghost) {
-
-        String[] strings = receivedString.split(" ");
-
-        if (strings[0].equals("Ghost")) {
-
-            ghost.setPosition(Integer.parseInt(strings[1]), Integer.parseInt(strings[3]));
         }
     }
 
@@ -143,17 +127,5 @@ public class Utils {
         }
 
         return fruits;
-    }
-
-    public static List<Player> createPlayers() {
-
-        List<Player> players = new LinkedList<>();
-
-        for (Position position : playersPos) {
-            Player player = new Player(position);
-            players.add(player);
-        }
-
-        return players;
     }
 }

@@ -3,7 +3,7 @@ package org.academiadecodigo.pacman.objects.fruit.powers;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.fruit.Edible;
 
-public class Apple extends Power implements Edible {
+public class Apple implements Edible {
 
     private Position position;
     private int points;

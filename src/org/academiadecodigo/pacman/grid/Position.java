@@ -4,8 +4,6 @@ public class Position {
 
     private int col;
     private int row;
-    private char c;
-
 
     public Position(int col, int row) {
         this.col = col;

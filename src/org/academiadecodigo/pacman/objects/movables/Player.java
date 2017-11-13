@@ -7,8 +7,6 @@ import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
 import org.academiadecodigo.pacman.objects.fruit.Edible;
-import org.academiadecodigo.pacman.objects.fruit.powers.Apple;
-import org.academiadecodigo.pacman.objects.fruit.powers.Power;
 import org.academiadecodigo.pacman.objects.fruit.powers.PowerType;
 
 import java.util.List;
@@ -61,6 +59,7 @@ public class Player implements Movable, Interactable {
             return;
         }
 
+        // TODO change this to call method setPosition(col, row);
         int col = position.getCol() + nextDirection.getMoveCol();
         int row = position.getRow() + nextDirection.getMoveRow();
 
@@ -79,16 +78,28 @@ public class Player implements Movable, Interactable {
 
         if (isWalkable(newPosition)) {
             position = newPosition;
-
-            return;
         }
+    }
 
-
+    @Override
+    public boolean isAlive() {
+        return alive;
     }
 
     @Override
     public void die() {
         alive = false;
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
+    }
+
+    @Override
+    public void setPosition(int col, int row) {
+        position.setCol(col);
+        position.setRow(row);
     }
 
     public void eat(Edible e) {
@@ -113,7 +124,6 @@ public class Player implements Movable, Interactable {
 
         e.eat();
         points += e.getPoints();
-        System.out.println(points);
     }
 
     public void setNextDirection(Direction direction) {
@@ -128,14 +138,6 @@ public class Player implements Movable, Interactable {
                 return true;
         }
         return false;
-    }
-
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public Position getPosition() {
-        return position;
     }
 
     public PowerType getPower() {

@@ -1,7 +1,6 @@
 package org.academiadecodigo.server;
 
 import org.academiadecodigo.pacman.Game;
-
 import java.net.DatagramSocket;
 import java.io.IOException;
 import java.net.*;
@@ -23,31 +22,30 @@ public class Client {
     public void startListening() {
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
-
         executorService.submit(new ClientListen(socket));
     }
 
     public void sendServer(String string) {
-
 
         byte[] sendBuffer = string.getBytes();
 
         try {
             socket = new DatagramSocket();
 
-            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("192.168.0.20"), 9090);
+            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("localhost"), 9090);
 
             socket.send(sendPacket);
 
         } catch (SocketException e) {
             e.printStackTrace();
+
         } catch (UnknownHostException e) {
             e.printStackTrace();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     class ClientListen implements Runnable {
 
@@ -58,13 +56,10 @@ public class Client {
             this.socket = socket;
         }
 
-
         @Override
         public void run() {
 
-
             try {
-
 
                 while (true) {
 
@@ -91,4 +86,3 @@ public class Client {
         }
     }
 }
-

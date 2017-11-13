@@ -2,24 +2,17 @@ package org.academiadecodigo.pacman.screens;
 
 import com.googlecode.lanterna.terminal.Terminal;
 
-/**
- * Created by codecadet on 11/11/2017.
- */
-public class Screen {
+public class Graphics {
 
-    //Properties
     private com.googlecode.lanterna.screen.Screen screen;
 
-    //Constructor
-    public Screen(com.googlecode.lanterna.screen.Screen screen) {
+    public Graphics(com.googlecode.lanterna.screen.Screen screen) {
 
         this.screen = screen;
         screen.setCursorPosition(null);
-
     }
 
-    //Methods
-    public void drawScreen(ScreenType typeOfScreen) {
+    public void drawScreen(GraphicsType typeOfScreen) {
 
         switch (typeOfScreen) {
 
@@ -63,7 +56,6 @@ public class Screen {
                 for (int i = 0; i < pacmanStrings.length; i++) {
 
                     screen.putString(9,8 + i,pacmanStrings[i], Terminal.Color.YELLOW, Terminal.Color.BLACK);
-
                 }
 
                 String instructions =
@@ -79,7 +71,6 @@ public class Screen {
                 for (int i = 0; i < instructionsStrings.length; i++) {
 
                     screen.putString(3,24 + i,instructionsStrings[i], Terminal.Color.YELLOW, Terminal.Color.BLACK);
-
                 }
 
                 screen.refresh();
@@ -106,7 +97,6 @@ public class Screen {
                 for (int i = 0; i < firstWinStrings.length; i++) {
 
                     screen.putString(14,5 + i,firstWinStrings[i], Terminal.Color.GREEN, Terminal.Color.BLACK);
-
                 }
 
                 String win =
@@ -125,7 +115,6 @@ public class Screen {
                 for (int i = 0; i < winStrings.length; i++) {
 
                     screen.putString(15,15 + i,winStrings[i], Terminal.Color.GREEN, Terminal.Color.BLACK);
-
                 }
 
                 screen.refresh();
@@ -154,7 +143,6 @@ public class Screen {
                 for (int i = 0; i < youStrings.length; i++) {
 
                     screen.putString(14,5 + i,youStrings[i], Terminal.Color.RED, Terminal.Color.BLACK);
-
                 }
 
                 String lose =
@@ -173,14 +161,11 @@ public class Screen {
                 for (int i = 0; i < loseStrings.length; i++) {
 
                     screen.putString(11,15 + i, loseStrings[i], Terminal.Color.RED, Terminal.Color.BLACK);
-
                 }
 
                 screen.refresh();
 
                 break;
         }
-
     }
-
 }

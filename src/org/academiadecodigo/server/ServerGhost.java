@@ -4,9 +4,6 @@ import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Direction;
 import org.academiadecodigo.pacman.grid.Position;
 
-/**
- * Created by codecadet on 10/11/17.
- */
 public class ServerGhost {
 
     private Direction direction;
@@ -21,6 +18,7 @@ public class ServerGhost {
 
     public void move() {
 
+        // TODO make ghosts move more coherently
         int randomNumber = (int) (Math.random() * 50);
 
         if (randomNumber < 5){
@@ -35,6 +33,7 @@ public class ServerGhost {
             nextDirection = Direction.turnRight(direction);
         }
 
+        // TODO change this to call method setPosition(col, row);
         int col = position.getCol() + nextDirection.getMoveCol();
         int row = position.getRow() + nextDirection.getMoveRow();
 
@@ -70,5 +69,10 @@ public class ServerGhost {
 
     public Position getPosition() {
         return position;
+    }
+
+    public void setPosition(int col, int row) {
+        position.setCol(col);
+        position.setRow(row);
     }
 }

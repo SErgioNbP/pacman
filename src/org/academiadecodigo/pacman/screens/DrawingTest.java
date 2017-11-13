@@ -3,9 +3,6 @@ package org.academiadecodigo.pacman.screens;
 import com.googlecode.lanterna.TerminalFacade;
 import org.academiadecodigo.pacman.Constants;
 
-/**
- * Created by codecadet on 11/11/2017.
- */
 public class DrawingTest {
 
     public static void main(String[] args) {
@@ -16,9 +13,8 @@ public class DrawingTest {
 
         testScreen.startScreen();
 
-        Screen screen = new Screen(testScreen);
+        Graphics graphics = new Graphics(testScreen);
 
-        screen.drawScreen(ScreenType.INITIAL_SCREEN);
+        graphics.drawScreen(GraphicsType.INITIAL_SCREEN);
     }
-
 }

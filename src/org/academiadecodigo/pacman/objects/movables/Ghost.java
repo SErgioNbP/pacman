@@ -21,20 +21,24 @@ public class Ghost implements Movable {
     }
 
     @Override
+    public boolean isAlive() {
+        return alive;
+    }
+
+    @Override
     public void die() {
         alive = false;
     }
 
+    @Override
     public Position getPosition() {
         return position;
     }
 
+    @Override
     public void setPosition(int col, int row) {
         position.setCol(col);
         position.setRow(row);
     }
-
-    public boolean isAlive() {
-        return alive;
-    }
 }
+
