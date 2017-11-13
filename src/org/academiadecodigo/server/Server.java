@@ -41,7 +41,7 @@ public class Server {
             serverGhosts.add(new ServerGhost(Utils.ghostsPos.get(i)));
         }
 
-        executorService = Executors.newFixedThreadPool(10);
+        executorService = Executors.newCachedThreadPool();
 
         addresses = new LinkedList<>();
 

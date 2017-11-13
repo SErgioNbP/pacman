@@ -61,7 +61,7 @@ public class Game {
         player = gamePlayers.get(0);
         enemy = new Enemy(new Position(42, 7));
 
-        this.executorService = Executors.newFixedThreadPool(5);
+        this.executorService = Executors.newCachedThreadPool();
 
         keyboardHandler = new KeyboardHandler(representation.getScreen(), player, this);
 
