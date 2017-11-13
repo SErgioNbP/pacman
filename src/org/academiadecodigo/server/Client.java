@@ -5,6 +5,7 @@ import org.academiadecodigo.pacman.Game;
 import java.net.DatagramSocket;
 import java.io.IOException;
 import java.net.*;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,7 +23,7 @@ public class Client {
 
     public void startListening() {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        ExecutorService executorService = Executors.newCachedThreadPool();
 
         executorService.submit(new ClientListen(socket));
     }
@@ -35,7 +36,7 @@ public class Client {
         try {
             socket = new DatagramSocket();
 
-            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("localhost"), 9090);
+            DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, InetAddress.getByName("127.0.0.1"), 9090);
 
             socket.send(sendPacket);
 

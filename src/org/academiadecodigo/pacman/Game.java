@@ -78,6 +78,11 @@ public class Game {
     public void start() {
         playerReady = true;
         client.sendServer("START");
+        System.out.println(ready);
+        while (!ready) {
+
+        }
+
         GameThread gameThread = new GameThread();
         timer.scheduleAtFixedRate(gameThread, 0, 200);
     }
@@ -90,10 +95,7 @@ public class Game {
 
         @Override
         public void run() {
-            System.out.println(ready);
-            if (!ready) {
-                return;
-            }
+
             player.move();
             eatFruits();
             checkDeaths();

@@ -68,6 +68,10 @@ public class Server {
 
                 string = new String(receivedPacket.getData()).trim();
 
+                System.out.println("sending message");
+
+                broadcast("blabla");
+
                 if (string.equals("START")) {
 
                     startCount++;
@@ -86,7 +90,6 @@ public class Server {
             ListenHandler listenHandler = new ListenHandler();
             executorService.submit(listenHandler);
             System.out.println("about to broadcast");
-            broadcast("GAMESTART");
 
 
         } catch (SocketException e) {
@@ -159,6 +162,9 @@ public class Server {
 
                 try {
 
+                    System.out.println("entered here");
+
+                    broadcast("GAMESTART");
 
                     byte[] receiveBuffer = new byte[1024];
 
