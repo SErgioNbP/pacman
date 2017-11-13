@@ -91,10 +91,9 @@ public class Game {
         @Override
         public void run() {
 
-            while(!ready){
-                System.out.println("not ready");
+            if (!ready) {
+                return;
             }
-
             System.out.println(ready);
 
             player.move();
@@ -156,7 +155,7 @@ public class Game {
 
         representation.drawScore(player.getScore(), enemyScore);
 
-        if(player.getPower() != null) {
+        if (player.getPower() != null) {
             representation.drawPowerUp(player.getPower().toString());
         }
 
@@ -284,7 +283,7 @@ public class Game {
         }
     }
 
-    public void gameOverScreen(){
+    public void gameOverScreen() {
 
         representation.clear();
 
@@ -293,11 +292,11 @@ public class Game {
         representation.refresh();
     }
 
-    public boolean noMoreEdibles(){
+    public boolean noMoreEdibles() {
 
-        for (Fruit fruit : gameFruits){
+        for (Fruit fruit : gameFruits) {
 
-            if (!fruit.isEaten()){
+            if (!fruit.isEaten()) {
                 return false;
             }
         }
