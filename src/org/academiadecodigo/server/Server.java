@@ -166,7 +166,7 @@ public class Server {
                         killGhost(Integer.parseInt(words[1]), Integer.parseInt(words[2]));
                     }
 
-                    if(receivedString.equals("START")){
+                    if (receivedString.equals("START")) {
 
                         System.out.println(receivedPacket.getAddress());
                         continue;
@@ -186,14 +186,20 @@ public class Server {
     }
 
     private void killGhost(int col, int row) {
-        for (ServerGhost serverGhost : serverGhosts) {
 
-            if (serverGhost.getPosition().comparePos(new Position(col, row))) {
+        Iterator<ServerGhost> listIterator = serverGhosts.listIterator();
 
-                serverGhosts.remove(serverGhost);
+        while (listIterator.hasNext()) {
+
+            ServerGhost ghost = listIterator.next();
+
+            if (ghost.getPosition().comparePos(new Position(col, row))) {
+
+                listIterator.remove();
             }
         }
     }
+
 
     class GhostHandler extends TimerTask {
 
