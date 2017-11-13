@@ -103,12 +103,14 @@ public class Game {
         String[] words = messageLines[0].split(" ");
         String type = words[0];
         switch (type) {
+
             case "Ghost":
                 for (Ghost ghost : gameGhosts) {
                     String[] strings = messageLines[gameGhosts.indexOf(ghost)].split(" ");
                     ghost.setPosition(Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
                 }
                 break;
+
             case "Fruit":
                 for (Fruit fruit : gameFruits) {
                     if (fruit.getPosition().comparePos(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])))) {
@@ -116,6 +118,7 @@ public class Game {
                     }
                 }
                 break;
+
             case "Apple":
                 for (Apple apple : gameApples) {
                     if (apple.getPosition().comparePos(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])))) {
@@ -123,14 +126,19 @@ public class Game {
                     }
                 }
                 break;
+
             case "Enemy":
                 enemy.setPosition(Integer.parseInt(words[1]), Integer.parseInt(words[2]));
                 break;
+
             case "FirstPos":
                 enemy = new Enemy(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])));
                 break;
+
             case "Score":
                 enemyScore = Integer.parseInt(words[1]);
+                break;
+
             default:
                 break;
         }
@@ -168,6 +176,7 @@ public class Game {
                     }
                     if (player.getPower().equals(PowerType.EDIBLE_GHOSTS)) {
                         ghost.die();
+                        client.sendServer("DeadGhost " + player.getPosition().getCol() + " " + player.getPosition().getRow());
                         player.setPower(null);
                     } else if (player.getPower().equals(PowerType.IMMUNE)) {
                         player.setPower(null);

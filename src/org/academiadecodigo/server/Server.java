@@ -2,6 +2,7 @@ package org.academiadecodigo.server;
 
 import org.academiadecodigo.pacman.Utils;
 import org.academiadecodigo.pacman.grid.Position;
+import org.academiadecodigo.pacman.objects.movables.Ghost;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -158,6 +159,12 @@ public class Server {
                     }
 
                     String receivedString = new String(receivedPacket.getData()).trim();
+                    String[] words = receivedString.split(" ");
+
+                    if (words[0].equals("DeadGhost")) {
+
+                        killGhost(Integer.parseInt(words[1]), Integer.parseInt(words[2]));
+                    }
 
                     if(receivedString.equals("START")){
 
@@ -174,6 +181,16 @@ public class Server {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+            }
+        }
+    }
+
+    private void killGhost(int col, int row) {
+        for (ServerGhost serverGhost : serverGhosts) {
+
+            if (serverGhost.getPosition().comparePos(new Position(col, row))) {
+
+                serverGhosts.remove(serverGhost);
             }
         }
     }
