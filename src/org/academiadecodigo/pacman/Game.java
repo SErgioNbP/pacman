@@ -38,6 +38,7 @@ public class Game {
     private int enemyScore;
 
     private boolean ready = false;
+    private boolean playerReady = false;
 
     private KeyboardHandler keyboardHandler;
 
@@ -55,7 +56,7 @@ public class Game {
         gamePlayers = Utils.createPlayers();
 
         client.startListening();
-        client.sendServer("");
+        client.sendServer("whatever");
 
         player = gamePlayers.get(0);
         enemy = new Enemy(new Position(42, 7));
@@ -75,9 +76,14 @@ public class Game {
     }
 
     public void start() {
+        playerReady = true;
         client.sendServer("START");
         GameThread gameThread = new GameThread();
         timer.scheduleAtFixedRate(gameThread, 0, 200);
+    }
+
+    public boolean playerReady() {
+        return playerReady;
     }
 
     class GameThread extends TimerTask {

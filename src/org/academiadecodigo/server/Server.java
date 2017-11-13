@@ -64,26 +64,28 @@ public class Server {
 
                 DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
 
-
                 socket.receive(receivedPacket);
+
                 string = new String(receivedPacket.getData()).trim();
 
                 if (string.equals("START")) {
 
                     startCount++;
                 }
+                System.out.println(startCount);
 
                 if (!addressExists(receivedPacket) || addresses.size() == 0) {
                     System.out.println(addresses.size());
                     addresses.add(receivedPacket);
                 }
             }
+
             GhostHandler ghostHandler = new GhostHandler();
             timer.scheduleAtFixedRate(ghostHandler, 1000, 300);
 
             ListenHandler listenHandler = new ListenHandler();
             executorService.submit(listenHandler);
-
+            System.out.println("about to broadcast");
             broadcast("GAMESTART");
 
 

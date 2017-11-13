@@ -9,13 +9,13 @@ import org.academiadecodigo.pacman.objects.movables.Player;
 /**
  * Created by codecadet on 12/11/17.
  */
-public class KeyboardHandler implements Runnable{
+public class KeyboardHandler implements Runnable {
 
     Screen screen;
     Player player;
     Game game;
 
-    public KeyboardHandler (Screen screen, Player player, Game game){
+    public KeyboardHandler(Screen screen, Player player, Game game) {
 
         this.screen = screen;
         this.player = player;
@@ -26,7 +26,7 @@ public class KeyboardHandler implements Runnable{
     @Override
     public void run() {
 
-        while (true){
+        while (true) {
 
             Key key = screen.readInput();
 
@@ -50,8 +50,11 @@ public class KeyboardHandler implements Runnable{
                     player.setNextDirection(Direction.UP);
                 }
                 if (key.getKind() == Key.Kind.Enter) {
+                    if (!game.playerReady()) {
 
-                    game.start();
+                        game.start();
+                    }
+
                 }
 
             }
