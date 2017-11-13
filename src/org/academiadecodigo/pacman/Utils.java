@@ -87,9 +87,6 @@ public class Utils {
                 } else if (currentChar == '3') {
                     ghostsPos.add(position);
 
-                } else if (currentChar == '6') {
-                    playersPos.add(position);
-
                 }
 
                 if (!walls.contains(position)) {

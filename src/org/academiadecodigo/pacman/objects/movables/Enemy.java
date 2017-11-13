@@ -34,4 +34,8 @@ public class Enemy implements Movable {
        position.setCol(col);
        position.setRow(row);
     }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 }

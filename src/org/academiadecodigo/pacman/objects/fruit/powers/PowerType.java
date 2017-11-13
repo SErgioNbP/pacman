@@ -15,7 +15,7 @@ public enum PowerType {
 
     public static PowerType randomPowerType() {
 
-        return values()[(int) (Math.random() * 3)];
+        return values()[(int) (Math.random() * values().length)];
 
     }
 
