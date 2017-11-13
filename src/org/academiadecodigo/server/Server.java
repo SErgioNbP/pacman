@@ -52,7 +52,7 @@ public class Server {
 
         try {
 
-            // TODO wait for all players to login
+            // TODO wait for all players to login (sort of)
             socket = new DatagramSocket(portNumber);
 
             while (startCount < 2){
