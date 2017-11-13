@@ -1,4 +1,4 @@
-package org.academiadecodigo.gameplay.objects.fruit.powers;
+package org.academiadecodigo.gameplay.game_objects.fruit.powers;
 
 public enum PowerType {
     DOUBLE_POINTS("Double Points!"),

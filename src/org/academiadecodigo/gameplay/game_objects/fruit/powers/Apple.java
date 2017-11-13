@@ -1,7 +1,7 @@
-package org.academiadecodigo.gameplay.objects.fruit.powers;
+package org.academiadecodigo.gameplay.game_objects.fruit.powers;
 
 import org.academiadecodigo.gameplay.grid.Position;
-import org.academiadecodigo.gameplay.objects.fruit.Edible;
+import org.academiadecodigo.gameplay.game_objects.fruit.Edible;
 
 public class Apple implements Edible {
 

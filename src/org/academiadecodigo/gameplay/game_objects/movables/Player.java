@@ -1,4 +1,4 @@
-package org.academiadecodigo.gameplay.objects.movables;
+package org.academiadecodigo.gameplay.game_objects.movables;
 
 import com.googlecode.lanterna.gui.Interactable;
 import com.googlecode.lanterna.input.Key;
@@ -6,8 +6,8 @@ import com.googlecode.lanterna.terminal.TerminalPosition;
 import org.academiadecodigo.gameplay.Utils;
 import org.academiadecodigo.gameplay.grid.Direction;
 import org.academiadecodigo.gameplay.grid.Position;
-import org.academiadecodigo.gameplay.objects.fruit.Edible;
-import org.academiadecodigo.gameplay.objects.fruit.powers.PowerType;
+import org.academiadecodigo.gameplay.game_objects.fruit.Edible;
+import org.academiadecodigo.gameplay.game_objects.fruit.powers.PowerType;
 
 import java.util.List;
 
@@ -124,6 +124,7 @@ public class Player implements Movable, Interactable {
 
         e.eat();
         points += e.getPoints();
+        System.out.println(points);
     }
 
     public void setNextDirection(Direction direction) {

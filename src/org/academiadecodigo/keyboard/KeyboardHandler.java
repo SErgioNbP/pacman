@@ -4,7 +4,7 @@ import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.screen.Screen;
 import org.academiadecodigo.gameplay.Game;
 import org.academiadecodigo.gameplay.grid.Direction;
-import org.academiadecodigo.gameplay.objects.movables.Player;
+import org.academiadecodigo.gameplay.game_objects.movables.Player;
 
 public class KeyboardHandler implements Runnable{
 

@@ -1,4 +1,4 @@
-package org.academiadecodigo.gameplay.objects.movables;
+package org.academiadecodigo.gameplay.game_objects.movables;
 
 import org.academiadecodigo.gameplay.grid.Position;
 

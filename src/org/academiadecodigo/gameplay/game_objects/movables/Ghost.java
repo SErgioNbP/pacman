@@ -1,15 +1,21 @@
-package org.academiadecodigo.gameplay.objects.movables;
+package org.academiadecodigo.gameplay.game_objects.movables;
 
+import org.academiadecodigo.gameplay.grid.Direction;
 import org.academiadecodigo.gameplay.grid.Position;
 
-public class Enemy implements Movable {
+public class Ghost implements Movable {
 
+    private Direction direction;
+    private Direction nextDirection = Direction.UP;
     private Position position;
     private boolean alive;
+    private int points;
 
-    public Enemy(Position position) {
+    public Ghost(Position position) {
         this.position = position;
         alive = true;
+        direction = Direction.UP;
+        points = 200;
     }
 
     @Override
@@ -36,4 +42,9 @@ public class Enemy implements Movable {
         position.setCol(col);
         position.setRow(row);
     }
+
+    public int getPoints() {
+        return points;
+    }
 }
+

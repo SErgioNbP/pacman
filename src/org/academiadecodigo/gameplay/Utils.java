@@ -1,9 +1,9 @@
 package org.academiadecodigo.gameplay;
 
 import org.academiadecodigo.gameplay.grid.Position;
-import org.academiadecodigo.gameplay.objects.fruit.Fruit;
-import org.academiadecodigo.gameplay.objects.fruit.powers.Apple;
-import org.academiadecodigo.gameplay.objects.movables.Ghost;
+import org.academiadecodigo.gameplay.game_objects.fruit.Fruit;
+import org.academiadecodigo.gameplay.game_objects.fruit.powers.Apple;
+import org.academiadecodigo.gameplay.game_objects.movables.Ghost;
 
 import java.io.*;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package org.academiadecodigo.gameplay.objects.fruit;
+package org.academiadecodigo.gameplay.game_objects.fruit;
 
 import org.academiadecodigo.gameplay.grid.Position;
 
